@@ -21,4 +21,4 @@ Here's what you'll need (and what I'm using in the examples):
 ## Ready to get started?
 As Matt Bellamy of Muse said right before launching into Starlight at the Tokyo Zepp concert in 2013...
 
-[Let's do it!](https://davescodemusings.github.io/raspberry-cobbler/)
+_[Let's do it!](https://davescodemusings.github.io/raspberry-cobbler/)_
