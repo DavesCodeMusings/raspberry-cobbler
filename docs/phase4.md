@@ -135,7 +135,7 @@ fsck.fat -a /dev/mmcblk0p1
 /bin/mount -t vfat /dev/mmcblk0p1 /boot
 ```
 
-### Reboot as a final test
+### Rebooting as a final test
 The reboot command and resulting output is shown below.
 
 ```
