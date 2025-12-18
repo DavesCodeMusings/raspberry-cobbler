@@ -19,4 +19,4 @@ Here's what you'll need (and what I'm using in the examples):
 4. A USB to TTL serial cable (Adafruit 954.)
 
 ## Ready to get started?
-[Let's do it!](docs/index.md]
+[Let's do it!](docs/index.md)
