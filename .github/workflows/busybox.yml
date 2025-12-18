@@ -17,6 +17,7 @@ jobs:
           cd ~
           git clone https://git.busybox.net/busybox/ --depth=1
       - name: Configuring...
+        # Configure with default selections, then customize non-interactively.
         run: |
           cd ~/busybox
           make defconfig
