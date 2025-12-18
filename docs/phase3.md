@@ -31,12 +31,14 @@ sudo make menuconfig
 
 Using default settings is mostly fine, but be sure to configure for static linking and cross-compiling as shown below.
 
-From the _Settings_ menu selection, searching for and configuring the following options as shown:
+From the _Settings_ submenu selection, scroll down to the _--- Build Options_ heading, and configure the following options as shown:
 * [*] Build static binary (no shared libs)
 * (aarch64-linux-gnu-) Cross compiler prefix
+
+Still in the _Settings_ submenu, scroll further to find the _--- Installation Options_ heading and configure the _Destination path_
 * (/mnt) Destination path for 'make install'
 
-From the _Applets_ menu selection, find and disable _tc_ under _Networking Utilities_ as a bug workaround.
+Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the _Networking Utilities_ submenu. From there, find and disable _tc_ as a bug workaround.
 * _[ ] tc (8.3 kb)_
   
 > Note: You can customize aditional applets if you like, but with the exception of the _tc_ bug, the defaults should be fine.
