@@ -1,0 +1,35 @@
+name: BusyBox ARM64 build
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing build dependencies...
+        run: |
+          sudo apt-get update
+          sudo apt-get install bzip2 libssl-dev
+      - name: Pulling source...
+        run: |
+          cd ~
+          git clone https://git.busybox.net/busybox/ --depth=1
+      - name: Configuring...
+        run: |
+          cd ~/busybox
+          make defconfig
+          sudo sed -i \
+            -e 's|# CONFIG_STATIC is not set|CONFIG_STATIC=y|' \
+            -e 's|CONFIG_CROSS_COMPILER_PREFIX=""|CONFIG_CROSS_COMPILER_PREFIX=""|' \
+            -e 's|CONFIG_PREFIX="\./_install"|CONFIG_PREFIX="/mnt"|' \
+            -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
+            -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
+            .config
+      - name: Compiling...
+        run: |
+          sudo make
+      - name: Installing...
+        run: |
+          sudo make install
