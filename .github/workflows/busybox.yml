@@ -28,9 +28,10 @@ jobs:
             -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
             .config
           sudo make oldconfig
+          ls
       - name: Compiling...
         run: |
-          sudo make
+          sudo make all
       - name: Installing...
         run: |
           sudo make install
