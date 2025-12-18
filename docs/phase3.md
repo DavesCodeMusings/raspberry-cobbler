@@ -17,15 +17,16 @@ Now we're ready to build BusyBox.
 The BusyBox project page has the source code we need. We'll clone their repository onto the development VM.
 
 ```
-$ sudo git clone git clone https://git.busybox.net/busybox/ --depth=1
-$ cd busybox
+cd ~
+git clone https://git.busybox.net/busybox/ --depth=1
 ```
 
 ## Then, configure BusyBox for ARM aarch64
 In this step we'll configure Busybox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
 
 ```
-$ sudo make menuconfig
+cd ~/busybox
+sudo make menuconfig
 ```
 
 Using default settings is mostly fine, but be sure to configure for static linking and cross-compiling as shown below.
