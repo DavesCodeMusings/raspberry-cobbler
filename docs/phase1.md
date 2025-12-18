@@ -218,6 +218,7 @@ Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did
 * Which files are required for the boot loader and kernel when booting the Raspberry Pi.
 * How to view boot and kernel messages using the serial UART.
 
+# Next Steps
 Now that we can boot, we'll concentrate on getting a root file system for the kernel to mount. But first, we need to get Ubuntu ready for building binaries that will run on the Raspberry Pi 3's 64-bit arm CPU.
 
 To mis-quote Nancy Sinatra...
