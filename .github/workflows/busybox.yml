@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 env:
   DEST_DIR: /tmp/busybox  # Location to install compiled binaries for packaging.
+  PKG_NAME: busybox.arm64.tar.gz
 permissions:
   contents: write
 jobs:
@@ -45,12 +46,12 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/busybox.arm64.tar.gz .
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add busybox-arm64.tar.gz
+          git add $PKG_NAME
           git commit -am "GitHub Actions"
           git push
