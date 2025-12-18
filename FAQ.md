@@ -2,7 +2,7 @@
 Yeah, I know... It's supposed to be Frequently _Asked_ Questions. But, this is a brand new project, so for now it's _Anticipated_.
 
 ## Do I really have to build everything from source?
-No. My goal is to have downloadable ARM64 versions of the programs used in the instructions. In this repository you can find:
+No. My goal is to have downloadable arm64 versions of the programs used in the instructions. In this repository you can find:
 
 * busybox.arm64.tar.gz
 * fsck.ext4.arm64.tar.gz
