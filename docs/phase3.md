@@ -7,8 +7,8 @@ Taking cues from other minimalist Linux distributions, like [Alpine Linux](https
 Before we can build BusyBox, there are a few packages we'll need on our development VM in order to successfully configure and compile. The commands to install these is shown below.
 
 ```
-$ sudo apt-get update
-$ sudo apt-get install libncurses-dev bzip2 libssl-dev
+sudo apt-get update
+sudo apt-get install libncurses-dev bzip2 libssl-dev
 ```
 
 Now we're ready to build BusyBox.
