@@ -21,12 +21,12 @@ jobs:
         run: |
           cd ~/busybox
           sudo make defconfig
-          sudo sed -i \
-            -e 's|# CONFIG_STATIC is not set|CONFIG_STATIC=y|' \
-            -e 's|CONFIG_PREFIX="\./_install"|CONFIG_PREFIX="/mnt"|' \
-            -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
-            -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
-            .config
+#          sudo sed -i \
+#            -e 's|# CONFIG_STATIC is not set|CONFIG_STATIC=y|' \
+#            -e 's|CONFIG_PREFIX="\./_install"|CONFIG_PREFIX="/mnt"|' \
+#            -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
+#            -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
+#            .config
       - name: Compiling...
         run: |
           sudo make
