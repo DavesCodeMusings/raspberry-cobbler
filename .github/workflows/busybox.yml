@@ -1,6 +1,8 @@
 name: BusyBox ARM64 build
 on:
   workflow_dispatch:
+env:
+  DEST_DIR: /tmp/busybox  # Location to install compiled binaries for packaging.
 permissions:
   contents: write
 jobs:
@@ -12,7 +14,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install bzip2 libssl-dev
-      - name: Pulling source...
+      - name: Cloning source...
         run: |
           cd ~
           git clone https://git.busybox.net/busybox/ --depth=1
@@ -23,7 +25,7 @@ jobs:
           sudo make defconfig
           sudo sed -i \
             -e 's|# CONFIG_STATIC is not set|CONFIG_STATIC=y|' \
-            -e 's|CONFIG_PREFIX="\./_install"|CONFIG_PREFIX="/mnt"|' \
+            -e 's|CONFIG_PREFIX="\./_install"|CONFIG_PREFIX="$DEST_DIR"|' \
             -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
             -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
             .config
@@ -31,19 +33,19 @@ jobs:
         run: |
           cd ~/busybox
           sudo make
-          sudo chmod u+s ./busybox  # Doing this now stops a warning from 'make install'
+          sudo chmod u+s ./busybox  # Doing this now stops a warning from 'make install' later.
       - name: Installing...
         run: |
           cd ~/busybox
           sudo make install
       - name: Adding license...
         run: |
-          sudo mkdir -p /mnt/usr/share/doc/busybox
-          sudo cp ~/busybox/LICENSE /mnt/usr/share/doc/busybox
+          sudo mkdir -p $DEST_DIR/usr/share/doc/busybox
+          sudo cp ~/busybox/LICENSE $DEST_DIR/usr/share/doc/busybox
       - name: Packaging...
         run: |
-          cd /mnt
-          tar -zcvf $GITHUB_WORKSPACE/busybox-arm64.tar.gz .
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/busybox.arm64.tar.gz .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
