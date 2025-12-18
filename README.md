@@ -1,7 +1,7 @@
 # Raspberry Cobbler
 _A Raspberry Pi DIY OS Guide_
 
-If you've ever wanted to build a Raspberry Pi project that does not start with the words, "install the latest Raspberry Pi OS image to an SD card," this is the guide for you. This is not about installing alternative distros on your Pi. This is about building your own distro from the ground up.
+If you've ever wanted to build a Raspberry Pi project that doesn't start with the words, "Install the latest Raspberry Pi OS image to an SD card," this is the guide for you. This is not about installing alternative distros on your Pi. This is about building your own distro from the ground up.
 
 The guide will cover the steps for:
 1. Installing the pre-built Raspberry Pi boot loader and kernel onto a microSD boot partition.
