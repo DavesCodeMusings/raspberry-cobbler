@@ -50,4 +50,6 @@ At this point, our Ubuntu development machine should be able to compile binaries
 Seeing _Hello World!_ displayed is not very exciting, but it does prove that we can use a fast machine to compile instead of trying to set up development tools on the resource constrained Raspberry Pi.
 
 # Next Steps
-Now that we have the foundation laid, with the boot loader, the kernel, and the Ubuntu VM set up to compile arm64 binaries, we can get on to the root file system. And this, my friends, is where the magic happens. Because if De La Soul and Schoolhouse Rock taught us anything, it's that [phase 3 is a magic number](phase3.md)
+Now that we have the foundation laid, with the boot loader, the kernel, and the Ubuntu VM set up to compile arm64 binaries, we can get on to the root file system. And this, my friends, is where the magic happens.
+
+Because if De La Soul and Schoolhouse Rock taught us anything, it's that [phase 3 is a magic number](phase3.md)
