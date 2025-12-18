@@ -51,3 +51,10 @@ Here's how to do it in VirtualBox:
 6. Select the new device to connect it to the virtual machine.
 
 You can verify success by logging into the Ubuntu virtual machine and running `sudo dmesg`. Look at the last few lines to find the device name for the microSD card. It will most likely be _sdb_ (SCSI Disk B).
+
+## Next steps
+With the Ubuntu development VM ready, we can get to building the Pi OS.
+
+To quote Dave Grohl of the Foo Fighters on the song All My Life...
+
+Done! Done! And I'm on to [the next one!](phase1.md)
