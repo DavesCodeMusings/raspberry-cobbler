@@ -47,6 +47,7 @@ Reference: https://jensd.be/1126/linux/cross-compiling-for-arm-or-aarch64-on-deb
 # Phase 2 Review
 At this point, our Ubuntu development machine should be able to compile binaries for both its native CPU architecture and for the Raspberry Pi 3's 64-bit arm. We were able to test this by examining the two files and trying to run them.
 
-Hello World is not very exciting, but it does prove that we can use a fast machine to compile instead of trying to set up development tools on the resource constrained Raspberry Pi.
+Seeing _Hello World!_ displayed is not very exciting, but it does prove that we can use a fast machine to compile instead of trying to set up development tools on the resource constrained Raspberry Pi.
 
-But now that we have the foundation laid, with the boot loader and the kernel, we can get on to the root file system. And this is where the magic happens, because if De La Soul and Schoolhouse Rock taught us anything, it's that [phase 3 is a magic number](phase3.md)
+# Next Steps
+Now that we have the foundation laid, with the boot loader, the kernel, and the Ubuntu VM set up to compile arm64 binaries, we can get on to the root file system. And this, my friends, is where the magic happens. Because if De La Soul and Schoolhouse Rock taught us anything, it's that [phase 3 is a magic number](phase3.md)
