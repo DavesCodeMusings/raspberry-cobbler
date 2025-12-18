@@ -27,9 +27,9 @@ jobs:
             -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
             -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
             .config
-          cat Makefile
       - name: Compiling...
         run: |
+          cat Makefile
           sudo make
       - name: Installing...
         run: |
