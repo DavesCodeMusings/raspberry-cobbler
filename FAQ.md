@@ -8,7 +8,7 @@ No. My goal is to have downloadable arm64 versions of the programs used in the i
 * fsck.ext4.arm64.tar.gz
 * fsck.fat.arm64.tar.gz
 
-By extracting these and using the Raspberry Pi project's [prebuilt firmware files](https://github.com/raspberrypi/firmware) you can get through without compiling.
+By extracting these, and using the Raspberry Pi project's [prebuilt firmware](https://github.com/raspberrypi/firmware) files, you can get through the guide without compiling.
 
 ## What about 32-bit Raspberry Pi hardware?
 It should be possible, but I have no plans to include 32-bit support in this guide.
