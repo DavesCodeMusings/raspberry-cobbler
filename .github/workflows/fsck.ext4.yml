@@ -26,11 +26,11 @@ jobs:
           make
       - name: Installing...
         run: |
-          sudo mkdir -p $DEST_DIR/sbin
           cd ~/e2fsprogs
           strip ./e2fsck/e2fsck
-          cp ./e2fsck/e2fsck $DEST_DIR/sbin
-          ln -s e2fsck $DEST_DIR/sbin/fsck.ext4
+          sudo mkdir -p $DEST_DIR/sbin
+          sudo cp ./e2fsck/e2fsck $DEST_DIR/sbin
+          sudo ln -s e2fsck $DEST_DIR/sbin/fsck.ext4
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/e2fsprogs
