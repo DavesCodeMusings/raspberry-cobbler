@@ -19,4 +19,6 @@ Here's what you'll need (and what I'm using in the examples):
 4. A USB to TTL serial cable (Adafruit 954.)
 
 ## Ready to get started?
+As Matt Bellamy of Muse said right before launching into Starlight at the Tokyo Zepp in 2013...
+
 [Let's do it!](https://davescodemusings.github.io/raspberry-cobbler/)
