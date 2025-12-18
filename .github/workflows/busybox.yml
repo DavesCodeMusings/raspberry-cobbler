@@ -41,6 +41,7 @@ jobs:
           cd /mnt
           tar -zcvf ~/busybox-arm64.tar.gz .
       - name: Uploading...
+        run: |
           cd ~
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
