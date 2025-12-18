@@ -6,7 +6,7 @@ I'm using an Intel-based Windows laptop as my development host, but I'm doing th
 > * Development VM -- the virtual machine running Ubuntu.
 
 ## Choosing a hypervisor
-I'm using VirtualBox as my hypervisor. You can use whatever your comfortable with. The only difference will be the way the Raspberry Pi microSD card is made available to the virtual machine.
+I'm using VirtualBox as my hypervisor. You can use whatever you're comfortable with. The only difference will be the way the Raspberry Pi microSD card is made available to the virtual machine.
 
 If you've never used VirtualBox, you'll need to visit https://www.virtualbox.org/ to download it. A typical install is fine for what we're doing here. Since we're only running the one Ubuntu development VM, our CPU, RAM and storage impact on the development host will be minimal.
 
