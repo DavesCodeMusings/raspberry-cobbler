@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   DEST_DIR: /tmp/e2fsprogs  # Location to install compiled binaries for packaging.
-  PKG_NAME: e2fsprogs.arm64.tar.gz
+  PKG_NAME: fsck.ext4.arm64.tar.gz
 permissions:
   contents: write
 jobs:
@@ -23,13 +23,12 @@ jobs:
       - name: Compiling...
         run: |
           cd ~/e2fsprogs
-          make
+          make e2fsck
       - name: Installing...
         run: |
           sudo mkdir -p $DEST_DIR/sbin
           cd ~/e2fsprogs
           strip ./e2fsck/e2fsck
-          mkdir $DEST_DIR/sbin
           cp ./e2fsck/e2fsck $DEST_DIR/sbin
           ln -s e2fsck $DEST_DIR/sbin/fsck.ext4
       - name: Adding license...
