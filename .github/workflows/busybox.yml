@@ -31,7 +31,7 @@ jobs:
         run: |
           cd ~/busybox
           sudo make
-          sudo chmod u+s /mnt/bin/busybox  # Doing this now stops a warning from 'make install'
+          sudo chmod u+s ./busybox  # Doing this now stops a warning from 'make install'
       - name: Installing...
         run: |
           cd ~/busybox
