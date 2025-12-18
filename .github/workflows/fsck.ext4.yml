@@ -16,7 +16,7 @@ jobs:
           cd ~
           git clone https://github.com/tytso/e2fsprogs.git --depth=1
       - name: Configuring...
-        # Configure with default selections, then customize non-interactively.
+        # Configure for static linking.
         run: |
           cd ~/e2fsprogs
           ./configure LDFLAGS=-static
