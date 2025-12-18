@@ -18,4 +18,5 @@ Here's what you'll need (and what I'm using in the examples):
 3. A microSD card (32G SanDisk class 10.)
 4. A USB to TTL serial cable (Adafruit 954.)
 
-You ready for this?
+## Ready to get started?
+[Let's do it!](docs/index.md]
