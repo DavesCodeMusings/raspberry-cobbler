@@ -1,4 +1,4 @@
-name: fsck.ext4 ARM64 build
+name: fsck.ext4 arm64 build
 on:
   workflow_dispatch:
 env:
