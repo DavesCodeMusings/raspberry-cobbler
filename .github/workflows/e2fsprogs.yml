@@ -1,0 +1,46 @@
+name: e2fsprogs ARM64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/e2fsprogs  # Location to install compiled binaries for packaging.
+  PKG_NAME: e2fsprogs.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone https://github.com/tytso/e2fsprogs.git --depth=1
+      - name: Configuring...
+        # Configure with default selections, then customize non-interactively.
+        run: |
+          cd ~/e2fsprogs
+          ./configure LDFLAGS=-static
+      - name: Compiling...
+        run: |
+          cd ~/e2fsprogs
+          make
+      - name: Installing...
+        run: |
+          cd ~/e2fsprogs
+          strip ./e2fsck/e2fsck
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/e2fsprogs
+          sudo cp ~/e2fsprogs/NOTICE $DEST_DIR/usr/share/doc/e2fsprogs
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "GitHub Actions"
+          git push
