@@ -21,7 +21,7 @@ cd ~
 git clone https://git.busybox.net/busybox/ --depth=1
 ```
 
-## Then, configure BusyBox for ARM aarch64
+## Then, configure BusyBox for arm aarch64
 In this step we'll configure Busybox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
 
 ```
