@@ -36,7 +36,7 @@ poweroff
 
 
 ### Building fsck.ext4
-The process is very similar to the way Busybox was built: clone the source code, compile for ARM64 with static linking, and transfer to the microSD root file system.
+The process is very similar to the way Busybox was built: clone the source code, compile for arm64 with static linking, and transfer to the microSD root file system.
 
 Here are the commands:
 
@@ -48,7 +48,7 @@ cd ~/e2fsprogs
 make
 ```
 
-One thing to notice is the files we built all have debugging info in them. This takes extra space and is not needed for our purposes. Debugging parts can be removed with the _strip_ command (or in our case, _aarch64-linux-gnu-strip_ for ARM64).
+One thing to notice is the files we built all have debugging info in them. This takes extra space and is not needed for our purposes. Debugging parts can be removed with the _strip_ command (or in our case, _aarch64-linux-gnu-strip_ for arm64).
 
 ```
 $ file e2fsck/e2fsck
