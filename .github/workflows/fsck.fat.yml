@@ -1,0 +1,51 @@
+name: fsck.fat arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/dosfstools  # Location to install compiled binaries for packaging.
+  PKG_NAME: fsck.fat.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing dependency...
+        run: |
+          sudo apt-get install autoconf
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone https://github.com/dosfstools/dosfstools.git --depth=1
+      - name: Configuring...
+        # Configure for static linking.
+        run: |
+          cd ~/dosfstools
+          ./configure LDFLAGS=-static
+      - name: Compiling...
+        run: |
+          cd ~/dosfstools
+          make
+      - name: Installing...
+        run: |
+          cd ~/dosfstools
+          strip ./src/fsck.fat
+          sudo mkdir -p $DEST_DIR/sbin
+          sudo cp ./src/fsck.fat $DEST_DIR/sbin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/dosfstools
+          sudo cp ~/dosfstools/COPYING $DEST_DIR/usr/share/doc/dosfstools
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "GitHub Actions"
+          git push
