@@ -160,3 +160,5 @@ Thu Jan  1 00:02:44 UTC 1970
 We can see the mounted filesystems now, but the network configuration and system time is still not right.
 
 In the next phase, we should work on the start-up scripts so the file system mounting and other things can happen automatically.
+
+In the immortal words of James Brown counting up to the break in The Funky Drummer... [1, 2, 3, 4, Hit it!](phase4.md)
