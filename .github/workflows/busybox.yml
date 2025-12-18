@@ -36,6 +36,10 @@ jobs:
         run: |
           cd ~/busybox
           sudo make install
+      - name: Adding license...
+        run: |
+          mkdir -p /mnt/usr/share/doc/busybox
+          cp ~/busybox/LICENSE /mnt/usr/share/doc/busybox
       - name: Packaging...
         run: |
           cd /mnt
