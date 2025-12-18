@@ -1,4 +1,4 @@
-# Phase 1: Getting the Pi to Boot
+# Phase 1: Getting the Raspberry Pi to Boot
 Now that the development VM is set up, we can turn our attention to the original task of configuring the Raspberry Pi. And the first step in having a custom Raspberry Pi OS is being able to boot the Pi.
 
 In this phase, we'll get a Raspberry Pi boot loader and Linux kernel installed on the microSD. Once that's done, we'll insert the microSD in the Pi and see if everything worked. This won't result in a complete system, or even give us a shell prompt, but it will get things ready for what comes next.
