@@ -41,7 +41,9 @@ jobs:
           cd /mnt
           tar -zcvf ~/busybox-arm64.tar.gz .
       - name: Uploading...
-        uses: actions/upload-artifact@v4
-        with:
-          name: busybox-arm64
-          path: ~/busybox-arm64.tar.gz
+          cd ~
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add busybox-arm64.tar.gz
+          git commit -am "GitHub Actions"
+          git push
