@@ -31,7 +31,17 @@ jobs:
         run: |
           cd ~/busybox
           sudo make
+          sudo chmod u+s /mnt/bin/busybox  # Doing this now stops a warning from 'make install'
       - name: Installing...
         run: |
           cd ~/busybox
           sudo make install
+      - name: Packaging...
+        run: |
+          cd /mnt
+          tar -zcvf ~/busybox-arm64.tar.gz .
+      - name: Uploading...
+        uses: actions/upload-artifact@v4
+        with:
+          name: busybox-arm64
+          path: ~/busybox-arm64.tar.gz
