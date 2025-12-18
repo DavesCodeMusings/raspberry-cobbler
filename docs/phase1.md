@@ -222,6 +222,4 @@ Now that we can boot, we'll concentrate on getting a root file system for the ke
 
 To mis-quote Nancy Sinatra...
 
-> These boots are made for walkin'
-> And that's just what they'll do
-> One of these days these boots are gonna walk right into [phase 2](phase2.md)
+_These boots are made for walkin'. And that's just what they'll do. One of these days these boots are gonna walk into [phase 2](phase2.md)_
