@@ -23,7 +23,7 @@ jobs:
       - name: Compiling...
         run: |
           cd ~/e2fsprogs
-          make e2fsck
+          make
       - name: Installing...
         run: |
           sudo mkdir -p $DEST_DIR/sbin
