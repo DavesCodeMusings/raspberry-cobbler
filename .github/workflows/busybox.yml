@@ -16,11 +16,6 @@ jobs:
         run: |
           cd ~
           git clone https://git.busybox.net/busybox/ --depth=1
-      - name: Verifying...
-        run: |
-          cd ~/busybox
-          ls
-          ls Makefile
       - name: Configuring...
         # Configure with default selections, then customize non-interactively.
         run: |
@@ -32,12 +27,11 @@ jobs:
             -e 's|CONFIG_TC=y|# CONFIG_TC is not set|' \
             -e 's|CONFIG_FEATURE_TC_INGRESS=y|# CONFIG_FEATURE_TC_INGRESS is not set|' \
             .config
-          ls Makefile
       - name: Compiling...
         run: |
           cd ~/busybox
-          ls Makefile
           sudo make
       - name: Installing...
         run: |
+          cd ~/busybox
           sudo make install
