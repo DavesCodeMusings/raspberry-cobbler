@@ -16,6 +16,11 @@ jobs:
         run: |
           cd ~
           git clone https://git.busybox.net/busybox/ --depth=1
+      - name: Verifying...
+        run: |
+          cd ~/busybox
+          ls
+          ls Makefile
       - name: Configuring...
         # Configure with default selections, then customize non-interactively.
         run: |
