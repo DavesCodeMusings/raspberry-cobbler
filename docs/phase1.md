@@ -204,11 +204,11 @@ Read File: fixup.dat, 7367 (bytes)
 Notice the green LED on the Pi is not lit.
 
 References:
-https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence
-https://www.raspberrypi.com/documentation/computers/config_txt.html
-https://nayab.xyz/rpi3b-elinux/embedded-linux-rpi3-030-boot-process.html
-https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
-https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
+* https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence
+* https://www.raspberrypi.com/documentation/computers/config_txt.html
+* https://nayab.xyz/rpi3b-elinux/embedded-linux-rpi3-030-boot-process.html
+* https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
+* https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
 
 
 # Phase 1 Review
@@ -219,3 +219,9 @@ Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did
 * How to view boot and kernel messages using the serial UART.
 
 Now that we can boot, we'll concentrate on getting a root file system for the kernel to mount. But first, we need to get Ubuntu ready for building binaries that will run on the Raspberry Pi 3's 64-bit arm CPU.
+
+To mis-quote Nancy Sinatra...
+
+> These boots are made for walkin'
+> And that's just what they'll do
+> One of these days these boots are gonna walk right into [phase 2](phase2.md)
