@@ -48,7 +48,7 @@ These are the commands to get it done:
 
 ```
 sudo mkfs.vfat -F32 /dev/sdb1
-sudo fatlabel /dev/sdb1 boot
+sudo fatlabel /dev/sdb1 BOOT
 sudo mkfs.ext4 /dev/sdb2
 sudo e2label /dev/sdb2 root
 ```
@@ -76,7 +76,7 @@ Now that we have the files from the Raspberry Pi GitHub repository, we can selec
 sudo mount /dev/sdb1 /mnt
 ```
 
-### Then copy the needed firmware files
+### Then, copy the needed firmware files
 The files are:
 * bootcode.bin
 * fixup.dat
@@ -137,6 +137,10 @@ While this is not required for the Raspberry Pi to boot, it is required for lice
 1. In the firmware boot directory, find COPYING.linux and LICENCE.broadcom
 2. Copy these files to the microSD card alongside the other files.
 
+```
+cd ~/firmware/boot
+sudo cp COPYING.linux LICENCE.broadcom /mnt
+```
 ## Verify the boot files and txt files
 Before moving the microSD card to the Raspberry Pi, do one final inspection to make sure everything looks right on the boot file system.
 
@@ -177,6 +181,10 @@ Disconnect the microSD card from the development VM and eject from the developme
 4. Ensure the Raspberry Pi is disconnected from power.
 5. Insert the microSD card into the Pi.
 
+```
+sudo umount /mnt
+```
+
 ## Boot the Raspberry Pi
 Now comes the moment of truth. Will it boot?
 
@@ -210,7 +218,6 @@ References:
 * https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
 * https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
 
-
 # Phase 1 Review
 Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did get a fair bit accomplished. Let's look at what we learned.
 
@@ -221,6 +228,6 @@ Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did
 # Next Steps
 Now that we can boot, we'll concentrate on getting a root file system for the kernel to mount. But first, we need to get Ubuntu ready for building binaries that will run on the Raspberry Pi 3's 64-bit arm CPU.
 
-To mis-quote Nancy Sinatra...
+To misquote Nancy Sinatra...
 
 _These boots are made for walkin'. And that's just what they'll do. One of these days these boots are gonna walk into [phase 2](phase2.md)_
