@@ -3,7 +3,7 @@ If you wanted a full-featured Raspberry Pi, you probably wouldn't be reading thi
 
 Taking cues from other minimalist Linux distributions, like [Alpine Linux](https://www.alpinelinux.org/) and [OpenWrt](https://openwrt.org/), we'll turn to the [BusyBox project](https://busybox.net/) for most of our operating system utilities.
 
-## Install required Busybox dependencies
+## Install required BusyBox dependencies
 Before we can build BusyBox, there are a few packages we'll need on our development VM in order to successfully configure and compile. The commands to install these is shown below.
 
 ```
@@ -18,11 +18,11 @@ The BusyBox project page has the source code we need. We'll clone their reposito
 
 ```
 cd ~
-git clone https://git.busybox.net/busybox/ --depth=1
+git clone https://git.BusyBox.net/BusyBox/ --depth=1
 ```
 
 ## Then, configure BusyBox for arm aarch64
-In this step we'll configure Busybox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
+In this step we'll configure BusyBox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
 
 ```
 cd ~/busybox
@@ -43,7 +43,7 @@ Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the 
   
 > Note: You can customize aditional applets if you like, but with the exception of the _tc_ bug, the defaults should be fine.
 
-## Build Busybox
+## Build BusyBox
 Run the _make_ command to compile. We'll prefix with sudo to avoid errors that occur when attempting to set permissions on files as a regular user.
 
 ```
@@ -52,7 +52,7 @@ sudo make
 
 Compilation takes a while, even on a fast machine. But, you should see steady progress. Warnings in the output messages are okay, but errors will stop compilation and need to be investigated. Most times it will be a missing dependency that can be solved with an appropriate `apt search` to determine the package name and `apt-get install` to install it.
 
-## Install Busybox
+## Install BusyBox
 Again, we'll need to make the microSD available to the virtual machine before mounting. Review the previous sections to find the instructions if you need them.
 
 Once the microSD is available to the development VM, we can mount the root filesystem and install the BusyBox utilities.
