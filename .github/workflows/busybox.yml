@@ -34,11 +34,11 @@ jobs:
         run: |
           cd ~/busybox
           sudo make
-          sudo chmod u+s ./busybox  # Doing this now stops a warning from 'make install' later.
       - name: Installing...
         run: |
           cd ~/busybox
           sudo make install
+          sudo chmod u+s $DEST_DIR/bin/busybox
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/busybox
