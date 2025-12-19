@@ -31,8 +31,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/dropbear
-          strip ./dropbear
-          strip ./dropbearkey
+          strip ./dropbear*
           sudo mkdir -p $DEST_DIR/sbin
           sudo cp ./dropbear* $DEST_DIR/sbin
       - name: Adding license...
