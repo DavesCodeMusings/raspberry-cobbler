@@ -11,6 +11,9 @@ vi /etc/init.d/rcS
 Remove the `echo "Hello World!" line and make the file contents match what's shown below.
 
 ```
+#! /bin/sh
+
+# Mount pseudo file systems
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 ```
