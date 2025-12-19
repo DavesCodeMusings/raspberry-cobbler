@@ -37,7 +37,7 @@ Notice there were some errors reported by the command, but the loopback is confi
        valid_lft forever preferred_lft forever
 ```
 
-We can fix the errors by creating additional directories used by _ifup_ and _ifdown_
+We can fix the previous errors by creating additional directories used by _ifup_ and _ifdown_
 
 ```
 mkdir /etc/network/if-pre-up.d
