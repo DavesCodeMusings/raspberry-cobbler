@@ -104,7 +104,9 @@ We can fix this by cleaning up /run after the system starts, but before the inte
 
 Or, better yet, we can make /run clean itself up. And this can be done by mounting a temporary file system for /run. It's similar to the way we mounted /proc and /sys earlier.
 
-But, there are files already in /run (ifstate and utmp). We can use the following steps to take care of things:
+But to complicate things, there are files already in /run (ifstate and utmp).
+
+We can use the following steps to take care of things:
 
 1. Configure rcS to mount a tmpfs file system on /run.
 2. Clean out the existing /run.
