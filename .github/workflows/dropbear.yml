@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Installing dependencies...
         run: |
-          apt-get update
-          apt-get install libcrypt-dev zlib1g-dev
+          sudo apt-get update
+          sudo apt-get install libcrypt-dev zlib1g-dev
       - name: Cloning source...
         run: |
           cd ~
@@ -22,7 +22,7 @@ jobs:
       - name: Configuring...
         # Configure for static linking.
         run: |
-          cd ~/e2fsprogs
+          cd ~/dropbear
           ./configure --eneble-static
       - name: Compiling...
         run: |
