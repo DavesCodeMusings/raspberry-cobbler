@@ -23,7 +23,7 @@ jobs:
         # Configure for static linking.
         run: |
           cd ~/dropbear
-          ./configure --eneble-static
+          ./configure --enable-static
       - name: Compiling...
         run: |
           cd ~/dropbear
