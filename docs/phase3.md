@@ -70,8 +70,11 @@ BusyBox only installs the minimum it needs. To have a more functional system, we
 
 ```
 cd /mnt
-sudo mkdir boot dev etc proc run sys tmp
+sudo mkdir boot dev etc proc run sys tmp var
 sudo mkdir etc/init.d
+sudo ln -s /run /mnt/var/run
+sudo chmod 1777 tmp
+sudo ln -s /tmp /mnt/var/tmp
 ```
 
 ## Create a temporary proof of concept _rcS_
@@ -90,8 +93,9 @@ Add the line: `echo "Hello World!"` to _rcS_ then save.
 ## Edit cmdline.txt on the boot partition to add the root file system
 The _cmdline.txt_ file we created earlier informed the kernal about the serial console. Now we need to tell the kernel about the root file system we want to use.
 
-1. Edit _cmdline.txt_ with `sudo vi /mnt/boot/cmdline.txt`
-2. After _console=serial0,115200_, add a space and append `root=/dev/mmcblk0p2 rootfstype=ext4 rootwait`
+1. Mount the boot filesystem with the command `sudo mount /dev/sdb1 /mnt/boot`
+2. Edit _cmdline.txt_ with `sudo vi /mnt/boot/cmdline.txt`
+3. After _console=serial0,115200_, add a space and append `root=/dev/mmcblk0p2 rootfstype=ext4 rootwait`
 
 The file contents should now look like this:
 
