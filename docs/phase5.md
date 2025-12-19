@@ -179,7 +179,7 @@ Bring up the interface and check its status, similar to the way we brought up th
 
 > The _Link is Down_ and _NO-CARRIER_ messages are because I've unplugged the network cable.
 
-Dealing with USB attached Ethernet
+## USB attached Ethernet considerations
 
 At this point, you may be tempted to add a line in rcS for `ifup eth0`, but I will tell you now it won't work. You'll see an error in the boot messages, like the one shown below.
 
@@ -193,8 +193,7 @@ This happens because the Pi 3 Ethernet adapter is connected via the USB bus and 
 
 A _sleep 1_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This is what we'll do in the next phase.
 
-
-
+___
 References:
 * https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html
 * https://manpages.ubuntu.com/manpages/noble/man5/ifstate.5.html
