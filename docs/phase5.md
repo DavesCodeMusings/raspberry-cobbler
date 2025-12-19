@@ -19,7 +19,7 @@ auto lo
 iface lo inet loopback
 ```
 
-Now, we can bring the loopback interface up.
+Now, we can bring the loopback interface up by running `ifup` with the interface name.
 
 ```
 ifup lo
