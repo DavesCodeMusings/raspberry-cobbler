@@ -86,7 +86,7 @@ When the system comes back, checking the loopback interface shows it's not confi
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 ```
 
-It should have an address of 127.0.0.1 and it does not.
+It should have an address of 127.0.0.1/8 and it does not.
 
 Let's try to bring it up manually.
 
