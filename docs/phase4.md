@@ -11,9 +11,6 @@ vi /etc/init.d/rcS
 Remove the `echo "Hello World!" line and make the file contents match what's shown below.
 
 ```
-#! /bin/sh
-
-# Mount pseudo file systems
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 ```
@@ -36,7 +33,6 @@ First, shutdown the Pi to get the microSD transferred back to the Ubuntu VM.
 ```
 poweroff
 ```
-
 
 ### Building fsck.ext4
 The process is very similar to the way Busybox was built: clone the source code, compile for arm64 with static linking, and transfer to the microSD root file system.
@@ -134,9 +130,11 @@ If the manual checking and mounting was successful, add the commands to rcS to e
 # Check and mount root and boot
 /sbin/fsck.ext4 -p /dev/mmcblk0p2
 /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
-fsck.fat -a /dev/mmcblk0p1
+/sbin/fsck.fat -a /dev/mmcblk0p1
 /bin/mount -t vfat /dev/mmcblk0p1 /boot
 ```
+
+> Note: we're using the full path to the _fsck_ and _mount_ commands. This is a good practice for startup scripts.
 
 ### Rebooting as a final test
 The reboot command and resulting output is shown below.
