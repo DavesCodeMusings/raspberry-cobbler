@@ -1,4 +1,4 @@
-# Phase 1: Getting the Raspberry Pi to Boot
+# Phase 1: Getting the Raspberry Pi to boot
 Now that the development VM is set up, we can turn our attention to the original task of configuring the Raspberry Pi. And the first step in having a custom Raspberry Pi OS is being able to boot the Pi.
 
 In this phase, we'll get a Raspberry Pi boot loader and Linux kernel installed on the microSD. Once that's done, we'll insert the microSD in the Pi and see if everything worked. This won't result in a complete system, or even give us a shell prompt, but it will get things ready for what comes next.
@@ -7,7 +7,7 @@ All the microSD card preparation is performed on the Ubuntu development VM.
 
 > Warning: This will destroy all data on the microSD card. For best results use a new, name-brand microSD.
 
-## Connect the microSD to the virtual machine.
+## Connect the microSD to the virtual machine
 Review the instructions in the previous section for attaching the microSD to the virtual machine and verifying it's avaialble for use by Ubuntu.
 
 Further verification can be done with the command `sudo fdisk -l`. Look for output similar to what's shown below.
@@ -218,14 +218,14 @@ References:
 * https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
 * https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
 
-# Phase 1 Review
+# Phase 1 review
 Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did get a fair bit accomplished. Let's look at what we learned.
 
 * How to create partitions and file systems for the Raspberry Pi microSD card.
 * Which files are required for the boot loader and kernel when booting the Raspberry Pi.
 * How to view boot and kernel messages using the serial UART.
 
-# Next Steps
+# Next steps
 Now that we can boot, we'll concentrate on getting a root file system for the kernel to mount. But first, we need to get Ubuntu ready for building binaries that will run on the Raspberry Pi 3's 64-bit arm CPU.
 
 To misquote Nancy Sinatra...
