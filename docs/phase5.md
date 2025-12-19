@@ -151,7 +151,7 @@ run                     453.1M      4.0K    453.1M   0% /run
 ## Ethernet
 Now that the loopback is configured, Ethernet is next. Edit /etc/network/interfaces and add a static IP address configuration for eth0.
 
-What's shown below is an example of a typical home network configuration, but you'll want to adjust the address, mask, and gateway for your setup. (Or don't plug the Pi's RJ45 jack to your network switch yet and it won't matter.)
+What's shown below is an example of a typical home network configuration. You'll want to adjust the address, mask, and gateway for your setup. (Or don't plug the Pi's RJ45 jack into your network switch yet and it won't matter.)
 
 ```
 auto lo
