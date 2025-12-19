@@ -1,4 +1,4 @@
-# Phase 3: Create a root file system with Busybox utilities
+# Phase 3: Create a root file system with BusyBox utilities
 If you wanted a full-featured Raspberry Pi, you probably wouldn't be reading this guide and would instead just flash Raspberry Pi OS on your microSD and be done. So we won't be trying to duplicate even a fraction of what's already available in Raspberry Pi OS. Our focus is on minimalism.
 
 Taking cues from other minimalist Linux distributions, like [Alpine Linux](https://www.alpinelinux.org/) and [OpenWrt](https://openwrt.org/), we'll turn to the [BusyBox project](https://busybox.net/) for most of our operating system utilities.
@@ -116,7 +116,7 @@ Look for the _Hello World!_ message to verify rcS ran correctly, then press Ente
 
 > Note: _Hello World!_ may be buried in kernel messages and you might need to scroll up a bit to see it.
 
-# Phase 3 review
+## Phase 3 review
 Not only will you see the _Hello World!_ message, proving rcS ran, there's also a prompt to press Enter for a console. Press the button. You know you want to.
 
 There's a shell prompt, and most of the basic commnds work. But, if you try any administrative commands, they're not very successful.
