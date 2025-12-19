@@ -96,11 +96,11 @@ Let's try to bring it up manually.
 ifup: interface lo already configured
 ```
 
-It's not configured, but it thinks it _is_ configured.
+It's not configured, but it thinks it's configured.
 
-The culprit is _/run/ifstate_, a file that holds the state of the network interfaces. Run `cat /run/ifstate` and you'll see it thinks the _lo_ interface is configured. That's because it has stale information from before the last reboot.
+The culprit is _/run/ifstate_, a file that holds the state of the network interfaces. Run `cat /run/ifstate` and you'll see it shows the _lo_ interface is configured. That's because it has stale information from before the last reboot.
 
-We need to clean up /run when the system starts.
+We can fix this by cleaning up /run after the system starts, but before the interface is brought up.
 
 Or, better yet, we can make /run clean itself up. And this can be done by mounting a temporary file system for /run. It's similar to the way we mounted /proc and /sys earlier.
 
