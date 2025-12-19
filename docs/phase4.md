@@ -148,4 +148,8 @@ The system is going down NOW!
 
 >  Notice how the root file system was remounted read-only for us. This is a default setting of BusyBox when no _/etc/inittab_ file is found. It's fine for now, but should not be relied upon.
 
+## Next steps
+The system is bare bones, but usable. It would be better with network connectivity though. That's what we'll be working on in the next phase.
+
+___
 Reference: https://github.com/brgl/busybox/blob/master/examples/inittab
