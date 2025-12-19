@@ -1,0 +1,53 @@
+name: dropbear arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/dropbear  # Location to install compiled binaries for packaging.
+  PKG_NAME: dropbear.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing dependencies...
+        run: |
+          apt-get update
+          apt-get install libcrypt-dev zlib1g-dev
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone https://github.com/mkj/dropbear.git --depth=1
+      - name: Configuring...
+        # Configure for static linking.
+        run: |
+          cd ~/e2fsprogs
+          ./configure --eneble-static
+      - name: Compiling...
+        run: |
+          cd ~/dropbear
+          make
+      - name: Installing...
+        run: |
+          cd ~/dropbear
+          strip ./dropbear
+          strip ./dropbearkey
+          sudo mkdir -p $DEST_DIR/sbin
+          sudo cp ./dropbear* $DEST_DIR/sbin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/dropbear
+          sudo cp ~/dropbear/LICENSE $DEST_DIR/usr/share/doc/dropbear
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "GitHub Actions"
+          git push
