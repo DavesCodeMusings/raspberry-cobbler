@@ -116,12 +116,6 @@ Look for the _Hello World!_ message to verify rcS ran correctly, then press Ente
 
 > Note: _Hello World!_ may be buried in kernel messages and you might need to scroll up a bit to see it.
 
-References:
-https://busybox.net/source.html
-https://lists.busybox.net/pipermail/busybox-cvs/2024-January/041752.html
-https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
-
-
 # Phase 3 Review
 Not only will you see the _Hello World!_ message, proving rcS ran, there's also a prompt to press Enter for a console. Press the button. You know you want to.
 
@@ -166,3 +160,10 @@ We can see the mounted filesystems now, but the network configuration and system
 In the next phase, we should work on the start-up scripts so the file system mounting and other things can happen automatically.
 
 In the immortal words of James Brown counting up to the break in The Funky Drummer... [1, 2, 3, 4, Hit it!](phase4.md)
+
+___
+
+References:
+* https://busybox.net/source.html
+* https://lists.busybox.net/pipermail/busybox-cvs/2024-January/041752.html
+* https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
