@@ -116,7 +116,7 @@ Look for the _Hello World!_ message to verify rcS ran correctly, then press Ente
 
 > Note: _Hello World!_ may be buried in kernel messages and you might need to scroll up a bit to see it.
 
-# Phase 3 Review
+# Phase 3 review
 Not only will you see the _Hello World!_ message, proving rcS ran, there's also a prompt to press Enter for a console. Press the button. You know you want to.
 
 There's a shell prompt, and most of the basic commnds work. But, if you try any administrative commands, they're not very successful.
@@ -157,6 +157,7 @@ Thu Jan  1 00:02:44 UTC 1970
 
 We can see the mounted filesystems now, but the network configuration and system time is still not right.
 
+## Next steps
 In the next phase, we should work on the start-up scripts so the file system mounting and other things can happen automatically.
 
 In the immortal words of James Brown counting up to the break in The Funky Drummer... [1, 2, 3, 4, Hit it!](phase4.md)
