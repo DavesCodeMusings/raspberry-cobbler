@@ -10,6 +10,8 @@ I'm using VirtualBox as my hypervisor. You can use whatever you're comfortable w
 
 If you've never used VirtualBox, you'll need to visit https://www.virtualbox.org/ to download it. A typical install is fine for what we're doing here. Since we're only running the one Ubuntu development VM, our CPU, RAM and storage impact on the development host will be minimal.
 
+> If you're using a development host that won't support virtualization software (or you just don't want to deal with it), have a look at [README_BINARIES.md](https://github.com/DavesCodeMusings/raspberry-cobbler/blob/main/README_BINARIES.md) for information on precompiled arm64 versions of the software packages used in the project. 
+
 ## Setting up the virtual machine
 This is what the development VM will need:
 * 1 CPU
