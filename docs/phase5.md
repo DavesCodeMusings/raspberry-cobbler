@@ -191,7 +191,7 @@ ip: can't find device 'eth0'
 
 This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the device hasn't been detected and configured by the time we're trying to configure it. We have to wait until eth0 is available. But how?
 
-A _sleep 1_ (or 2 or 3) might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This is what we'll do in the next phase.
+A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This is what we'll do in the next phase.
 
 ___
 References:
