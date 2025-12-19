@@ -27,7 +27,7 @@ run-parts: /etc/network/if-pre-up.d: No such file or directory
 run-parts: /etc/network/if-up.d: No such file or directory
 ```
 
-There were some errors reported by the command, but the loopback is configured and up as shown by the command below.
+Notice there were some errors reported by the command, but the loopback is configured and up as shown by the command below.
 
 ```
 ~ # ip address show lo
