@@ -31,9 +31,12 @@ jobs:
       - name: Installing...
         run: |
           cd ~/dropbear
+          strip ./dbclient
           strip ./dropbear*
+          sudo mkdir -p $DEST_DIR/bin
+          sudo cp ./dbclient ./dropbearconvert ./dropbearkey $DEST_DIR/bin
           sudo mkdir -p $DEST_DIR/sbin
-          sudo cp ./dropbear* $DEST_DIR/sbin
+          sudo cp ./dropbear $DEST_DIR/sbin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/dropbear
