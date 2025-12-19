@@ -11,7 +11,7 @@ touch /etc/network/interfaces
 ```
 
 ## Loopback
-Once we have the _interfaces_ file created, we can edit it to configure the loopback address. It should look like what's shown below when we're donw.
+Once we have the _interfaces_ file created, we can edit it to configure the loopback address. It should look like what's shown below when we're done.
 
 ```
 ~ # cat /etc/network/interfaces
