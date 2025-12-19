@@ -28,15 +28,15 @@ jobs:
         run: |
           cd ~/dropbear
           make
+          make scp
       - name: Installing...
         run: |
           cd ~/dropbear
-          strip ./dbclient
-          strip ./dropbear*
-          sudo mkdir -p $DEST_DIR/bin
-          sudo cp ./dbclient ./dropbearconvert ./dropbearkey $DEST_DIR/bin
-          sudo mkdir -p $DEST_DIR/sbin
-          sudo cp ./dropbear $DEST_DIR/sbin
+          strip dbclient dropbear* scp
+          sudo mkdir -p $DEST_DIR/usr/bin
+          sudo cp dbclient dropbearconvert dropbearkey scp $DEST_DIR/usr/bin
+          sudo mkdir -p $DEST_DIR/usr/sbin
+          sudo cp ./dropbear $DEST_DIR/usr/sbin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/dropbear
