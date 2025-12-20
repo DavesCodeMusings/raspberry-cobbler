@@ -1,7 +1,7 @@
-# Phase 2: Set up the Ubuntu machine for building arm binaries
+# Phase 2: Setting up the Ubuntu machine for building arm binaries
 This will be a short section, but neccessary to allow a fast, non-arm host machine to compile binaries for the Raspberry Pi.
 
-## Set up Ubuntu for 64-bit arm cross compiling
+## Installing packages for 64-bit arm cross compiling
 The following commands will get the Ubuntu virtual machine ready to compile Busybox for 64-bit arm.
 
 ```
