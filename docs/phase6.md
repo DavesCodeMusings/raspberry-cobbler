@@ -162,7 +162,51 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
 ### Testing (hopefully for the last time)
 Try once more from the devlopment host and this time, you should see a shell prompt.
 ```
-PS> ssh root@192.168.2.100
+PS> ssh root@192.168.1.100
 root@192.168.2.100's password:
 ~ #
 ```
+
+## Configuring httpd
+Getting SSH set up was kind of painful. But with the foundation laid, configuring other services to run is just a matter of adding a line to _/etc/inetd.conf_ then creating any files and directories the service needs.
+
+Here's an example of setting up _inetd_ to launch a web server on the unencrypted port.
+
+```
+~ # cat /etc/inetd.conf
+22      stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
+80      stream  tcp     nowait  root    /usr/sbin/httpd httpd -i -h /srv/files
+```
+
+```
+mkdir -p /srv/files
+echo "Testing 1 2 3" > /srv/files/test.txt
+```
+
+Now, point a web browser to the Pi (or use wget) at http://192.168.1.100/test.txt
+
+You should see the message: _Testing 1 2 3_
+
+There's also _telnetd_ and _ftpd_ included with BusyBox, along with other ancient and insecure protocols. You could configure those in _inetd.conf_ if you wanted to. But, SSH is better than Telnet and SFTP is easy to add to Dropbear.
+
+## Adding SFTP
+One of the nice features of SSH is the ability to transfer files securely with _scp_ and _sftp_. Dropbear has _scp_ but not _sftp_. However, Dropbear will look in the standard location, _/usr/libexec/sftp-server_ and use the sftp-server found there.
+
+There is a binary package included with this repository called _openssh-sftp-server.arm64.tar.gz_ In the archive is the sftp-server from OpenSSH, compiled for arm64. This is the commonly accepted way to add sftp support to Dropbear.
+
+This is entirely optional, so feel free to skip it if you don't need to transfer files.
+
+## Phase 6 review
+It's starting to feel less like a toy and more like a server. If all you want is the ability to run a web server, uploading content with SFTP, you're pretty well set.
+
+There is one remaining problem though. The system has no idea what time it is.
+
+## Next steps
+In the next phase we will get the Network Time Protocol (NTP) set up as a client to sync the Pi's clock. Then we'll configure it as a server to serve time to network other hosts, thus answering the age old question posed by Flavor Flav of Public Enemy... _Yo Chuck! What time is it?_
+
+___
+
+References:
+* https://codelucky.com/mdev-command-linux/
+* https://github.com/mkj/dropbear
+* https://www.openssh.org/portable.html
