@@ -32,4 +32,22 @@ jobs:
       - name: Installing...
         run: |
           cd ~/tmux
-          ls
+          strip tmux
+          sudo mkdir -p $DEST_DIR/usr/bin
+          sudo cp tmux $DEST_DIR/usr/bin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/tmux
+          sudo cp ~/tmux/COPYING $DEST_DIR/usr/share/doc/tmux
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "Triggered binary build"
+          git push
