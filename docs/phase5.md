@@ -10,7 +10,7 @@ mkdir /etc/network
 touch /etc/network/interfaces
 ```
 
-## Loopback
+## Configuring loopback
 Once we have the _interfaces_ file created, we can edit it to configure the loopback address. It should look like what's shown below when we're done.
 
 ```
@@ -37,6 +37,7 @@ Notice there were some errors reported by the command, but the loopback is confi
        valid_lft forever preferred_lft forever
 ```
 
+## Creating ifup/down script directories
 We can fix the previous errors by creating additional directories used by _ifup_ and _ifdown_
 
 ```
@@ -48,6 +49,7 @@ mkdir /etc/network/if-down.d
 mkdir /etc/network/if-post-down.d
 ```
 
+## Bringing loopback up at system start
 Finally, we can edit /etc/init.d/rcS to bring the loopback interface up when the system boots.
 
 rcS should look like this now:
@@ -78,6 +80,7 @@ A restart the Pi will ensure everything is working as expected.
 
 > Spoiler: this isn't going to work as expected.
 
+## Dealing with stale state data
 When the system comes back, checking the loopback interface shows it's not configured.
 
 ```
@@ -135,6 +138,7 @@ Let's take a look at /etc/init.d/rcS with the new mount (on line 8):
     17  /sbin/ifup lo
 ```
 
+## Verifying loopback configuration after restart
 When the system's back up, we can check for success by examining the file system and interface status after the restart.
 
 ```
@@ -148,10 +152,12 @@ run                     453.1M      4.0K    453.1M   0% /run
        valid_lft forever preferred_lft forever
 ```
 
-## Ethernet
-Now that the loopback is configured, Ethernet is next. Edit /etc/network/interfaces and add a static IP address configuration for eth0.
+## Configuring Ethernet
+Now that the loopback is all set up, Ethernet is next. Loopback was easy. Ethernet is more challenging because of the Raspberry Pi 3's Ethernet being attached via USB. This results in it showing up after the _rcS_ start-up script has already run. But, we'll deal with that when we get there.
 
-What's shown below is an example of a typical home network configuration. You'll want to adjust the address, mask, and gateway for your setup. (Or don't plug the Pi's RJ45 jack into your network switch yet and it won't matter.)
+For now, we'll configure an Ethernet adapter that can be brought up manually.
+
+First, edit _/etc/network/interfaces_ and add a static IP address configuration for eth0. What's shown below is an example of a typical home network configuration. You'll want to adjust the address, netmask, and gateway parameter values for your setup. (Or don't plug the Pi's RJ45 jack into your network switch yet and it won't matter.)
 
 ```
 auto lo
@@ -164,7 +170,7 @@ iface eth0 inet static
     gateway 192.168.1.1
 ```
 
-Bring up the interface and check its status, similar to the way we brought up the loopback.
+Next, bring up the interface and check its status. This is similar to the way we brought up the loopback previously.
 
 ```
 ~ # ifup eth0
@@ -191,7 +197,10 @@ ip: can't find device 'eth0'
 
 This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the device hasn't been detected and configured by the time we're trying to configure it. We have to wait until eth0 is available. But how?
 
-A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This is what we'll do in the next phase.
+A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
+
+## Using mdev as a hotplug device manager
+
 
 ___
 References:
