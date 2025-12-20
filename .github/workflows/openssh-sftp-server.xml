@@ -1,0 +1,32 @@
+name: openssh-sftp-server arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/openssh-sftp-server  # Location to install compiled binaries for packaging.
+  PKG_NAME: openssh-sftp-server.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing dependencies...
+        run: |
+          sudo apt-get update
+          sudo apt-get install autoconf libssl-dev zlib1g-dev
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone ttps://github.com/openssh/openssh-portable.git --depth=1
+      - name: Configuring...
+        # Configure for static linking.
+        run: |
+          cd ~/openssh-portable
+          autoconf
+          ./configure LDFLAGS=-static
+      - name: Compiling...
+        run: |
+          cd ~/openssh-portable
+          make
+          ls
