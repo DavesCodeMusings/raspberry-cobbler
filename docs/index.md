@@ -7,4 +7,8 @@
 * [Phase 4: Improving system start-up](phase4.md)
 * [Phase 5: Configuring networking](phase5.md)
 
-More to come with mdev.
+Work in progress! More to come with mdev, wired Ethernet, inetd, sshd and sftp.
+
+# Side Quests
+
+* [tmux terminal multiplexer](tmux-side-quest.md)
