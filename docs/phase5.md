@@ -273,8 +273,7 @@ lo        Link encap:Local Loopback
 We now have a Pi wired Ethernet networking configured and working. If you used an IP that's valid and have the Pi plugged into a switch on your network, you should be able to ping it. And, we did all of it with hotplugging, so the kernel takes care of things when the interfaces are detected. This will help if we want to add any more USB Ethernet devices later.
 
 ## Next steps
-Sure, we can ping the Pi, but wouldn't it be better if we could connect via Secure Shell and use other network services? That's what we'll be working on in the [next phase](phase6.md).
-
+Sure, we can ping the Pi, but wouldn't it be better if we could connect via Secure Shell and use other network services? That's what we'll be working on in the [next phase](phase6.md). Or, as Iron Maiden so aptly put it in Number of the Beast... [_Six-six-six_](phase6.md)
 ___
 References:
 * https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html
