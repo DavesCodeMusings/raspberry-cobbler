@@ -185,9 +185,9 @@ Next, bring up the interface and check its status. This is similar to the way we
 
 > The _Link is Down_ and _NO-CARRIER_ messages are because I've unplugged the network cable.
 
-## USB attached Ethernet considerations
+### Dealing with USB attached Ethernet
 
-At this point, you may be tempted to add a line in rcS for `ifup eth0`, but let me share another spoiler...it won't work. You'll see an error in the boot messages, like the one shown below.
+At this point, you may be tempted to add `ifup eth0` to _rcS_ and call it done. But let me share another spoiler...it won't work. You'll see an error in the boot messages, like the one shown below.
 
 ```
 ip: can't find device 'eth0'
