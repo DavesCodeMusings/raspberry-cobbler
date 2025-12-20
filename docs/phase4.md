@@ -23,7 +23,7 @@ reboot
 
 When the Pi comes back up, take a moment to repeat the _mount_ command to verify it works and shows what file systems are currently available on the Pi. Notice root is read-only again.
 
-## File system checks
+## Running file system checks
 It might be tempting to remount the root file system as read-write as part of the start-up script. But, that's not advisable until we have a way to check the file systems for potential problems first.
 
 For this, we need `fsck.ext4` for the checking the root filesystem and `fsck.fat` for checking the boot filesystem. Busybox does not include these utilities, so we'll need to get them downloaded, built, and installed using the development VM.
@@ -148,8 +148,13 @@ The system is going down NOW!
 
 >  Notice how the root file system was remounted read-only for us. This is a default setting of BusyBox when no _/etc/inittab_ file is found. It's fine for now, but should not be relied upon.
 
+## Phase 4 review
+The system is in pretty good form now. It's minimalist, it's isolated, but it's working. We can even run automatic checks and repairs for our boot and root file systems whenever the pi boots.
+
+If you wanted to build a project that only requires enough Linux to get the Pi to boot, this woul make a good foundation. But, we can do more.
+
 ## Next steps
-The system is bare bones, but usable. It would be better with network connectivity though. That's what we'll be working on in the [next phase](phase5.md).
+Even though the system is usable, adding network connectivity would greatly expand the posibilities. That's what we'll be working on in the [next phase](phase5.md).
 
 ___
 Reference: https://github.com/brgl/busybox/blob/master/examples/inittab
