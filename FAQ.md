@@ -2,13 +2,14 @@
 Yeah, I know... It's supposed to be Frequently _Asked_ Questions. But, this is a brand new project, so for now it's _Anticipated_.
 
 ## Do I really have to build everything from source?
-No. My goal is to have downloadable arm64 versions of the programs used in the instructions. In this repository you can find:
+No. I have downloadable arm64 versions of the programs used in the instructions. In this repository you can find:
 
 * busybox.arm64.tar.gz
 * dropbear.arm64.tar.gz
 * fsck.ext4.arm64.tar.gz
 * fsck.fat.arm64.tar.gz
 * openssh-sftp-server.arm64.tar.gz
+* tmux.arm64.tar.gz
 
 By extracting these, and using the Raspberry Pi project's [prebuilt firmware](https://github.com/raspberrypi/firmware) files, you can get through the guide without compiling.
 
