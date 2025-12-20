@@ -1,0 +1,35 @@
+name: tmux arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/tmux  # Location to install compiled binaries for packaging.
+  PKG_NAME: tmux.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing dependencies...
+        run: |
+          sudo apt-get update
+          sudo apt-get install libevent-dev libncurses-dev
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone https://github.com/tmux/tmux.git --depth=1
+      - name: Configuring...
+        # Configure for static linking.
+        run: |
+          cd ~/tmux
+          ./autogen.sh
+          ./configure --enable-static
+      - name: Compiling...
+        run: |
+          cd ~/tmux
+          make
+      - name: Installing...
+        run: |
+          cd ~/tmux
+          ls
