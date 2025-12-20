@@ -23,7 +23,7 @@ jobs:
         # Configure for static linking.
         run: |
           cd ~/openssh-portable
-          autoconf
+          autoreconf
           ./configure LDFLAGS=-static
       - name: Compiling...
         run: |
