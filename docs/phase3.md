@@ -1,9 +1,9 @@
-# Phase 3: Create a root file system with BusyBox utilities
+# Phase 3: Creating a root file system with BusyBox utilities
 If you wanted a full-featured Raspberry Pi, you probably wouldn't be reading this guide and would instead just flash Raspberry Pi OS on your microSD and be done. So we won't be trying to duplicate even a fraction of what's already available in Raspberry Pi OS. Our focus is on minimalism.
 
 Taking cues from other minimalist Linux distributions, like [Alpine Linux](https://www.alpinelinux.org/) and [OpenWrt](https://openwrt.org/), we'll turn to the [BusyBox project](https://busybox.net/) for most of our operating system utilities.
 
-## Install required BusyBox dependencies
+## Installing required BusyBox dependencies
 Before we can build BusyBox, there are a few packages we'll need on our development VM in order to successfully configure and compile. The commands to install these is shown below.
 
 ```
@@ -43,7 +43,7 @@ Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the 
   
 > Note: You can customize aditional applets if you like, but with the exception of the _tc_ bug, the defaults should be fine.
 
-## Build BusyBox
+## Building BusyBox
 Run the _make_ command to compile. We'll prefix with sudo to avoid errors that occur when attempting to set permissions on files as a regular user.
 
 ```
@@ -52,7 +52,7 @@ sudo make
 
 Compilation takes a while, even on a fast machine. But, you should see steady progress. Warnings in the output messages are okay, but errors will stop compilation and need to be investigated. Most times it will be a missing dependency that can be solved with an appropriate `apt search` to determine the package name and `apt-get install` to install it.
 
-## Install BusyBox
+## Installing BusyBox
 Again, we'll need to make the microSD available to the virtual machine before mounting. Review the previous sections to find the instructions if you need them.
 
 Once the microSD is available to the development VM, we can mount the root filesystem and install the BusyBox utilities.
@@ -65,7 +65,7 @@ sudo make install
 sudo chmod u+s /mnt/bin/busybox
 ```
 
-## Install remaining directory structure
+## Installing remaining directory structure
 BusyBox only installs the minimum it needs. To have a more functional system, we can add a few directories while the microSD is mounted on the development VM.
 
 ```
@@ -77,7 +77,7 @@ sudo chmod 1777 tmp
 sudo ln -s /tmp /mnt/var/tmp
 ```
 
-## Create a temporary proof of concept _rcS_
+## Creating a temporary proof of concept _rcS_
 After the root file system is mounted, BusyBox will take over system startup. By default, it looks to the file _/etc/init.d/rcS_ for the commands to execute.
 
 We can create a simple _rcS_ that just echoes "Hello World!" to show us our system is working.
@@ -103,7 +103,7 @@ The file contents should now look like this:
 console=serial0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
 ```
 
-## Boot the Pi with the microSD
+## Booting the Pi with the microSD
 Review the process for detaching the microSD from the Ubuntu virtual machine and the host operating system to ensure there is no risk of data corruption.
 
 1. Unmount any microSD file systems on the Ubuntu virtual machine (/mnt/boot and /mnt).
