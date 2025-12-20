@@ -38,7 +38,7 @@ jobs:
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/openssh
-          sudo cp ~/openssh-portable/LICENSE $DEST_DIR/usr/share/doc/openssh
+          sudo cp ~/openssh-portable/LICENCE $DEST_DIR/usr/share/doc/openssh/LICENSE
       - name: Packaging...
         run: |
           cd $DEST_DIR
