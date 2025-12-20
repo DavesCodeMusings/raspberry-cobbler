@@ -110,8 +110,8 @@ If you run `cat /etc/passwd` again, you'll see the second field is now filled in
 Try logging in from the development host again.
 
 ```
-> ssh root@192.168.2.100
-root@192.168.2.100's password:
+> ssh root@192.168.1.100
+root@192.168.1.100's password:
 PTY allocation request failed on channel 0
 shell request failed on channel 0
 ```
@@ -157,4 +157,12 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
     21
     22  # Bring up loopback interface
     23  /sbin/ifup lo
+```
+
+### Testing (hopefully for the last time)
+Try once more from the devlopment host and this time, you should see a shell prompt.
+```
+PS> ssh root@192.168.2.100
+root@192.168.2.100's password:
+~ #
 ```
