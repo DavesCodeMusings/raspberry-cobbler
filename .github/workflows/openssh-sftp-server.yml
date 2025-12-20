@@ -18,7 +18,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone ttps://github.com/openssh/openssh-portable.git --depth=1
+          git clone https://github.com/openssh/openssh-portable.git --depth=1
       - name: Configuring...
         # Configure for static linking.
         run: |
