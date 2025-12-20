@@ -156,5 +156,8 @@ If you wanted to build a project that only requires enough Linux to get the Pi t
 ## Next steps
 Even though the system is usable, adding network connectivity would greatly expand the posibilities. That's what we'll be working on in the [next phase](phase5.md).
 
+Yesh, I got nothin' here. No songs with 5 in the lyrics. Lenny Kravitz's 5 is a good album, but that doesn't make it a good fit for a lyrics pun.
+
 ___
+
 Reference: https://github.com/brgl/busybox/blob/master/examples/inittab
