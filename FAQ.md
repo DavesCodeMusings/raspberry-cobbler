@@ -13,7 +13,7 @@ No. I have downloadable arm64 versions of the programs used in the instructions.
 
 By extracting these, and using the Raspberry Pi project's [prebuilt firmware](https://github.com/raspberrypi/firmware) files, you can get through the guide without compiling.
 
-## What about 32-bit Raspberry Pi hardware?
+## What about older 32-bit Raspberry Pi hardware?
 It should be possible, but I have no plans to include 32-bit support in this guide.
 
 Rick Carlino's [Build a Raspberry Pi Linux System the Hard Way](https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html) tutorial targets ARMv7 (32-bit) and may be helpful in this respect.
