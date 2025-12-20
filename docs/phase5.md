@@ -1,5 +1,5 @@
 # Phase 5: Configuring Basic Networking
-BusyBox includes commands for _ifup_ and _ifdown_, the same network admin tools available on other popular Linux distributions. We can use these commands and their associated configuration files to configure and control our system's network interfaces.
+BusyBox includes commands for _ifup_ and _ifdown_, the same network admin tools available on other popular Linux distributions. We can use these commands and their associated configuration files to control our system's network interfaces.
 
 We can start by skimming the [manual page for the configuration file /etc/network/interfaces](https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html).
 
