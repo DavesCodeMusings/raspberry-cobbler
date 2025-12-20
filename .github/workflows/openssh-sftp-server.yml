@@ -28,5 +28,26 @@ jobs:
       - name: Compiling...
         run: |
           cd ~/openssh-portable
-          make
-          ls
+          make sftp-server
+      - name: Installing...
+        run: |
+          cd ~/openssh-portable
+          strip sftp-server 
+          mkdir -p $DEST_DIR/usr/libexec
+          cp sftp-server $DEST_DIR/usr/libexec
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/openssh
+          sudo cp ~/openssh-portable/LICENSE $DEST_DIR/usr/share/doc/openssh
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "Triggered binary build"
+          git push
