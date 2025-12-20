@@ -1,4 +1,4 @@
-# Phase 5: Configuring Networking
+# Phase 5: Configuring Basic Networking
 BusyBox includes commands for _ifup_ and _ifdown_, the same network admin tools available on other popular Linux distributions. We can use these commands and their associated configuration files to configure and control our system's network interfaces.
 
 We can start by skimming the [manual page for the configuration file /etc/network/interfaces](https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html).
@@ -200,9 +200,83 @@ This happens because the Pi 3 Ethernet adapter is connected via the USB bus and 
 A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
 
 ## Using mdev as a hotplug device manager
+BusyBox includes the _mdev_ utility for handling hotplug devices. And there's a really good article over at codelucky.com that details how to configure it.
 
+In brief, we'll be creating a configuration file that instructs _mdev_ to bring up our Ethernet interface when it's detected, and telling the kernel to use _mdev_ as it's hotplug device manager.
+
+### Configuring eth0 for hotplug
+Here it is:
+
+```
+~ # cat /etc/mdev.conf
+# device        uid:gid perms   action
+eth[0-9]+       0:0     0       @/sbin/ifup $MDEV
+```
+
+The _eth[0-9]+_ is a regular expression that will match any device like _eth0_, _eth1_, etc. This match is what triggers the rule. The _0:0_ is the user id and group id, and the next _0_ is the permissions (in octal.) Neither of these things matter, because _eth0_ is not a device node under /dev. What does matter is the _@/sbin/ifup $MDEV_ action.
+
+mdev's actions are what let up run the _ifup_ command when the Ethernet interface is detected by the kernel. The _$MDEV_ used at the end is just the device name that caused the rule to match. In this case, _$MDEV = "eth0"_, so our action command becomes: _/sbin/ifup eth0_, just what we need to configure and bring up the interface.
+
+> Using the regular expression _eth[0-9]+_ for the rule ensures any hotplugged Ethernet adapters can be configured and brought up. So adding a USB to Ethernet dongle later won't result in extra time spent troubleshooting.
+
+### Running mdev hotplug at boot
+To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin/mdev" > /proc/sys/kernel/hotplug_) to our _rcS_ file. We'll slip it in just before the loopback interface is configured.
+
+```
+~ # cat -n /etc/init.d/rcS
+     1  #! /bin/sh
+     2
+     3  # Mount pseudo filesystems
+     4  /bin/mount -t proc proc /proc
+     5  /bin/mount -t sysfs sysfs /sys
+     6
+     7  # Mount temporary filesystems
+     8  /bin/mount -t tmpfs run /run
+     9  /bin/mount -t tmpfs tmp /tmp
+    10
+    11  # Check and mount root and boot
+    12  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    13  /bin/mount -t ext4 -o remount,rw,noatime /dev/mmcblk0p2 /
+    14  /sbin/fsck.fat -a /dev/mmcblk0p1
+    15  /bin/mount -t vfat -o noatime /dev/mmcblk0p1 /boot
+    16
+    17  # Start device manager
+    18  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    19
+    20  # Bring up loopback interface
+    21  /sbin/ifup lo
+```
+
+### Restarting to test
+Reboot the Pi one more time just to make sure everything comes up as expected.
+
+```
+~ # ifconfig
+eth0      Link encap:Ethernet  HWaddr B8:27:EB:F5:95:91
+          inet addr:192.168.1.100  Bcast:0.0.0.0  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:384 (384.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+```
+
+## Phase 5 review
+We now have a Pi wired Ethernet networking configured and working. If you used an IP that's valid and have the Pi plugged into a switch on your network, you should be able to ping it. And, we did all of it with hotplugging, so the kernel takes care of things when the interfaces are detected. This will help if we want to add any more USB Ethernet devices later.
+
+## Next steps
+Sure, we can ping the Pi, but wouldn't it be better if we could connect via Secure Shell and use other network services? That's what we'll be working on in the next phase.
 
 ___
 References:
 * https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html
 * https://manpages.ubuntu.com/manpages/noble/man5/ifstate.5.html
+* https://codelucky.com/mdev-command-linux/
