@@ -8,7 +8,7 @@ We can handle this in two parts:
 1. Configure [_inetd_](https://en.wikipedia.org/wiki/Inetd) to start _dropbear_ for incoming ssh connections.
 2. Configure _ifup_ to start _inetd_ when _eth0_ comes up.
 
-### Configuring _inetd_ to start _dropbear_ for ssh
+### Configuring _inetd_ to start _dropbear_ for SSH
 BusyBox includes _inetd_ as part of the installation. All we have to do is configure it. This is done using _/etc/inetd.conf_ The example below will tell _inetd_ to listen on port 22 and automatically start _sshd_ when a connection is made.
 
 ```
