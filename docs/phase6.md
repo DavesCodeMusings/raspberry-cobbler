@@ -253,3 +253,4 @@ References:
 * https://codelucky.com/mdev-command-linux/
 * https://github.com/mkj/dropbear
 * https://www.openssh.org/portable.html
+* https://www.ntppool.org/en/use.html
