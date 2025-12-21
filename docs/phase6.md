@@ -73,7 +73,7 @@ dropbearkey -t ed25519 -f dropbear_ed25519_host_key
 ```
 
 ## Testing SSH connections
-> Spoiler: this is going to fail. Multiple times. It's structured to be a step-by-step learning experience. But for the impatient, we're missing _/etc/passwd_ and _devpts_ mounted on _/dev/pts_ and you'll need those for SSH to work.
+> Spoiler: this is going to fail. Multiple times. It's structured to be a step-by-step learning experience. But for the impatient, we're missing the _/etc/passwd_ file and _devpts_ mounted on the _/dev/pts_directory. You'll need both those for SSH to work.
 
 Try an SSH connection from the development host connected to the same network as the Pi. (Substitue IP addresses appropriate for your network and ping first to check connectivity.)
 
