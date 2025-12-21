@@ -160,7 +160,7 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
 ```
 
 ### Testing (hopefully for the last time)
-Try once more from the devlopment host and this time, you should see a shell prompt.
+Try SSH once more from the devlopment host and this time, you should see a shell prompt.
 ```
 PS> ssh root@192.168.1.100
 root@192.168.2.100's password:
@@ -195,6 +195,9 @@ One of the nice features of SSH is its ability to transfer files securely with _
 There is a binary package included with this repository called _openssh-sftp-server.arm64.tar.gz_ In the archive is the _sftp-server_ from OpenSSH, compiled for arm64. Using OpenSSH's _sftp-server_ the commonly accepted way to add sftp support to Dropbear.
 
 This is entirely optional, so feel free to skip it if you don't need to transfer files.
+
+> If installing a pre-built binary feels like cheating, you can use your Ubuntu development VM to compile OpenSSH yourself. Look at the [GitHub action for building OpenSSH](https://github.com/DavesCodeMusings/raspberry-cobbler/blob/main/.github/workflows/openssh-sftp-server.yml) for hints on how to do it.
+>
 
 ## Checking the time
 Run the _date_ command and one glaring omission in network services will be staring you in the face.
