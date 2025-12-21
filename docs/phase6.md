@@ -75,19 +75,19 @@ dropbearkey -t ed25519 -f dropbear_ed25519_host_key
 ## Testing SSH connections
 > Spoiler: this is going to fail. Multiple times. It's structured to be a step-by-step learning experience. But for the impatient, we're missing the _/etc/passwd_ file and _devpts_ mounted on the _/dev/pts_directory. You'll need both those for SSH to work.
 
-Try an SSH connection from the development host connected to the same network as the Pi. (Substitue IP addresses appropriate for your network and ping first to check connectivity.)
+Try an SSH connection from the development host connected to the same network as the Pi. (Substitue an IP address appropriate for your network and ping first to check connectivity.)
 
 ```
 > ssh root@192.168.1.100
 Connection closed by 192.168.1.100 port 22
 ```
 
-Well, it's not _connection refused_, but what the heck?
+Well, it's not _connection refused_, like you'd see if the IP address were wrong, but still no shell prompt.
 
-It turns out our minimalist system, with no _/etc/passwd_ is the problem here. We're asking to log in as _root_, but the system doesn't know who root is.
+It turns out our minimalist system, with no _/etc/passwd_ is the problem here. We're asking to log in as _root_, but the system doesn't know who root is. Creating _/etc/password_ will fix it.
 
 ### Creating /etc/passwd
-We'll do this in two steps. First, we'll create a boilerplate _/etc/passwd_ with no password, then we'll use `passwd` to set the actual password.
+We'll do this in two steps. First, we'll create a boilerplate _/etc/passwd_ entry with no password, then we'll use `passwd` to set the actual password.
 
 ```
 ~ # cat /etc/passwd
