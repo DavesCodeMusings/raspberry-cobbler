@@ -78,7 +78,7 @@ dropbearkey -t ed25519 -f dropbear_ed25519_host_key
 Try an SSH connection from the development host connected to the same network as the Pi. (Substitue an IP address appropriate for your network and ping first to check connectivity.)
 
 ```
-> ssh root@192.168.1.100
+PS> ssh root@192.168.1.100
 Connection closed by 192.168.1.100 port 22
 ```
 
@@ -110,7 +110,7 @@ If you run `cat /etc/passwd` again, you'll see the second field is now filled in
 Try logging in from the development host again.
 
 ```
-> ssh root@192.168.1.100
+PS> ssh root@192.168.1.100
 root@192.168.1.100's password:
 PTY allocation request failed on channel 0
 shell request failed on channel 0
