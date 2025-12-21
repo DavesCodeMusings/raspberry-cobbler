@@ -4,6 +4,11 @@ I'm using an Intel-based Windows laptop as my development host, but I'm doing th
 > In this guide, I will refer to the development machines like this:
 > * Development host -- the laptop running the virtual machine hypervisor.
 > * Development VM -- the virtual machine running Ubuntu.
+>
+> Different system prompts will be used to show which machine commands are to be run on.
+> * `PS>` is PowerShell on the development host
+> * `you@@Ubuntu:~$` is BASH on the development VM
+> * `~ #` is /bin/sh on the Raspberry Pi
 
 ## Choosing a hypervisor
 I'm using VirtualBox as my hypervisor. You can use whatever you're comfortable with. The only difference will be the way the Raspberry Pi microSD card is made available to the virtual machine.
