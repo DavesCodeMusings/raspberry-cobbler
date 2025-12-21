@@ -60,7 +60,7 @@ tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
 ```
 
 ### Configuring Dropbear host keys
-Before dropbear is ready to accept SSH connections, it needs to be configured with one or more host keys to identitify itself to clients. There are three types of keys dropbear supports and we'll create one of each type.
+Before dropbear is ready to accept SSH connections, it needs to be configured with one or more host keys to identify itself to clients. There are three types of keys dropbear supports and we'll create one of each type.
 
 All this can be done with the following commands:
 
