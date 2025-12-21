@@ -84,7 +84,7 @@ Connection closed by 192.168.1.100 port 22
 
 Well, it's not _connection refused_, like you'd see if the IP address were wrong, but still no shell prompt. Why?
 
-It turns out our minimalist system, with no _/etc/passwd_ is the problem here. We're asking to log in as _root_, but the system doesn't know who root is. Creating _/etc/password_ will fix it.
+It turns out our minimalist system, with no _/etc/passwd_, is the problem here. We're asking to log in as _root_, but the system doesn't know who root is. Creating _/etc/password_ will fix it.
 
 ### Creating /etc/passwd
 We'll do this in two steps. First, we'll create a boilerplate _/etc/passwd_ entry with no password, then we'll use `passwd` to set the actual password.
