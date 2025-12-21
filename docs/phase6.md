@@ -175,34 +175,77 @@ Here's an example of setting up _inetd_ to launch a web server on the unencrypte
 ```
 ~ # cat /etc/inetd.conf
 22      stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
-80      stream  tcp     nowait  root    /usr/sbin/httpd httpd -i -h /srv/files
+80      stream  tcp     nowait  root    /usr/sbin/httpd         httpd -i -h /srv/www
 ```
 
 ```
 mkdir -p /srv/files
-echo "Testing 1 2 3" > /srv/files/test.txt
+echo "Testing 1 2 3" > /srv/www/test.txt
 ```
 
 Now, point a web browser to the Pi (or use wget) at http://192.168.1.100/test.txt
 
 You should see the message: _Testing 1 2 3_
 
-There's also _telnetd_ and _ftpd_ included with BusyBox, along with other ancient and insecure protocols. You could configure those in _inetd.conf_ if you wanted to. But, SSH is better than Telnet and SFTP is easy to add to Dropbear.
+There's also _telnetd_ and _ftpd_ included with BusyBox, along with other ancient and insecure protocols. You could configure those in _inetd.conf_ if you wanted to. But, SSH is better than Telnet and SFTP better than FTP. And SFTP is easy to add to Dropbear.
 
 ## Adding SFTP
-One of the nice features of SSH is the ability to transfer files securely with _scp_ and _sftp_. Dropbear has _scp_ but not _sftp_. However, Dropbear will look in the standard location, _/usr/libexec/sftp-server_ and use the sftp-server found there.
+One of the nice features of SSH is its ability to transfer files securely with _scp_ and _sftp_. Dropbear has _scp_ but no _sftp_. However, Dropbear will look in the standard location, _/usr/libexec/sftp-server_ and use the _sftp-server_ program found there.
 
-There is a binary package included with this repository called _openssh-sftp-server.arm64.tar.gz_ In the archive is the sftp-server from OpenSSH, compiled for arm64. This is the commonly accepted way to add sftp support to Dropbear.
+There is a binary package included with this repository called _openssh-sftp-server.arm64.tar.gz_ In the archive is the _sftp-server_ from OpenSSH, compiled for arm64. Using OpenSSH's _sftp-server_ the commonly accepted way to add sftp support to Dropbear.
 
 This is entirely optional, so feel free to skip it if you don't need to transfer files.
 
-## Phase 6 review
-It's starting to feel less like a toy and more like a server. If all you want is the ability to run a web server, uploading content with SFTP, you're pretty well set.
+## Checking the time
+Run the _date_ command and one glaring omission in network services will be staring you in the face.
 
-There is one remaining problem though. The system has no idea what time it is.
+```
+~ # date
+Thu Jan  1 00:00:14 UTC 1970
+```
+
+The system is stuck in the 1970s, because the Raspberry Pi has no realtime clock. It relies on network time servers and these aren't configured yet.
+
+### Configuring ntpd
+BusyBox provides _ntpd_ as a Network Time Protocol (NTP) server and client. If we create a file _/etc/ntp.conf_ listing the upstream time servers, our Pi will sync its time.
+
+Here's what the file looks like for a Pi residing in North America.
+
+```
+~ # cat /etc/ntp.conf
+server 0.north-america.pool.ntp.org
+server 1.north-america.pool.ntp.org
+server 2.north-america.pool.ntp.org
+server 3.north-america.pool.ntp.org
+```
+
+### Sharing time with the local network
+Once the Pi has an accurate time source, you can have _ntpd_ provide that time as a service on the local area network. All it takes is the _-l_ (minus el) option when ntpd is run.
+
+And while we're thinking about running _ntpd_ at start-up, lets take a look at how that would be done.
+
+### Starting _ntpd_
+We can't really rely on _inetd_ to start _ntpd_ for us. This is because _ntpd_ needs to run right away (as soon as the network is up) to get an accurate time from the upstream servers. _inetd_ only runs servers as needed when client connections are made.
+
+To solve this, we'll copy the _/etc/network/if-up.d/inetd.sh_ file and modify it to start _ntpd_ as well. This will work, because every script in the _/etc/network/if-up.d/_ directory will be run when an interface comes up.
+
+Here's the new script:
+
+```
+~ # cat /etc/network/if-up.d/ntpd.sh
+#!/bin/sh
+if [ "$IFACE" == "eth0" ]; then
+  /usr/sbin/ntpd -l
+fi
+```
+
+Adding this will cause _ntpd_ to start (at the same time _inetd_ starts) when the _eth0_ interface comes up. This means the Pi will have an accurate time as soon as the network connection is available.
+
+## Phase 6 review
+It's starting to feel less like a toy and more like a server. We can connect via SSH. We can serve files over HTTP and SFTP. We can even answer the age old question posed by Flavor Flav on pretty much every Public Enemy track ever laid down... _Yo, Chuck! What time is it?_
 
 ## Next steps
-In the next phase we will get the Network Time Protocol (NTP) set up as a client to sync the Pi's clock. Then we'll configure it as a server to serve time to network other hosts, thus answering the age old question posed by Flavor Flav of Public Enemy... _Yo Chuck! What time is it?_
+There are a few more details to take care of. Namely, what if you want to log in as somebody besides root? We'll look at that in the next section.
 
 ___
 
