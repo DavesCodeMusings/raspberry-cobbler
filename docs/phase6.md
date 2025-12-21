@@ -50,7 +50,7 @@ Check that _inetd_ is running.
   154 root      0:00 grep inetd
 ```
 
-And make sure _inetd_ is listening on port 22.
+And make sure _inetd_ is listening for incoming SSH connections on port 22.
 
 ```
 ~ # netstat -tln
