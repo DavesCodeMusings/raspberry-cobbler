@@ -82,7 +82,7 @@ Try an SSH connection from the development host connected to the same network as
 Connection closed by 192.168.1.100 port 22
 ```
 
-Well, it's not _connection refused_, like you'd see if the IP address were wrong, but still no shell prompt.
+Well, it's not _connection refused_, like you'd see if the IP address were wrong, but still no shell prompt. Why?
 
 It turns out our minimalist system, with no _/etc/passwd_ is the problem here. We're asking to log in as _root_, but the system doesn't know who root is. Creating _/etc/password_ will fix it.
 
