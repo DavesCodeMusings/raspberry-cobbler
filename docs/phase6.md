@@ -21,7 +21,7 @@ Remember [back in phase 5](https://github.com/DavesCodeMusings/raspberry-cobbler
 
 Making the connection yet? We want to start _inetd_. We want to do this when _eth0_ is up and available.
 
-Add a script to _/etc/network/if-up.d_ that starts _inetd_ and it should execute automatically when _eth0_ comes up... which happens when _mdev_ detects the _eth0_ network interface... which happens when the kernel detects the USB-attached hardware as a _hotplug_ device.
+Add a script to _/etc/network/if-up.d_ that starts _inetd_ and it should execute automatically when _eth0_ comes up... which happens when _mdev_ detects the _eth0_ network interface... which happens when the kernel detects the USB-attached network adapter as a _hotplug_ device.
 
 Here's the script:
 
