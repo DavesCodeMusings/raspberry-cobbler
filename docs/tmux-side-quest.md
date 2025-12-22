@@ -35,5 +35,17 @@ you@Ubuntu:~$ sudo cp -R /usr/share/terminfo /mnt/usr/share
 Similar to the other phases of the project, you'll need to unmount the microSD, detatch if from the development VM, and eject it from the host OS before moving it over.
 
 Boot the pi and enjoy tmux!
+
+## Fixing issues with Windows Terminal over SSH
+If you happen to be using Windows 11 Terminal and you see strange characters whe you start _tmux_, adding a longer tmux escape time may help:
+
+```
+cd ~
+~ $ cat .tmux.conf
+set-option -s escape-time 50
+```
+
+> This solution is from: https://github.com/microsoft/terminal/issues/16384
+
 ___
 _God save us, everyone, as we burn inside the fires of the tmux sun &mdash; Linkin Park (sort of)_
