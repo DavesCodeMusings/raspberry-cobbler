@@ -17,7 +17,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone https://github.com/dosfstools/dosfstools.git --depth=1
+          git clone --depth=1 https://github.com/dosfstools/dosfstools.git
       - name: Configuring...
         # Configure for static linking.
         run: |
