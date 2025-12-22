@@ -18,7 +18,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone https://github.com/mkj/dropbear.git --depth=1
+          git clone --depth=1 https://github.com/mkj/dropbear.git
       - name: Configuring...
         # Configure for static linking.
         # Writing to lastlog is disabled since busybox does not have a lastlog command anyway.
