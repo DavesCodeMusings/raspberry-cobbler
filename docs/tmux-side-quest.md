@@ -23,7 +23,7 @@ you@Ubuntu:~$ sudo mkdir -p /mnt/usr/lib/locale
 you@Ubuntu:~$ sudo cp /usr/lib/locale/locale-archive /mnt/usr/lib/locale
 ```
 
-## Terminfo data
+## Installing terminfo data
 tmux also needs information about various terminal types stored in the terminfo database. Otherwise, it will fail with the message: _can't find terminfo database_
 
 ```
