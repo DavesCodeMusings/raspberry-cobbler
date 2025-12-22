@@ -18,7 +18,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone https://git.busybox.net/busybox/ --depth=1
+          git clone --depth=1 https://git.busybox.net/busybox/
       - name: Configuring...
         # Configure with default selections, then customize non-interactively.
         run: |
