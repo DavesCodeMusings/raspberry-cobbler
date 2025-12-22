@@ -45,7 +45,7 @@ cd ~
 set-option -s escape-time 50
 ```
 
-> This solution is from [Terminal's GitHub Issue 16384](https://github.com/microsoft/terminal/issues/16384) (which is a very solid power of 2 number)
+> This solution is from [Terminal's GitHub Issue #16384](https://github.com/microsoft/terminal/issues/16384) (which is a very solid power of 2 number)
 
 ___
 _God save us, everyone, as we burn inside the fires of the tmux sun &mdash; Linkin Park (sort of)_
