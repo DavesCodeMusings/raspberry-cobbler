@@ -21,6 +21,7 @@ jobs:
           git clone https://github.com/mkj/dropbear.git --depth=1
       - name: Configuring...
         # Configure for static linking.
+        # Writing to lastlog is disabled since busybox does not have a lastlog command anyway.
         run: |
           cd ~/dropbear
           ./configure --disable-lastlog --enable-static
