@@ -20,3 +20,6 @@ Rick Carlino's [Build a Raspberry Pi Linux System the Hard Way](https://www.rick
 
 ## Can you incorporate _feature X_ so I can use it in my project?
 Probably not. This project exists as a journey, not a destination. In other words, the instructions are here to help you get started building your own Raspberry Pi DIY OS, not provide a pre-built one for you.
+
+## Why not use musl libc or ulibc to save space?
+One of the goals of this project is to be accessible to people getting started with embedded Linux. Cross-compiling for a different CPU architecture can be challenging enough. Adding a different C library on top would only increase the complexity further. Static linking everything with glibc only consumes about 40M of space. Even on an 8G microSD card, this is a trivial amount of storage.
