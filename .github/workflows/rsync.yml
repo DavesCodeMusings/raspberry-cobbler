@@ -1,0 +1,52 @@
+name: rsync arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/rsync  # Location to install compiled binaries for packaging.
+  PKG_NAME: rsync.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing dependencies...
+        run: |
+          sudo apt-get update
+          sudo apt-get install acl libacl1-dev attr libattr1-dev liblz4-dev libzstd-dev libxxhash-dev python3-cmarkgfm openssl
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone --depth=1 https://github.com/RsyncProject/rsync.git
+      - name: Configuring...
+        # Configure for static linking.
+        run: |
+          cd ~/rsync
+          ./configure --disable-md2man LDFLAGS=-static
+      - name: Compiling...
+        run: |
+          cd ~/rsync
+          make rsync
+      - name: Installing...
+        run: |
+          cd ~/rsync
+          strip rsync 
+          mkdir -p $DEST_DIR/usr/bin
+          cp rsync $DEST_DIR/usr/bin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/rsync
+          sudo cp ~/rsync/COPYING $DEST_DIR/usr/share/doc/rsync
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "Triggered binary build"
+          git push
