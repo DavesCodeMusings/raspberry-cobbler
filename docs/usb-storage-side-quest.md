@@ -113,9 +113,9 @@ sd[a-z][0-9]    0:0     660     @/etc/mdev/usb-storage.sh $MDEV
 ```
 
 ## Creating a hotplug mount script
-The script that does the mounting is a little more involved. From our experience with mounting boot and root file systems, we know we want to run fsck first. But, we'll need to do some validation checks before attempting any of this. What kind of file system is it? What's its UUID?
+The script that does the mounting is a little more involved. From our experience with mounting boot and root file systems, we know we want to run fsck first. But, we'll need to do some validation checks before attempting any of this. What type of file system is it? What's its UUID?
 
-We can use blkid to determine the UUID and file system type so we know how to check it and mount it.
+We can use _blkid_ to determine the UUID and file system type so we know how to check it and mount it.
 
 ```
 ~ # cat -n /etc/mdev/usb-storage.sh
@@ -124,29 +124,30 @@ We can use blkid to determine the UUID and file system type so we know how to ch
      3  # Helper to mount an mdev detected storage device.
      4  # Use with mdev.conf rule:
      5  #   sd[a-z][0-9]    0:0     660     @/etc/mdev/usb-storage.sh $MDEV
-     6  # Requires fstab entries to use UUID device names.
-     7
-     8  DEV=$1
-     9  if ! [ -b "$DEV" ]; then
-    10      echo "Block device not found: $DEV"
-    11      exit 1
-    12  else
-    13      # Same regex, but returning different capture values.
-    14      UUID=$(blkid $DEV | sed 's/.*UUID="\(.*\)" TYPE="\(.*\)"/\1/')
-    15      TYPE=$(blkid $DEV | sed 's/.*UUID="\(.*\)" TYPE="\(.*\)"/\2/')
-    16      if [ -z "$UUID" ] || [ -z "$TYPE" ]; then
-    17          echo "Empty UUID or TYPE device returned for $DEV"
-    18          exit 2
-    19      else
-    20          /sbin/fsck.$TYPE -p $DEV && /bin/mount UUID=$UUID
-    21      fi
-    22  fi
+     6  # Requires fstab entries to use UUID device names. For example:
+     7  #   UUID=31415926-5358-9793-2384-626433832795  /media  ext4  defaults  0  0
+     8
+     9  DEV=$1
+    10  if ! [ -b "$DEV" ]; then
+    11      echo "Block device not found: $DEV"
+    12      exit 1
+    13  else
+    14      # Same regex, but returning different capture values.
+    15      UUID=$(blkid $DEV | sed 's/.*UUID="\(.*\)" TYPE="\(.*\)"/\1/')
+    16      TYPE=$(blkid $DEV | sed 's/.*UUID="\(.*\)" TYPE="\(.*\)"/\2/')
+    17      if [ -z "$UUID" ] || [ -z "$TYPE" ]; then
+    18          echo "Empty UUID or TYPE device returned for $DEV"
+    19          exit 2
+    20      else
+    21          /sbin/fsck.$TYPE -p $DEV && /bin/mount UUID=$UUID
+    22      fi
+    23  fi
 ```
 
 ## Testing
 Removing and re-plugging the USB disk should trigger the mdev rule and call the device mounting script. Restarting the system should accomplish the same test. Watch for messages on the console.
 
-Running the `mount` command with no parameters will show all mounted devices.
+Logging in and running the `mount` command with no parameters will show all mounted devices to further verify.
 
 ___
 
