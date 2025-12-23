@@ -24,5 +24,8 @@ Probably not. This project exists as a journey, not a destination. In other word
 ## Why not use musl libc or ulibc to save space?
 One of the goals of this project is to be accessible to people getting started with embedded Linux. Cross-compiling for arm CPU architecture can be challenging enough. Adding a different C library on top would only increase the complexity further. Static linking everything with glibc only consumes about 40M of space. Even on an 8G microSD card, this is a trivial amount of storage.
 
-# What about Samba for DIY Network Attached Storage (NAS)?
+## What about Samba for DIY Network Attached Storage (NAS)?
 If you can compile statically-linked Samba using an arm64 Ubuntu machine, let me know how you did it. I will create a GitHub action to automate the build.
+
+## What about wifi networking?
+I have a wpa_supplicant arm64 build available, but I can't seem to get the _wlan0_ interface to appear. If you have ideas, let me know.
