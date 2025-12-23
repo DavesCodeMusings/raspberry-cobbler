@@ -10,8 +10,6 @@
 * [Phase 7: Configuring multi-user access](phase7.md)
 * [Phase 8: Setting up system Logging](phase8.md)
 
-Work in progress! More to come with logging.
-
 # Side Quests
 
 * [tmux terminal multiplexer](tmux-side-quest.md)
