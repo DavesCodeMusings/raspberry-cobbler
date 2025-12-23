@@ -22,7 +22,7 @@ Plugging it in gives these (abridged) messages on the console:
 [51984.814379] sd 0:0:0:0: [sda] Attached SCSI disk
 ```
 
-We can see the USB-SATA adapter detected (usb), then the disk (usb-storage and scsi), and finally the disk (sda) partitions (sda1..4).
+We can see the USB-SATA adapter detected (usb 1-1.3), then the disk (usb-storage 1-1.3:1.0 and scsi 0:0:0:0), and finally the disk (sda) partitions (sda1..4).
 
 The _sda_ device and its partitions show up in /dev without any interaction required on our part.
 
@@ -94,7 +94,7 @@ Assuming you chose to format as ext4, we could do something simple like this for
 /dev/sda1  /media  ext4  defaults  0  0
 ```
 
-But, we're dealing with USB devices that can be plugged or removed at will, so we really can't depend on this particular disk always being /dev/sda1. It's much better to refer to the disk partition by it's UUID. And we can get the UUID from the command `blkid /dev/sda1`.
+But, we're dealing with a USB device that can be plugged or removed at will, so we really can't depend on this particular disk always being /dev/sda1. It's much better to refer to the disk partition by it's UUID. And we can get the UUID from the command `blkid /dev/sda1`.
 
 Using the output from `blkid` we can contruct a better /etc/fstab entry using the UUID as the device name.
 
@@ -102,8 +102,8 @@ Using the output from `blkid` we can contruct a better /etc/fstab entry using th
 UUID=31415926-5358-9793-2384-626433832795  /media  ext4  defaults  0  0
 ```  
 
-# Creating an mdev rule
-We'll configure mdev to call a script to mount the USB storage.
+# Using mdev for hotplug detection
+Since mdev is already handling our USB Ethernet adapter, getting it to react to a USB disk is trivial. We'll append a rule to call a script to mount the USB storage whenever its presence is detected.
 
 ```
 ~ # cat /etc/mdev.conf
@@ -113,7 +113,9 @@ sd[a-z][0-9]    0:0     660     @/etc/mdev/usb-storage.sh $MDEV
 ```
 
 ## Creating a hotplug mount script
-For the script, we'll do some validation checks before attempting to mount the device. We'll then use blkid to determine the UUID and file system type so we know how to check it and mount it.
+The script that does the mounting is a little more involved. From our experience with mounting boot and root file systems, we know we want to run fsck first. But, we'll need to do some validation checks before attempting any of this. What kind of file system is it? What's its UUID?
+
+We can use blkid to determine the UUID and file system type so we know how to check it and mount it.
 
 ```
 ~ # cat -n /etc/mdev/usb-storage.sh
