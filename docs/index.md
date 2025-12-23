@@ -8,7 +8,7 @@
 * [Phase 5: Configuring basic networking](phase5.md)
 * [Phase 6: Adding network services](phase6.md)
 
-Work in progress! More to come with ntpd.
+Work in progress! More to come with logging.
 
 # Side Quests
 
