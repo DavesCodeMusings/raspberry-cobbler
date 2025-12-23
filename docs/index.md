@@ -13,3 +13,4 @@ Work in progress! More to come with ntpd.
 # Side Quests
 
 * [tmux terminal multiplexer](tmux-side-quest.md)
+* [USB-attached mass storage devices](usb-storage-side-quest.md)
