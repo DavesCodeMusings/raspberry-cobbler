@@ -7,8 +7,8 @@
 * [Phase 4: Improving system start-up](phase4.md)
 * [Phase 5: Configuring basic networking](phase5.md)
 * [Phase 6: Adding network services](phase6.md)
-* [Phase 7: Multi-user access](phase7.md)
-* [Phase 8: System Logging](phase8.md)
+* [Phase 7: Configuring multi-user access](phase7.md)
+* [Phase 8: Setting up system Logging](phase8.md)
 
 Work in progress! More to come with logging.
 
