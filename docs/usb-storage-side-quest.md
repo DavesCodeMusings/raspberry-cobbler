@@ -149,6 +149,21 @@ Removing and re-plugging the USB disk should trigger the mdev rule and call the 
 
 Logging in and running the `mount` command with no parameters will show all mounted devices to further verify.
 
+## Making storage available over the network
+A Raspberry Pi with a USB attached hard drive doesn't make a very robust Network Attached Storage (NAS) device, but it's close. We don't have Samba or NFS for sharing files, but for read-only access by only a few users, FTP can do the job of serving the files. All it takes to get the BusyBox FTP server running is one line in _/etc/inetd.conf_
+
+```
+21      stream  tcp     nowait  root    ftpd    ftpd -a nobody /media
+```
+
+> Be sure to run `killall -HUP inetd` after updating the file.
+
+Now you can add a connection to the FTP server on your client machine. Windows calls this _Add a network location_ and the format is _ftp://ip.ad.dr.ess/_. 
+
+You can also use a dedicated FTP application like [FileZilla](https://filezilla-project.org/) that does FTP and SFTP.
+
+Keep in mind everything FTP sends is unencrypted.
+
 ___
 
 Reference: https://codelucky.com/mdev-command-linux/
