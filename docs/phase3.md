@@ -70,7 +70,7 @@ BusyBox only installs the minimum it needs. To have a more functional system, we
 
 ```
 cd /mnt
-sudo mkdir boot dev etc mnt proc run sys tmp var
+sudo mkdir boot dev etc media mnt proc run sys tmp var
 sudo mkdir etc/init.d
 sudo ln -s /run /mnt/var/run
 sudo chmod 1777 tmp
