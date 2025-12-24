@@ -217,3 +217,7 @@ References
 > ```
 >
 > Copy all of ~/wireless-regdb/regulatory.* to /lib/firmware
+>
+> After boot, get / set country code with `iw reg get` / `iw reg set US` (substituting your country code.)
+> 
+> This only needs to be done once and will persist through restarts.
