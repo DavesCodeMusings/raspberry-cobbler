@@ -13,5 +13,5 @@
 # Side Quests
 
 * [tmux terminal multiplexer](tmux-side-quest.md)
-* [USB-attached mass storage devices](usb-storage-side-quest.md)
+* [USB-attached mass storage](usb-storage-side-quest.md)
 * [WiFi networking](wifi-side-quest.md)
