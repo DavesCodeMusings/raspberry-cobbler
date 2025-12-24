@@ -209,3 +209,6 @@ References
 * https://wiki.archlinux.org/title/Wpa_supplicant
 
 * https://git.kernel.org/pub/scm/linux/kernel/git/jberg/iw.git
+
+> Regulatory DB
+> git clone --depth=1 https://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git
