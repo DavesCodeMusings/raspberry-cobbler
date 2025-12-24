@@ -49,7 +49,7 @@ We can see the new user has an account in /etc/passwd, a group in /etc/group, an
 ## Testing SSH for the admin user
 The reason for creating another user was to have something besides _root_ for SSH logins, so let's make sure this new user can log in with SSH and start a superuser shell.
 
-> Spoiler: this will fail.
+> Spoiler: this will fail. We need to configure _/etc/mdev/conf_ to fix permissions on the _/dev/ptmx_ device node. Until then, only root can log in via SSH.
  
 ```
 PS> ssh 192.168.2.100
