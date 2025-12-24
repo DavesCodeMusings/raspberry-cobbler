@@ -39,6 +39,18 @@ To make sure this happens every time the system starts, add the lines to _/etc/i
     10  /bin/mount -t tmpfs run /run
     11  /bin/mount -t tmpfs tmp /tmp
     12  /bin/mount -t tmpfs log /var/log
+    13
+    14  # Check and mount root and boot
+    15  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    16  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    17  /sbin/fsck.fat -a /dev/mmcblk0p1
+    18  /bin/mount -t vfat /dev/mmcblk0p1 /boot
+    19
+    20  # Start device manager
+    21  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    22
+    23  # Bring up loopback interface
+    24  /sbin/ifup lo
 ```
 
 Line 12 shows mounting a RAM-based file system on /var/log.
@@ -67,7 +79,19 @@ You can start them manually now, or just add them to _rcS_ and restart the syste
     13
     14  # Start logging
     15  /sbin/start-stop-daemon -S -x /sbin/syslogd
-    16  /sbin/start-stop-daemon -S -x /sbin/klogd
+    16  /sbin/start-stop-daemon -S -x /sbin/klog
+    17
+    18  # Check and mount root and boot
+    19  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    20  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    21  /sbin/fsck.fat -a /dev/mmcblk0p1
+    22  /bin/mount -t vfat /dev/mmcblk0p1 /boot
+    23
+    24  # Start device manager
+    25  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    26
+    27  # Bring up loopback interface
+    28  /sbin/ifup lo
 ```
 
 Lines 15 and 16 show syslogd and klogd being started.
