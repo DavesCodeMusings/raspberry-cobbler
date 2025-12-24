@@ -169,7 +169,16 @@ Try SSH once more from the devlopment host and this time, you should see a shell
 ```
 PS> ssh root@192.168.1.100
 root@192.168.2.100's password:
+Failed chdir '/root': No such file or directory
 ~ #
+```
+
+We got a warning about the missing _/root_ home directory, but at least we're in.
+
+Fixing the missing directory is easy.
+
+```
+install -d -m700 -o0 -g0 /root
 ```
 
 ## Configuring httpd
