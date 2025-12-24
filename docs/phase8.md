@@ -48,9 +48,10 @@ To make sure this happens every time the system starts, add the lines to _/etc/i
     19
     20  # Start device manager
     21  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    22
-    23  # Bring up loopback interface
-    24  /sbin/ifup lo
+    22  mdev -s
+    23
+    24  # Bring up loopback interface
+    25  /sbin/ifup lo
 ```
 
 Line 12 shows mounting a RAM-based file system on /var/log.
@@ -89,9 +90,10 @@ You can start them manually now, or just add them to _rcS_ and restart the syste
     23
     24  # Start device manager
     25  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    26
-    27  # Bring up loopback interface
-    28  /sbin/ifup lo
+    26  mdev -s
+    27
+    28  # Bring up loopback interface
+    29  /sbin/ifup lo
 ```
 
 Lines 15 and 16 show syslogd and klogd being started.
