@@ -80,7 +80,7 @@ You can start them manually now, or just add them to _rcS_ and restart the syste
     13
     14  # Start logging
     15  /sbin/start-stop-daemon -S -x /sbin/syslogd
-    16  /sbin/start-stop-daemon -S -x /sbin/klog
+    16  /sbin/start-stop-daemon -S -x /sbin/klogd
     17
     18  # Check and mount root and boot
     19  /sbin/fsck.ext4 -p /dev/mmcblk0p2
