@@ -1,6 +1,6 @@
 # WiFi Side Quest
 
-**Warning: This is incomplete and perhaps incorrect!**
+**_Warning: This is incomplete and perhaps incorrect!_**
 
 After finishing all the project phases you may be wondering why the only networking is wired Enternet. The Raspberry Pi 3 has wireless built in, why not use it?
 
@@ -88,7 +88,7 @@ total 420
 Once everything is copied over to the microSD, start up the Raspberry Pi.
 
 
-## Loading the wireless adapter's kernel module
+## Loading the wireless adapter's kernel modules
 
 ### Configuring module dependencies
 The new modules are installed, but and can be loaded one by one using `insmod`, but this is tedious. Using `modprobe` is a faster way to get all the required modules loaded in one go. But first, we need to determine dependency order.
