@@ -62,9 +62,11 @@ Dropbear's `-w` option lets you prevent root logins via SSH. This would have the
 
 Since dropbear is controlled by _inetd_, we'll add the `-w` option there and tell _inetd_ to reread its configuration.
 
+```
 ~ # cat /etc/inetd.conf
 22      stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i -w
 ~ # killall -HUP inetd
+```
 
 ## Creating additional users
 You can create user accounts for other people the same way you created the _admin_ account. You'll need to be _root_ to do it.
