@@ -227,14 +227,7 @@ What's happening here is _udhcpc_ is calling this script with a single command-l
 ## End to end testing
 
 
-___
-
-References
-* https://raspberrypi.stackexchange.com/questions/153914/pi3s-wlan0-not-available-to-configure-in-custom-built-os
-* https://packetp.com/brcmfmac-linux-wlan-driver-for-broadcom-cypress/
-* https://wiki.archlinux.org/title/Wpa_supplicant
-
-* https://git.kernel.org/pub/scm/linux/kernel/git/jberg/iw.git
+## Misc clean-up
 
 > Silencing regulatory DB warning when module loads...
 > 
@@ -247,3 +240,12 @@ References
 > After boot, get / set country code with `iw reg get` / `iw reg set US` (substituting your country code.)
 > 
 > This only needs to be done once and will persist through restarts.
+
+___
+
+References
+* https://raspberrypi.stackexchange.com/questions/153914/pi3s-wlan0-not-available-to-configure-in-custom-built-os
+* https://packetp.com/brcmfmac-linux-wlan-driver-for-broadcom-cypress/
+* https://wiki.archlinux.org/title/Wpa_supplicant
+
+* https://git.kernel.org/pub/scm/linux/kernel/git/jberg/iw.git
