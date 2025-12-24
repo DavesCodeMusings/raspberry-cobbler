@@ -62,18 +62,14 @@ rcS should look like this now:
      4  /bin/mount -t proc proc /proc
      5  /bin/mount -t sysfs sysfs /sys
      6
-     7  # Mount temporary filesystems
-     8  /bin/mount -t tmpfs run /run
-     9  /bin/mount -t tmpfs tmp /tmp
-    10
-    11  # Check and mount root and boot
-    12  /sbin/fsck.ext4 -p /dev/mmcblk0p2
-    13  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
-    14  /sbin/fsck.fat -a /dev/mmcblk0p1
-    15  /bin/mount -t vfat /dev/mmcblk0p1 /boot
-    16
-    17  # Bring up loopback interface
-    18  /sbin/ifup lo
+     7  # Check and mount root and boot
+     8  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+     9  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    10  /sbin/fsck.fat -a /dev/mmcblk0p1
+    11  /bin/mount -t vfat /dev/mmcblk0p1 /boot
+    12
+    13  # Bring up loopback interface
+    14  /sbin/ifup lo
 ```
 
 A restart the Pi will ensure everything is working as expected.
