@@ -262,7 +262,7 @@ Adding this will cause _ntpd_ to start (at the same time _inetd_ starts) when th
 The Raspberry Pi OS is starting to feel less like a toy and more like a server. We can connect via SSH. We can serve files over HTTP and SFTP. We can even use NTP to answer the age old question posed by Flavor Flav on pretty much every Public Enemy track ever laid down... _Yo, Chuck! What time is it?_
 
 ## Next steps
-There are a few more details to take care of. Namely, what if you want to log in as somebody besides root? We'll look at that in the next section.
+There are a few more details to take care of. Namely, what if you want to log in as somebody besides root? We'll look at that in the [next section](phase7.md).
 
 ___
 
