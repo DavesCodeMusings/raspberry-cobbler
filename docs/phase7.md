@@ -46,19 +46,56 @@ drwxr-sr-x    2 admin    admin         4096 Jan  1 11:31 /home/admin
 
 We can see the new user has an account in /etc/passwd, a group in /etc/group, and a home directory of /home/admin. These tasks will be done for us anytime we set up a new user account with `adduser`.
 
-### Verifying SSH works for the admin user
+## Testing SSH for the admin user
 The reason for creating another user was to have something besides _root_ for SSH logins, so let's make sure this new user can log in with SSH and start a superuser shell.
 
+> Spoiler: this will fail.
+ 
 ```
 PS> ssh 192.168.2.100
 admin@192.168.2.100's password:
 ~ $ su -
 Password:
-~ #
+PTY allocation request failed on channel 0
+shell request failed on channel 0
 ```
 
+We're back to our old _PTY allocation request failed_ error. Didn't we fix this already by mounting _/dev/pts_?
+
+Yes, but mdev broke it.
+
+### What's wrong with mdev?
+When we added the line `/sbin/mdev -s` to _rcS_, we handed over management of /dev to mdev. This includes the permissions on the contents of /dev. The problem we're encountering is our non-root user account does not have permission to /dev/ptmx, but it should. mdev has set the permissions to a default state.
+
+When root was the only user on the system, the problem never surfaced, because root has access to everything.
+
+### How do we fix mdev?
+The _/etc/mdev.conf_ file we created to manage hotplug events for the network interface can also manage permissions for devices in /dev. Adding a line for _ptmx_ will let us put the permissions back to read-write for everyone. While we're at it, there are a number of other device nodes that need fixing as well.
+
+Here's the new _/etc/mdev.conf_ with the permission fixes prepended. _ptmx_ is on line 7. The rest are standard devices everyone should be able to access, except for the console which is limited to the root user. (The hotplug action for eth0 is unchanged.)
+
+```
+~ # cat -n /etc/mdev.conf
+     1  # device        uid:gid perms   action
+     2  console         0:0     600
+     3  null            0:0     666
+     4  zero            0:0     666
+     5  random          0:0     444
+     6  urandom         0:0     444
+     7  ptmx            0:0     666
+     8
+     9  eth[0-9]+       0:0     0       @/sbin/ifup $MDEV
+```
+
+Run the `mdev -s` command to update with the new configuration or restart the Pi.
+
+## Re-testing SSH for the admin user
+We should be able to log in via SSH now as a non-root user.
+
 ## Disallowing root over SSH
-Dropbear's `-w` option lets you prevent root logins via SSH. This would have the effect of limiting superuser (root) access to the console or logging in as a standard user (like admin) and using `su -`. It's a faily common security enhancement.
+Now that we can log in as a non-root user, we can disable SSH for root. This is a fairly common security enhancement and allowing root logins over SSH is rare.
+
+Dropbear's `-w` option lets you prevent root logins via SSH. This will have the effect of limiting superuser (root) access to the console or logging in as a standard user (like admin) and using `su -` to get a root shell.
 
 Since dropbear is controlled by _inetd_, we'll add the `-w` option there and tell _inetd_ to reread its configuration.
 
@@ -96,8 +133,8 @@ Run the command below to set up a _www-data_ user. Use built-in _adduser_ help t
 ~ # adduser --help
 ```
 
-## Testing
-Despite our best attempts, the service account _www-data_ should not be able to log into the system. But, our admin user (and other regular user accounts) can.
+## Verifying service account behavior
+Despite our best attempts, the service account _www-data_ should not be able to log into the system. We should not be able to start a shell as the service account either.
 
 ```
 PS> ssh www-data@192.168.1.100
