@@ -28,4 +28,4 @@ One of the goals of this project is to be accessible to people getting started w
 If you can compile statically-linked Samba using an arm64 Ubuntu machine, let me know how you did it. I will create a GitHub action to automate the build.
 
 ## What about wifi networking?
-I have a wpa_supplicant arm64 build available, but I can't seem to get the _wlan0_ interface to appear. If you have ideas, let me know.
+It's getting there. I have a wpa_supplicant arm64 build available, but I haven't written up instructions for getting the _wlan0_ interface to appear. For now, see https://raspberrypi.stackexchange.com/questions/153914/pi3s-wlan0-not-available-to-configure-in-custom-built-os for some hints.
