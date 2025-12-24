@@ -86,12 +86,17 @@ Well, it's not _connection refused_, like you'd see if the IP address were wrong
 
 It turns out our minimalist system, with no _/etc/passwd_, is the problem here. We're asking to log in as _root_, but the system doesn't know who root is. Creating _/etc/password_ will fix it.
 
-### Creating /etc/passwd
+### Creating /etc/passwd and /etc/group
 We'll do this in two steps. First, we'll create a boilerplate _/etc/passwd_ entry with no password, then we'll use `passwd` to set the actual password.
 
 ```
 ~ # cat /etc/passwd
 root::0:0:SuperUser:/root:/bin/sh
+```
+
+```
+~ # cat /etc/group
+root:x:0:
 ```
 
 ```
