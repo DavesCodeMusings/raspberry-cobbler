@@ -238,9 +238,10 @@ To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin
     16
     17  # Start device manager
     18  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    19
-    20  # Bring up loopback interface
-    21  /sbin/ifup lo
+    19  mdev -s
+    20
+    21  # Bring up loopback interface
+    22  /sbin/ifup lo
 ```
 
 ### Restarting to test
