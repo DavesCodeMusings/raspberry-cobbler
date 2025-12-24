@@ -159,9 +159,10 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
     18
     19  # Start device manager
     20  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    21
-    22  # Bring up loopback interface
-    23  /sbin/ifup lo
+    21  mdev -s
+    22
+    23  # Bring up loopback interface
+    24  /sbin/ifup lo
 ```
 
 ### Testing (hopefully for the last time)
