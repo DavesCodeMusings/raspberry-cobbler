@@ -119,7 +119,7 @@ Do that right after boot, and you'll see messages from the kernel along with an 
 
 Remember /var/log is RAM-based, so everything gets wiped out with a reboot of the system.
 
-## Phase 7 review
+## Phase 8 review
 Nearly everything we did in this phase parallels something we've done before: mounting a tmpfs file system, starting system services, and using _rcS_ to handle things at start-up. A few short commands and now we can get log information from _/var/log/messages_.
 
 ## Next Steps
