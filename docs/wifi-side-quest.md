@@ -8,9 +8,9 @@ The answer is, it's not trivial to set up. But if you're really motivated, keep 
 
 ## What makes wifi so difficult?
 
-* Joining a wifi network
-* Dealing with dynamic addresses (DHCP)
-* Having the correct kernel modules and firmware
+* Dealing with the added complexity of dynamic addresses (DHCP)
+* Managing the authentication needed to join a wifi network
+* Having the correct kernel modules and firmware for the wireless adapter
 
 ## Adding modules and firmware
 Wired Ethernet was easy to set up, because the hardware drivers were already included as part of the Linux kernel (kernel8.img) we got from the Raspberry Pi firmware repository. The _eth0_ interface just appeared and we were able to give it an IP address.
@@ -41,6 +41,18 @@ Use one of the file transfer methods we used before to copy this entire contents
 ~ # ls -F /lib/modules/
 6.12.62-v8+/
 ```
+
+> The modules directory takes up about 30 MB or so of space. Not a lot, but it's nearly half the root file system on this minimalist project. If you really want to conserve space, the actual modules needed for my Raspberry Pi 3B v1.2 wifi are shown below. Other models and revisions may require different modules.
+>
+> ```
+> ~ # lsmod | awk '{ print $1 }'
+> brcmfmac_wcc
+> brcmfmac
+> cfg80211
+> rfkill
+> brcmutil
+> ```
+
 
 ### Adding firmware
 Copying the firmware files to the Pi is similar in many ways to copying the kernel modules. The exception is, the firmware comes from another git repository.
@@ -124,34 +136,42 @@ eth0   lo     wlan0
 Getting the kernel modules and firmware working was only one out of three required tasks. Next, we need to get the wireless adapter associated with a wireless access point. To do this, we'll use the _wpa_supplicant_ package.
 
 ### Installing wpa_supplicant
-A precompiled arm64 version of this package is available as wpa_supplicant.arm64.tar.gz in [this repository's](https://github.com/DavesCodeMusings/raspberry-cobbler) files. You can install it using one of the methods previously covered.
+A precompiled arm64 version of this package is available as wpa_supplicant.arm64.tar.gz in [this repository's](https://github.com/DavesCodeMusings/raspberry-cobbler) files. You can transfer it to the Pi using one of the methods previously covered, then extract it to the pi with `cd / && tar -zxf /path/to/wpa_supplicant.arm64.tar.gz`.
 
 > You can also build from source on the development VM if you wish. The [GitHub action for wpa_supplicant](https://github.com/DavesCodeMusings/raspberry-cobbler/blob/main/.github/workflows/wpa_supplicant.yml) can help you determine the steps needed.
 
 ### Setting up wifi credentials
-
+Assuming you have a typical home network setup with an SSID and pre-shared key, you can feed that information to `wpa_passphrase` and it will generate a configuration file for you.
 ```
 ~ # wpa_passphrase my-ssid > /etc/network/wpa_supplicant.conf
 # reading passphrase from stdin
 ********
 ```
 
-### Configuring the interface for dhcp
+In this case, the file is stored under _/etc/network_. The location is only important in that you'll need to tell _wpa_supplicant_ where it is using the `-c /path/to/wpa_supplicat.conf` later on.
+
+### Manually starting wpa_supplicant to test
+The command shown below will start _wpa_supplicant_ and authenticate our Raspberry Pi to the access point. At this point, we're just looking for a clean run with no errors before moving on. In other words, do not be tempted to add wpa_spplicant to _rcS_. We're not done.
 
 ```
-~ # vi /etc/network/interfaces
-auto wlan0
-iface wlan0 inet dhcp
-```
-
-```
-~ # modprobe brcmfmac
-
-
-~ # wpa_supplicant -B -i wlan0 -c /etc/network/wpa_supplicant.conf
+wpa_supplicant -B -i wlan0 -c /etc/network/wpa_supplicant.conf
 Successfully initialized wpa_supplicant
 ```
 
+### Configuring the interface for dhcp
+Technically you can use static IP addresses with wifi (in ad-hoc mode), but most people use an access point and DHCP. This makes the configuration of _/etc/network/interfaces_ very simple. Only two or three more lines are required. (The hostname line is optional.)
+
+```
+~ # tail -3 /etc/network/interfaces
+auto wlan0
+iface wlan0 inet dhcp
+    hostname diy-pi
+```
+
+### Bringing up the interface
+Let's try bringing up _wlan0_ to do test DHCP configuration.
+
+> Spoiler: this is not going to work. The _udhcpc_ client needs a helper script to do the actual configuration.
 
 ```
 ~ # ifup wlan0
@@ -162,43 +182,49 @@ udhcpc: broadcasting select for 192.168.1.177, server 192.168.1.1
 udhcpc: lease of 192.168.1.177 obtained from 192.168.1.1, lease time 7200
 ```
 
-But, wlan0 is still unconfigured!
+We got an IP address. But, running `ifconfig` shows no IP address for _wlan0_
+
+This is due to the missing helper script that _udpcpc_ expects to have available.
+
+The script is shown below. We'll need to create the directory and the script to make DHCP work. And don't forget to set the permissions to make it executable.
 
 ```
-~ # ifconfig wlan0
-
-mkdir /usr/share/udhcpc
-
-vi /usr/share/udhcpc/default.script
+~ # cat -n /usr/share/udhcpc/default.script
+     1  #! /bin/sh
+     2
+     3  # Handle DHCP events.
+     4
+     5  case $1 in
+     6      deconfig)
+     7          # Lease lost. Deconfigure interface, but leave it up.
+     8          ip address flush dev $interface
+     9          ;;
+    10      bound)
+    11          # Lease obtained. Configure the IP and mask.
+    12          ip address add $ip/$mask dev $interface
+    13          ip link set dev $interface up
+    14          ;;
+    15      renew)
+    16          # Lease renewed. Refresh the parameters.
+    17          ip addr flush dev $interface
+    18          ip address add $ip/$mask dev $interface
+    19          ip link set dev $interface up
+    20          ;;
+    21      leasefail)
+    22          # Lease not available. Exit with warning.
+    23          echo "Failed to obtain DHCP lease."
+    24          ;;
+    25  esac
 ```
 
-```
-#! /bin/sh
+What's happening here is _udhcpc_ is calling this script with a single command-line parameter to indicate the DHCP state and therefore the action required by the script.
 
-# Handle DHCP events.
+> You may already be familiar with "release" as "renew" as terms used with DHCP. These correspond to "deconfig" and "renew" here.
 
-case $1 in
-    deconfig)
-        # Lease lost. Deconfigure interface, but leave it up.
-        ip address flush dev $interface
-        ;;
-    bound)
-        # Lease obtained. Configure the IP and mask.
-        ip address add $ip/$mask dev $interface
-        ip link set dev $interface up
-        ;;
-    renew)
-        # Lease renewed. Refresh the parameters.
-        ip addr flush dev $interface
-        ip address add $ip/$mask dev $interface
-        ip link set dev $interface up
-        ;;
-    leasefail)
-        # Lease not available. Exit with warning.
-        echo "Failed to obtain DHCP lease."
-        ;;
-esac
-```
+## Linking it together with an mdev action
+
+
+## End to end testing
 
 
 ___
