@@ -210,5 +210,10 @@ References
 
 * https://git.kernel.org/pub/scm/linux/kernel/git/jberg/iw.git
 
-> Regulatory DB
+> Silencing regulatory DB warning when module loads...
+> 
+> ```
 > git clone --depth=1 https://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git
+> ```
+>
+> Copy all of ~/wireless-regdb/regulatory.* to /lib/firmware
