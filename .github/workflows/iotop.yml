@@ -24,7 +24,7 @@ jobs:
           cd ~/iotop
           strip ./iotop
           sudo mkdir -p $DEST_DIR/usr/bin
-          sudo cp ./src/iotop $DEST_DIR/usr/bin
+          sudo cp ./iotop $DEST_DIR/usr/bin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/iotop
