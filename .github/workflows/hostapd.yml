@@ -41,7 +41,7 @@ jobs:
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/hostap
-          sudo cp ~/hostap/README $DEST_DIR/usr/share/doc/hostapd/README
+          sudo cp ~/hostap/COPYING $DEST_DIR/usr/share/doc/hostap
       - name: Packaging...
         run: |
           cd $DEST_DIR
