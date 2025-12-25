@@ -1,0 +1,43 @@
+name: iotop arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/dosfstools  # Location to install compiled binaries for packaging.
+  PKG_NAME: iotop.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone --depth=1 git clone --depth=1 https://github.com/Tomas-M/iotop.git
+      - name: Compiling...
+        run: |
+          cd ~/iotop
+          make LDFLAGS=-static
+      - name: Installing...
+        run: |
+          cd ~/iotop
+          strip ./iotop
+          sudo mkdir -p $DEST_DIR/usr/bin
+          sudo cp ./src/iotop $DEST_DIR/usr/bin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/iotop
+          sudo cp ~/iotop/LICENSE $DEST_DIR/usr/share/doc/iotop
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "Triggered binary build"
+          git push
