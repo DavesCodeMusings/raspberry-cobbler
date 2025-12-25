@@ -194,27 +194,33 @@ The script is shown below. We'll need to create the directory and the script to 
      2
      3  # Handle DHCP events.
      4
-     5  case $1 in
-     6      deconfig)
-     7          # Lease lost. Deconfigure interface, but leave it up.
-     8          ip address flush dev $interface
-     9          ;;
-    10      bound)
-    11          # Lease obtained. Configure the IP and mask.
-    12          ip address add $ip/$mask dev $interface
-    13          ip link set dev $interface up
-    14          ;;
-    15      renew)
-    16          # Lease renewed. Refresh the parameters.
-    17          ip addr flush dev $interface
-    18          ip address add $ip/$mask dev $interface
-    19          ip link set dev $interface up
+     5  # Uncomment for debugging.
+     6  #echo "ip: $ip mask: $mask broadcast: $broadcast gateway: $router"
+     7
+     8  case $1 in
+     9      deconfig)
+    10          # Lease lost. Deconfigure interface, but leave it up.
+    11          ip address flush dev $interface
+    12          ;;
+    13      bound)
+    14          # Lease obtained. Configure the IP and mask.
+    15          ip address add $ip/$mask dev $interface
+    16          ip link set dev $interface up
+    17          if ! [ -z "$router" ]; then
+    18              ip route add default via $router dev $interface
+    19          fi
     20          ;;
-    21      leasefail)
-    22          # Lease not available. Exit with warning.
-    23          echo "Failed to obtain DHCP lease."
-    24          ;;
-    25  esac
+    21      renew)
+    22          # Lease renewed. Refresh the parameters.
+    23          ip addr flush dev $interface
+    24          ip address add $ip/$mask dev $interface
+    25          ip link set dev $interface up
+    26          ;;
+    27      leasefail)
+    28          # Lease not available. Exit with warning.
+    29          echo "Failed to obtain DHCP lease."
+    30          ;;
+    31  esac
 ```
 
 What's happening here is _udhcpc_ is calling this script with a single command-line parameter to indicate the DHCP state and therefore the action required by the script.
