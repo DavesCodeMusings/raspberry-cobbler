@@ -229,6 +229,17 @@ What's happening here is _udhcpc_ is calling this script with a single command-l
 
 ## Linking it together with an mdev action
 
+### Running wpa_supplicant automatically
+
+```
+~ # cat /etc/network/if-pre-up.d/wpa_supplicant.sh
+#!/bin/sh
+
+if echo "$IFACE" | grep -q ^wlan; then
+  # /usr/sbin/iw dev wlan0 set power_save off  # uncomment to help with weak signal strength
+  /usr/sbin/wpa_supplicant -B -i $IFACE -c /etc/network/wpa_supplicant.conf
+fi
+```
 
 ## End to end testing
 
