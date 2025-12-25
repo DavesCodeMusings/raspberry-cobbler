@@ -43,4 +43,4 @@ Device firmware is from the Linux kernel git repo: https://git.kernel.org/pub/sc
 Helpful wifi packages wpa_supplicant and iw are available as arm64 binaries on this repo.
 
 ## Terminfo and locale data
-The best place to find files to populat _/usr/share/terminfo_ and _/usr/lib/locale_ is from another Linux system. It's CPU architecture independent, so any system should do. Look at the tmux-side-quest document here to get details on what files go where.
+The best place to find files to populate _/usr/share/terminfo_ and _/usr/lib/locale_ is from another Linux system. It's CPU architecture independent, so any system should do. Look at the tmux-side-quest document here to get details on what files go where.
