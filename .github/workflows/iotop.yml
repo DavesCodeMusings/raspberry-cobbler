@@ -14,7 +14,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone --depth=1 git clone --depth=1 https://github.com/Tomas-M/iotop.git
+          git clone --depth=1 https://github.com/Tomas-M/iotop.git
       - name: Compiling...
         run: |
           cd ~/iotop
