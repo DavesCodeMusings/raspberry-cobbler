@@ -11,7 +11,7 @@ You'll need: bootcode.bin, fixup.dat, start.elf, and kernel8.img. Plus the dtb o
 You'll also need to create config.txt and cmdline.txt.
 
 ## Root partition
-Busybox provides the most utility for the size. A pre-built arm64 binary is available from [this project's repo](https://github.com/DavesCodeMusings/raspberry-cobbler)
+Busybox provides the most utility for the size. A pre-built arm64 binary is available from [this project's repo](https://github.com/DavesCodeMusings/raspberry-cobbler).
 
 You'll also need fsck.ext4 and fsck.fat if you want to check and repair filesystems. These are pre-built as well.
 
@@ -38,7 +38,7 @@ Any hardware beyond what's pre-compiled into the kernel will need a kernel modul
 
 Pre-built kernel modules are available from the same git repo the kernel came from: https://github.com/raspberrypi/firmware.git
 
-Firmware is from the Linux kernel git repo: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+Device firmware is from the Linux kernel git repo: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
 
 Helpful wifi packages wpa_supplicant and iw are available as arm64 binaries on this repo.
 
