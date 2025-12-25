@@ -1,8 +1,8 @@
 # Raspberry Pi DIY OS Essentials
-This very high level document assumes you know a lot of things and does not go into detail. If you need more step-by-step instructions, start with [here](index.md)
+This very high level document assumes you know a lot of things and does not go into detail. If you need more step-by-step instructions, start with [here](index.md).
 
 ## Boot partition
-You can get a pre-built boot loader and kernel from the Raspberry Pi firmware git repo
+You can get a pre-built boot loader and kernel from the Raspberry Pi firmware git repo:
 
 https://github.com/raspberrypi/firmware.git
 
@@ -43,4 +43,4 @@ Firmware is from the Linux kernel git repo: https://git.kernel.org/pub/scm/linux
 Helpful wifi packages wpa_supplicant and iw are available as arm64 binaries on this repo.
 
 ## Terminfo and locale data
-The best place to find this is from another Linux system. Look at the tmux-side-quest document here to get details.
+The best place to find this is from another Linux system. It's CPU architecture independent, so any system should do. Look at the tmux-side-quest document here to get details.
