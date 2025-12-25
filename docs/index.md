@@ -14,4 +14,5 @@
 
 * [tmux terminal multiplexer](tmux-side-quest.md)
 * [USB-attached mass storage](usb-storage-side-quest.md)
+* [iotop storage monitoring](iotop-side-quest.md)
 * [WiFi networking](wifi-side-quest.md)
