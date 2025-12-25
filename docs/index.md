@@ -16,3 +16,7 @@
 * [USB-attached mass storage](usb-storage-side-quest.md)
 * [iotop storage monitoring](iotop-side-quest.md)
 * [WiFi networking](wifi-side-quest.md)
+
+# Just the Essentials
+
+* [TL;DR](tl-dr.md)
