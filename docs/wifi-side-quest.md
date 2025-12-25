@@ -103,7 +103,7 @@ Once everything is copied over to the microSD, start up the Raspberry Pi.
 ## Loading the wireless adapter's kernel modules
 
 ### Configuring module dependencies
-The new modules are installed, but and can be loaded one by one using `insmod`, but this is tedious. Using `modprobe` is a faster way to get all the required modules loaded in one go. But first, we need to determine dependency order.
+The new modules are installed, and can be loaded one by one using `insmod`, but this is tedious. Using `modprobe` is a faster way to get all the required modules loaded in one go. But first, we need to determine dependency order.
 
 Set up module dependencies with _depmod_ as shown below.
 
@@ -111,7 +111,7 @@ Set up module dependencies with _depmod_ as shown below.
 ~ # depmod -a
 ```
 
-This only needs to be done once, when new modules are installed.
+This command only needs to be run once, when new modules are installed.
 
 ### Loading with modprobe
 After configuring dependencies, a single command will now load everything needed to support the wireless adapter (kernel modules and firmware.)
