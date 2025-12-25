@@ -1,3 +1,5 @@
+If you're new to all this, go through the project phases in order. They're structured with learning as the primary goal. Once you've mastered that, move on to the side quests. If you're already an embedded Linux guru, or you're just impatient, have a look at Just the Essentials.
+
 # Project Phases
 
 * [Phase 0: Setting up the Ubuntu development virtual machine](phase0.md)
