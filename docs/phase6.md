@@ -183,9 +183,7 @@ install -d -m700 -o0 -g0 /root
 ```
 
 > The install command above is the same as running these three commands separately:
-> mkdir / root
-> chmod 700 /root
-> chown 0:0 /root
+> mkdir / root ; chmod 700 /root ; chown 0:0 /root
 
 ## Configuring httpd
 Getting SSH set up was kind of painful. But with the foundation laid, configuring other services to run is just a matter of adding a line to _/etc/inetd.conf_ then creating any files and directories the service needs.
