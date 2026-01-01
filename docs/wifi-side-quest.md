@@ -97,21 +97,28 @@ total 420
 -rw-r--r--    1 root     root          4733 Jan  1 00:20 cyfmac43430-sdio.clm_blob
 ```
 
-Once everything is copied over to the microSD, start up the Raspberry Pi.
+### Adding licensing files
+The entire reason firmware exists outside of the Linux kernel is because it has different licensing than the kernel itself. So, to not risk the ire of armies of corporate lawyers, be sure to copy the firmware licenses for both Broadcom and Cypress into the microSD's firmware directory.
 
+```
+you@Ubuntu:~$ cd ~/linux-firmware
+you@Ubuntu:~/linux-firmware$ cp LICENCE.broadcom_bcm43xx LICENCE.cypress /mnt/lib/firmware
+```
+
+## Booting the Pi
+Once everything is copied over to the microSD, unmount the card, transfer it to the Raspberry Pi, and power up.
 
 ## Loading the wireless adapter's kernel modules
-
-### Configuring module dependencies
 The new modules are installed, and can be loaded one by one using `insmod`, but this is tedious. Using `modprobe` is a faster way to get all the required modules loaded in one go. But first, we need to determine dependency order.
 
+### Configuring module dependencies
 Set up module dependencies with _depmod_ as shown below.
 
 ```
 ~ # depmod -a
 ```
 
-This command only needs to be run once, when new modules are installed.
+> This command only needs to be run once, when new modules are installed.
 
 ### Loading with modprobe
 After configuring dependencies, a single command will now load everything needed to support the wireless adapter (kernel modules and firmware.)
@@ -120,7 +127,7 @@ After configuring dependencies, a single command will now load everything needed
 ~ # modprobe brcmfmac
 ```
 
-> _brcmfmac_ is and abbreviated name for BRoadCoM Full Media Access Control, the name of the wifi chip. 
+> _brcmfmac_ is an abbreviated name for BRoadCoM Full Media Access Control, the name of the wifi chip. 
 
 If you see _cfg80211: failed to load regulatory.db_ in the console messages, you can ignore it for now. The wifi adapter will still function, it will just limit its channel selection and output power.
 
