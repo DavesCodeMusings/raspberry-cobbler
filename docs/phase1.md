@@ -7,7 +7,7 @@ All the microSD card preparation is performed on the Ubuntu development VM.
 
 > Warning: This will destroy all data on the microSD card. For best results use a new, name-brand microSD.
 
-## Connect the microSD to the virtual machine
+## Connecting the microSD to the virtual machine
 Review the instructions in the previous section for attaching the microSD to the virtual machine and verifying it's avaialble for use by Ubuntu.
 
 Further verification can be done with the command `sudo fdisk -l`. Look for output similar to what's shown below.
@@ -27,7 +27,7 @@ Device     Boot Start      End  Sectors  Size Id Type
 
 The fdisk output above confirms /dev/sdb contains a single FAT32 formatted partition slightly smaller than the advertised capacity of 32G.
 
-## Prepare the microSD boot media
+## Preparing the microSD boot media
 Before transferring the files to the Pi's microSD card, we'll want to partition the storage space between the boot files and the system (root) files to be installed later.
 
 ### First, partition the microSD card
@@ -55,7 +55,7 @@ sudo e2label /dev/sdb2 root
 
 > Note: These file systems will appear on /dev/sdb1 (boot) and /dev/sdb2 (root) when mounted on the development VM via a USB attached microSD card adapter. But later, when the microSD card is used to boot the Raspberry Pi, they will appear as /dev/mmcblock0p1 (boot) and /dev/mmcblock0p2 (root).
 
-## Fetch the files needed for booting the Pi
+## Fetching the files needed for booting the Pi
 The Raspberry Pi project maintains regularly updated files for their boot loader and the Linux kernel. We can use these instead of building our own from source code. All we have to do is clone the repository contents to the development VM.
 
 The commands below will copy the files down and show what's available for booting.
@@ -67,7 +67,7 @@ cd ~/firmware/boot
 ls
 ```
 
-## Copy the basic bootloader files to the microSD card
+## Copying the basic bootloader files to the microSD card
 Now that we have the files from the Raspberry Pi GitHub repository, we can select the ones we need to make our microSD bootable.
 
 ### First, mount the microSD boot partition
@@ -92,7 +92,7 @@ sudo cp bootcode.bin fixup.dat start.elf kernel8.img /mnt
 
 > Note: We're using _kernel8.img_ because the Pi 3B is a 64-bit machine. The "8" is a reference to armv8, the 64-bit CPU architecture. This is often used interchangably with the terms "arm64" and "aarch64".
 
-## Create config.txt
+## Creating config.txt
 The Raspberry pi does not have a BIOS or UEFI setup utility. Its options are configured in a plain text file (called _config.txt_) that is read by the bootloader.
 1. Create a new text file named _/mnt/config.txt_ using your favorite editor.
 2. Add the following lines to _config.txt_ for a 64-bit kernel on a Raspberry Pi 3B using a serial console at 115200 bps:
@@ -108,7 +108,7 @@ init_uart_baud=115200
 
 If you're using a newer model Pi, adjust the device_tree entry to match your system.
 
-## Copy the device tree file for your Pi to the microSD card
+## Copying the device tree file for your Pi to the microSD card
 The example above references the device_tree file _bcm2710-rpi-3-b.dtb_ for Raspberry Pi 3B. If you're using a newer model Pi, you'll need to copy the file you specified in _config.txt_ 
 
 1. In the Raspberry Pi repository's _firmware/boot_ folder, find the file that matches the name specified by the _device_tree_ parameter in config.txt
@@ -120,7 +120,7 @@ For example, with the Raspberry Pi 3B:
 sudo cp ~/firmware/boot/bcm2710-rpi-3-b.dtb /mnt
 ```
 
-## Create cmdline.txt
+## Creating cmdline.txt
 While _config.txt_ is used to specify hardware configuration options, another file, _cmdline.txt_, is used to specify options specific to the kernel. For example, we used _config.txt_ to enable the serial UART. Now we need to use _cmdline.txt_ to tell the kernel that serial line is going to be the system console.
 
 Here's how to do it:
@@ -131,7 +131,7 @@ Here's how to do it:
 console=serial0,115200
 ```
 
-## Copy the license information files
+## Copying the license information files
 While this is not required for the Raspberry Pi to boot, it is required for license compliance.
 
 1. In the firmware boot directory, find COPYING.linux and LICENCE.broadcom
@@ -141,7 +141,7 @@ While this is not required for the Raspberry Pi to boot, it is required for lice
 cd ~/firmware/boot
 sudo cp COPYING.linux LICENCE.broadcom /mnt
 ```
-## Verify the boot files and txt files
+## Verifying the boot files and configuration files
 Before moving the microSD card to the Raspberry Pi, do one final inspection to make sure everything looks right on the boot file system.
 
 ```
@@ -172,7 +172,7 @@ $ cat /mnt/cmdline.txt
 console=serial0,115200
 ```
 
-## Move the microSD to the Raspberry Pi
+## Moving the microSD to the Raspberry Pi
 Disconnect the microSD card from the development VM and eject from the development host before removing it.
 
 1. Unmount the microSD boot partition.
@@ -185,7 +185,7 @@ Disconnect the microSD card from the development VM and eject from the developme
 sudo umount /mnt
 ```
 
-## Boot the Raspberry Pi
+## Booting the Raspberry Pi
 Now comes the moment of truth. Will it boot?
 
 1. Attach the Pi UART GPIO pins to your USB-TTL serial cable (pins 6, 8, and 10, labeled GND, GPIO14, and GPIO15.)
