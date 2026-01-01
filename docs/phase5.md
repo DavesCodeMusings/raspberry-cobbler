@@ -22,7 +22,7 @@ iface lo inet loopback
 Now, we can bring the loopback interface up by running `ifup` with the interface name.
 
 ```
-ifup lo
+~ # ifup lo
 run-parts: /etc/network/if-pre-up.d: No such file or directory
 run-parts: /etc/network/if-up.d: No such file or directory
 ```
