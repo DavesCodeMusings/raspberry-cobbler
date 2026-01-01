@@ -84,7 +84,9 @@ We can create a simple _rcS_ that just echoes "Hello World!" to show us our syst
 
 ```
 cd /mnt/etc/init.d
-sudo install -m755 -o0 -g0 /dev/null rcS
+sudo touch rcS
+sudo chown 0:0 rcS
+sudo chmod 755 rcS
 sudo vi rcS
 ```
 
