@@ -39,6 +39,8 @@ Be sure to make it executable or you will be sad when it doesn't run.
 chmod +x /etc/network/if-up.d/inetd.sh
 ```
 
+> Using _start-stop-daemon_ ensures _inetd_ will only be started when it's not already running. This is important if you add a wireless or a second wired Ethernet adapter.
+
 ### Rebooting to test automatic _inetd_ start-up
 Issue the `reboot` command and wait for the Pi to come back up.
 
@@ -261,6 +263,8 @@ fi
 ```
 
 Adding this will cause _ntpd_ to start (at the same time _inetd_ starts) when the _eth0_ interface comes up. This means the Pi will have an accurate time as soon as the network connection is available.
+
+> _start-stop-daemon_ is used again, just like we did when starting _inetd_. But this time, there is a `-l` parameter passed to the process being started (_ntpd_). We need to add `--` before any parameters for _ntpd_ so _start-stop-daemon_ will pass them on instead of trying to interpret them. This would be equivalent to typing `ntpd -l` at the command prompt.
 
 ## Phase 6 review
 The Raspberry Pi OS is starting to feel less like a toy and more like a server. We can connect via SSH. We can serve files over HTTP and SFTP. We can even use NTP to answer the age old question posed by Flavor Flav on pretty much every Public Enemy track ever laid down... _Yo, Chuck! What time is it?_
