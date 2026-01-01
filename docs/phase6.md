@@ -28,8 +28,8 @@ Here's the script:
 ```
 ~ # cat /etc/network/if-up.d/inetd.sh
 #!/bin/sh
-if [ "$IFACE" == "eth0" ]; then
-  /usr/sbin/inetd
+if [ "$IFACE" != "lo" ]; then
+  start-stop-daemon -S -x /usr/sbin/inetd
 fi
 ```
 
@@ -247,13 +247,13 @@ We can't really rely on _inetd_ to start _ntpd_ for us. This is because _ntpd_ n
 
 To solve this, we'll copy the _/etc/network/if-up.d/inetd.sh_ file and modify it to start _ntpd_ as well. This will work, because every script in the _/etc/network/if-up.d/_ directory will be run when an interface comes up.
 
-Here's the new script:
+Here's the script:
 
 ```
 ~ # cat /etc/network/if-up.d/ntpd.sh
 #!/bin/sh
-if [ "$IFACE" == "eth0" ]; then
-  /usr/sbin/ntpd -l
+if [ "$IFACE" != "lo" ]; then
+  start-stop-daemon -S -x /usr/sbin/ntpd -- -l
 fi
 ```
 
