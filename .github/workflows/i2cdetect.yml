@@ -1,0 +1,43 @@
+name: i2cdetect arm64 build
+on:
+  workflow_dispatch:
+env:
+  DEST_DIR: /tmp/i2c-tools  # Location to install compiled binaries for packaging.
+  PKG_NAME: i2cdetect.arm64.tar.gz
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone --depth=1 git://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git
+      - name: Compiling...
+        run: |
+          cd ~/i2c-tools
+          make USE_STATIC_LIB=1 TOOLS_LDFLAGS=-static
+      - name: Installing...
+        run: |
+          cd ~/i2c-tools
+          strip ./tools/i2cdetect
+          sudo mkdir -p $DEST_DIR/sbin
+          sudo cp ./tools/i2cdetect $DEST_DIR/sbin
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/i2c-tools
+          sudo cp ~/i2c-tools/COPYING $DEST_DIR/usr/share/doc/i2c-tools
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME
+          git commit -am "Triggered binary build"
+          git push
