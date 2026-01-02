@@ -48,7 +48,7 @@ This is slightly different in that the _askfirst_ has been replaced with _respaw
 
 Try it out, and you should see something like what's shown below.
 
-> Before restarting, retest logging in via SSH. This will give you an alternate way to access the system in case of typos or other unforseen problems lock you out of the console.
+> Before restarting, ensure you can log in via SSH. This will give you an alternate way to access the system in case of typos or other unforseen problems locking you out of the console.
 
 ```
 (none) login: root
