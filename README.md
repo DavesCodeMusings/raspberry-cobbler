@@ -16,10 +16,10 @@ The guide will cover the steps for:
 The steps in the guide are not for the feint of heart. I assume you know a few things about Rasberry Pis, installing and running virtual machines, cloning from GitHub, using USB-to-serial devices, connecting GPIO pins, running commands on the Linux command-line, and so on. If you've done any programming with microcontrollers (Arduino or ESP32) and you're not afraid of _vi_, you'll probably have the right tools and skills.
 
 Here's what you'll need (and what I'm using in the examples):
-* An internet connected Ubuntu Linux host (VirtualBox virtual machine with Ubuntu 20.4 LTS Noble.)
-* A 64-bit Raspberry Pi (model 3B.)
-* A microSD card (32G SanDisk class 10.)
-* A USB to TTL serial cable (Adafruit 954.)
+* An internet connected Ubuntu Linux host (VirtualBox virtual machine with Ubuntu 20.4 LTS Noble)
+* A 64-bit Raspberry Pi (model 3B)
+* A microSD card (32G SanDisk class 10)
+* A USB to TTL serial cable (Adafruit 954)
 
 ## Ready to get started?
 As Matt Bellamy of Muse said right before launching into Starlight at the Tokyo Zepp concert in 2013...
