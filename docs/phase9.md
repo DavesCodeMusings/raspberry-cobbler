@@ -2,9 +2,26 @@
 
 **_This phase is incomplete_**
 
-## Controlling system start up and shutdown with inittab
+In the quest for something usable in each phase of the project, some details got glossed over.
 
-Lines in _/etc/inittab_ have the following format:
+## Controlling system start up and shutdown with inittab
+So far, system start-up and shut-down just seem to happen and are not well understood. We put things in _/etc/init.d/rcS_ and they run at boot time. When we shut down, file systems are magically unmounted with no effort from us.
+
+Most Linux systems use _systemd_ to control start-up and shutdown. BusyBox is minimalist and uses _init_ to handle these things. And _init_ is configured with a file called _/etc/inittab_. Everything that's happeneing on our system is because of how BusyBox behaves when _/etc/inittab_ is missing.
+
+In short, it runs _/etc/init.d/rcS_ at boot, then starts a shell on the console. When the system is shut down, it executes `unmount -a -r`.
+
+If there were an actual _/etc/inittab_, it would look something like this:
+
+```
+::sysinit:/etc/init.d/rcS
+::askfirst:/bin/sh
+::shutdown:/bin/umount -a -r
+```
+
+> There's a little more to it, but this is very close.
+
+Lines in _/etc/inittab_ have the following format for BusyBox:
 
 ```
 tty:runlevels:action:command
@@ -15,13 +32,82 @@ tty:runlevels:action:command
 * action is one of: sysinit, respawn, askfirst, wait, once, restart, ctrlaltdel, or shutdown.
 * command is a script or single command to be run.
 
-A sample initab is shown below.
+Using the example above, we can see _sysinit_ (start-up or boot) running _/etc/init.d/rcS_, so that's how things in _rcS_ get run at boot. We also see _shutdown_ and `/bin/umount -a -r` ensuring file systems are unmounted at shutdown.
+
+There's also _askfirst_ and `/bin/sh`. This line is the reason we see _Please press Enter to activate this console._ buried in our console messsages at boot.
+
+We can create our own _/etc/inittab_ using the example shown below.
 
 ```
 ::sysinit:/etc/init.d/rcS
 ::respawn:/sbin/getty -L ttyAMA0 115200 vt100
 ::shutdown:/bin/umount -a -r
 ```
+
+This is slightly different in that the _askfirst_ has been replaced with _respawn_, and _/bin/sh_ has been replaced by _/sbin/getty_. This will result in a more traditional looking login prompt when the system is restarted.
+
+Try it out, and you should see something like what's shown below.
+
+> Before restarting, retest logging in via SSH. This will give you an alternate way to access the system in case of typos or other unforseen problems lock you out of the console.
+
+```
+(none) login: root
+Password:
+~ #
+```
+
+## Setting the host name
+In the previous step, you should be able to sign in as root. But what's with the _(none)_ in the login prompt?
+
+This happens because there's no host name. To fix it, we need to create _/etc/hostname_ and then use it together with the `hostname` command in the system start-up script _rcS_
+
+Here's an example of /etc/hostname:
+
+```
+cobbler.home
+```
+
+It's only one line.  _cobbler_ is the host portion and _home_ is the domain.
+
+The snippet of _rcS_ below shows where the `hostname` command is inserted on line 4. This sets the host name using the contents of _/etc/hostname_
+
+```
+~ # cat -n /etc/init.d/rcS
+     1  #! /bin/sh
+     2
+     3  # Set system identity
+     4  /bin/hostname -F /etc/hostname
+     5
+     6  # Mount pseudo filesystems
+     7  /bin/mount -t proc proc /proc
+     8  /bin/mount -t sysfs sysfs /sys
+     9  /bin/mkdir /dev/pts
+    10  /bin/mount -t devpts devpts /dev/pts
+```
+
+Restart the system and the login prompt should now contain the host name instead of (none).
+
+```
+cobbler.home login: root
+Password:
+~ #
+```
+
+> You can use almost any name you want. But, if you plan to give your Pi access to the internet, be sure to choose a domain name that is not already in use. _.home_ is one such domain name reserved for private use.
+
+## Adding the Pi to /etc/hosts
+Now that the system has a host name, try pinging it using that name.
+
+> Spoiler: This will fail
+
+```
+~ # ping cobbler.home
+ping: bad address 'cobbler.home'
+```
+
+The ping command (and other network utilities) work with IP addresses. So their first task is to determine the IP address for our host. And we haven't set that up yet.
+
+To make the ping work, we need to have a way to resolve the name to an IP. The easy way is using _/etc/hosts_.
 
 ## Review
 This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot. It can be accessed by multiple different user accounts and uses a number of security best practices, like shadow passwords and strong encryption.
