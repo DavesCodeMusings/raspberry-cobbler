@@ -24,7 +24,7 @@ jobs:
         run: |
           cd ~/mc
           ./autogen.sh
-          ./configure --with-static-glib LDFLAGS=-static
+          ./configure --with-glib-static LDFLAGS=-static
       - name: Compiling...
         run: |
           cd ~/mc
@@ -35,7 +35,7 @@ jobs:
           ls src
           strip ./src/mc
           sudo mkdir -p $DEST_DIR/usr/bin
-          sudo cp ./src/fsck.fat $DEST_DIR/usr/bin
+          sudo cp ./src/mc $DEST_DIR/usr/bin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/mc
