@@ -32,7 +32,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/mc
-          ls src
+          ls -l src
           strip ./src/mc
           sudo mkdir -p $DEST_DIR/usr/bin
           sudo cp ./src/mc $DEST_DIR/usr/bin
