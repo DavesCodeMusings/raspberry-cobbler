@@ -2,7 +2,7 @@
 
 **_This phase may change as gaps are identified_**
 
-In the quest for something usable in each phase of the project, some details got glossed over.
+In the quest for something usable in each phase of the project, some details got glossed over. In this final phase, we'll address those shortcomings to make the system more robust.
 
 ## Controlling system start up and shutdown with inittab
 So far, system start-up and shut-down just seem to happen and are not well understood. We put things in _/etc/init.d/rcS_ and they run at boot time. When we shut down, file systems are magically unmounted with no effort from us.
