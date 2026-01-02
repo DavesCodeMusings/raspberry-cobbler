@@ -123,6 +123,4 @@ Remember /var/log is RAM-based, so everything gets wiped out with a reboot of th
 Nearly everything we did in this phase parallels something we've done before: mounting a tmpfs file system, starting system services, and using _rcS_ to handle things at start-up. A few short commands and now we can get log information from _/var/log/messages_.
 
 ## Next Steps
-This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot.
-
-I've put together some "side quest" documents that you can work through if you're interested. Otherwise, I'd love to read about your own project you've built. Use the Discussions topic for Show & Tell to give us the details.
+As we moved through the phases of the project, the focus has been on trying things and fixing what doesn't work. Because of this approach, we've got some gaps in the system. This is what we'll look at in the [next and final phase](phase9.md).
