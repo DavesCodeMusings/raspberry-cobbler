@@ -198,4 +198,4 @@ This account is not available
 We have created the /home directory needed for additional users and set up a non-root account we can use for SSH logins. We also created some non-interactive service accounts with the _nobody_ and _www-data_ users. Any additional users or system accounts can be created following one of these same procedures.
 
 ## Next steps
-Now that we have multiple ways to access the system, it might be nice to have a way to track what's going on. For that we can use syslog logging, and that's the [next phase](phase8.md) of the project.
+Now that we have multiple ways to access the system, it might be nice to have a way to keep track what's going on. For that we can use syslog logging, and that's the [next phase](phase8.md) of the project.
