@@ -11,9 +11,9 @@ So far, we've been using a shell on the console that BusyBox starts. We're not e
 ### Creating password and group files
 In the previous phase, we created a minimalist _/etc/passwd_ and _/etc/group_ to be able to test SSH logins. This approach worked, but has the disadvantage of not using the more secure _/etc/shadow_ for password storage.
 
-We'll wipe out the old information and create new empty files. Using tools like _adduser_ and _passwd_ will take care of adding the account information in the right places. But, we will need to set the permissions on _/etc/shadow_ so only _root_ can read it.
+We'll wipe out the old information and create new, empty files. Using tools like _adduser_ and _passwd_ will take care of adding the account information in the right places. But, we will need to set the permissions on _/etc/shadow_ so only _root_ can read it.
 
-The following commands create empty files.
+The following commands create the files.
 
 ```
 ~ # > /etc/passwd
