@@ -13,7 +13,7 @@ sudo apt-get install libncurses-dev bzip2 libssl-dev
 
 Now we're ready to build BusyBox.
 
-## First, fetch BusyBox source code
+## Fetching BusyBox source code
 The BusyBox project page has the source code we need. We'll clone their repository onto the development VM.
 
 ```
@@ -21,7 +21,7 @@ cd ~
 git clone https://git.BusyBox.net/BusyBox/ --depth=1
 ```
 
-## Then, configure BusyBox for arm aarch64
+## Configure BusyBox
 In this step we'll configure BusyBox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
 
 ```
