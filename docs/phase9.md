@@ -1,6 +1,6 @@
 # Filling in the Gaps
 
-**_This phase may change as gaps are identified_**
+**_This phase may change as more gaps are identified_**
 
 In the quest for something usable in each phase of the project, some details got glossed over. In this final phase, we'll address those shortcomings to make the system more robust.
 
@@ -61,7 +61,7 @@ In the previous step, you should be able to sign in as root. But what's with the
 
 This happens because there's no host name. To fix it, we need to create _/etc/hostname_ and then use it together with the `hostname` command in the system start-up script _rcS_
 
-Here's an example of /etc/hostname:
+Here's an example of _/etc/hostname_:
 
 ```
 cobbler.home
@@ -95,10 +95,10 @@ Password:
 
 > You can use almost any name you want. But, if you plan to give your Pi access to the internet, be sure to choose a domain name that is not already in use. _.home_ is one such domain name reserved for private use.
 
-## Adding the Pi to /etc/hosts
+## Adding the Pi to _/etc/hosts_
 Now that the system has a host name, try pinging it using that name.
 
-> Spoiler: This will fail
+> Spoiler: This will fail and it will take a bit of time to do so.
 
 ```
 ~ # ping cobbler.home
