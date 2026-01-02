@@ -107,7 +107,27 @@ ping: bad address 'cobbler.home'
 
 The ping command (and other network utilities) work with IP addresses. So their first task is to determine the IP address for our host. And we haven't set that up yet.
 
-To make the ping work, we need to have a way to resolve the name to an IP. The easy way is using _/etc/hosts_.
+To make the ping work, we need to have a way to resolve the name to an IP. The easy way is using _/etc/hosts_. Below is an example of everything configured and working.
+
+```
+~ # cat /etc/hosts
+192.168.3.100   cobbler.home    cobbler
+~ # ping cobbler.home
+PING cobbler.home (192.168.3.100): 56 data bytes
+64 bytes from 192.168.3.100: seq=0 ttl=64 time=0.202 ms
+^C
+```
+
+Your IP address and host name will be different, but the format is the same: _IP address_ (whitespace) _long host name_ (whitespace) _short host name_
+
+For consistency, it's good practice to also add localhost. A more complete example of _/etc/hosts_ is shown below.
+
+```
+127.0.0.1       localhost.localdomain   localhost
+192.168.3.100   cobbler.home            cobbler
+```
+
+You can add more entries for other hosts on your network, but keep in mind this is a static mapping, so DHCP assigned addresses will not be a good fit for _/etc/hosts_.
 
 ## Review
 This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot. It can be accessed by multiple different user accounts and uses a number of security best practices, like shadow passwords and strong encryption.
