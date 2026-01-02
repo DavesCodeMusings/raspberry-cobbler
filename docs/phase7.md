@@ -5,26 +5,48 @@ Taking a cue from mainstream Linux distributions like Raspberry Pi OS, we see th
 
 BusyBox doesn't provide _sudo_, but it does have _su_, which is close enough for our minimalist OS needs.
 
-## Setting up a place for home directories
-Users need a place to store their files. Most Linux distros use /home for this. We'll use it too.
+## Setting up the framework
+So far, we've been using a shell on the console that BusyBox starts. We're not even asked to log in. Because the system is so minimal, everything we expect on a typical Linux system (like _/etc/passwd_, _/etc/group_, and _/etc/shadow_) is missing.
+
+### Creating password and group files
+We can just create empty files and use tools like _adduser_ and _passwd_ to take care of adding the information in them. But, we do need to set the permissions on _/etc/shadow_ so only _root_ can read it.
+
+```
+~ # touch /etc/passwd
+~ # touch /etc/group
+~ # touch /etc/shadow
+~ # chmod 600 /etc/shadow
+```
+
+### Creating a place for home directories
+We also need a place for users to store their files. Most Linux distros use /home for this. We'll use it too.
 
 ```
 mkdir /home
 ```
 
-## Setting up a new user
-BusyBox gives us the `adduser` command for the task of setting up a new account. With no command-line options, it will do the following tasks for us:
+## Setting up the root user
+BusyBox gives us the `adduser` command for the task of setting up a new account. We can use command-line options to specify things like:
 
-* Add the user account to /etc/passwd
-* Add a group to /etc/group
-* Configure the account to use /bin/sh as a shell
-* Fill in _Linux User_ as the account's name
-* Prompt for an initial password
+* User ID
+* Common name
+* Home directory
+* Shell
 
-Most of the defaults are fine, but we can use the `-g` option to specify something other than "Linux User" for the name.
+The interaction used to set up root is shown below.
+
+```
+~ # adduser -u 0 -g SuperUser -h /root -s /bin/sh root
+Changing password for root
+New password:
+Retype password:
+passwd: password for root changed by root
+```
+
+Before moving on, you can verify by displaying the contents of _/etc/passwd_, _/etc/group_, and _/etc/shadow_.
 
 ### Adding an admin user
-The example below shows adding an _admin_ user to the system.
+The example below shows adding a non-privileged _admin_ user to the system.
 
 ```
 ~ # adduser -g 'Administrator' admin
@@ -34,22 +56,30 @@ Retype password:
 passwd: password for admin changed by root
 ```
 
+>  This generic account can be used later for the initial log in, with `su -` being used to elevate privileges when needed.
+
 ### Verifying what was changed
 This part is purely educational and you won't need to do it every time you set up a new account. 
 
+```
 ~ # grep admin /etc/passwd
-admin:********:1000:1000:Administrator:/home/admin:/bin/sh
+admin:x:1000:1000:Administrator:/home/admin:/bin/sh
 ~ # grep admin /etc/group
 admin:x:1000:
+~ # grep admin /etc/shadow
+admin:$6$****$********:1:0:99999:7:::
 ~ # ls -ld /home/admin
 drwxr-sr-x    2 admin    admin         4096 Jan  1 11:31 /home/admin
+```
 
-We can see the new user has an account in /etc/passwd, a group in /etc/group, and a home directory of /home/admin. These tasks will be done for us anytime we set up a new user account with `adduser`.
+We can see the new user has an account in _/etc/passwd_, a group in _/etc/group_, a password in _/etc/shadow_, and a home directory of _/home/admin_. These tasks will be done for us anytime we set up a new user account with `adduser`.
+
+> Note: The password and password salt have been replaced by asterisks.
 
 ## Testing SSH for the admin user
 The reason for creating another user was to have something besides _root_ for SSH logins, so let's make sure this new user can log in with SSH and start a superuser shell.
 
-> Spoiler: this will fail. We need to configure _/etc/mdev/conf_ to fix permissions on the _/dev/ptmx_ device node. Until then, only root can log in via SSH.
+> Spoiler: This will fail. We need to configure _/etc/mdev/conf_ to fix permissions on the _/dev/ptmx_ device node. Until then, only root can log in via SSH.
  
 ```
 PS> ssh 192.168.2.100
@@ -65,7 +95,7 @@ We're back to our old _PTY allocation request failed_ error. Didn't we fix this 
 Yes, but mdev broke it.
 
 ### What's wrong with mdev?
-When we added the line `/sbin/mdev -s` to _rcS_, we handed over management of /dev to mdev. This includes the permissions on the contents of /dev. The problem we're encountering is our non-root user account does not have permission to /dev/ptmx, but it should. mdev has set the permissions to a default state.
+When we added the line `/sbin/mdev -s` to _rcS_, we handed over management of _/dev_ to _mdev_. This includes the permissions on the contents of /dev. The problem we're encountering is our non-root user account does not have permission to _/dev/ptmx_, but it should. _mdev_ has set the permissions to a default state.
 
 When root was the only user on the system, the problem never surfaced, because root has access to everything.
 
@@ -90,7 +120,7 @@ Here's the new _/etc/mdev.conf_ with the permission fixes prepended. _ptmx_ is o
 Run the `mdev -s` command to update with the new configuration or restart the Pi.
 
 ## Re-testing SSH for the admin user
-We should be able to log in via SSH now as a non-root user.
+We should be able to log in via SSH now as a non-root user. Once logged in, try `su -` to elevate to root privileges.
 
 ## Disallowing root over SSH
 Now that we can log in as a non-root user, we can disable SSH for root. This is a fairly common security enhancement and allowing root logins over SSH is rare.
@@ -108,7 +138,7 @@ Since dropbear is controlled by _inetd_, we'll add the `-w` option there and tel
 ## Creating additional users
 You can create user accounts for other people the same way you created the _admin_ account. You'll need to be _root_ to do it.
 
-For example, starting as _admin_:
+For example, starting as _admin_ and elevating to _root_:
 
 ```
 ~ $ su -
@@ -117,11 +147,23 @@ Password:
 ```
 
 ## Creating service accounts
-There are also a number of user accounts reserved for system use. At a minimum, we'll create one for the "nobody" user with a UID of 65534. But, trying to run `adduser` for this UID results in an error _adduser: number 65534 is not in 0..60000_, so we'll have to append to the files directly. 
+There are also a number of user accounts reserved for system use. At a minimum, we'll create one for the "nobody" user with a UID of 65534.
+
+> Spoiler: This will fail
 
 ```
-~ # echo "nobody:x:65534:65534:Nobody::/usr/sbin/nologin" >> /etc/passwd
-~ # echo "nobody:x:65534:" >> /etc/group
+~ # adduser -u 65534 -g nobody -h /nonexistent -s /usr/sbin/nologin nobody
+adduser: number 65534 is not in 0..60000 range
+```
+
+`adduser` has a limit on what it considers valid user IDs, so we'll have to add _nobody_ and _nogroup_ to the files directly. 
+
+> Be sure to use the double greater-than (>>) to append or else you will be sad when your files get wiped out.
+
+```
+~ # echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
+~ # echo "nogroup:x:65534:" >> /etc/group
+~ # echo "nobody:*:1:0:99999:7:::" >> /etc/shadow
 ```
 
 The nobody account is an exception. Other service accounts can be created with _adduser_ almost like any other account. We'll just need to supply command-line options to override the default home directory and login shell.
@@ -129,7 +171,7 @@ The nobody account is an exception. Other service accounts can be created with _
 Run the command below to set up a _www-data_ user. Use built-in _adduser_ help to get an understanding of all the options used.
 
 ```
-~ # adduser -g 'Web Data' -D -h /srv/www -H -s /usr/sbin/nologin -u 33 www-data
+~ # adduser -g www-data -h /srv/www -H -s /usr/sbin/nologin -D -u 33 www-data
 ~ # adduser --help
 ```
 
