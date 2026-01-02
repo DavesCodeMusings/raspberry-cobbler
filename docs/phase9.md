@@ -1,6 +1,6 @@
 # Filling in the Gaps
 
-**_This phase is incomplete_**
+**_This phase may change as gaps are identified_**
 
 In the quest for something usable in each phase of the project, some details got glossed over.
 
