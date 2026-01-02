@@ -14,7 +14,7 @@ jobs:
       - name: Installing dependencies...
         run: |
           sudo apt-get update
-          sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev
+          sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev libssh2-1-dev
       - name: Cloning source...
         run: |
           cd ~
@@ -32,7 +32,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/mc
-          ls
+          ls src
       #     strip ./src/fsck.fat
       #     sudo mkdir -p $DEST_DIR/sbin
       #     sudo cp ./src/fsck.fat $DEST_DIR/sbin
