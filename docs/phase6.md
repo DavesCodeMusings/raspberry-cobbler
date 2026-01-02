@@ -2,7 +2,7 @@
 When you run Raspberry Pi OS, you can configure it to allow remote logins with Secure Shell. We can do that with this project, too. We'll take a cue from other minimalist Linux distributions and use [dropbear](https://en.wikipedia.org/wiki/Dropbear_(software)) as our SSH server.
 
 ## Dealing with hotplug
-Because our Raspberry Pi 3's Ethernet is configured automatically by _mdev_, we are faced with some unique challenges for network services. Namely, we can't just add lines to _/etc/init.d/rcS to start things, because as we saw with _ifup_, the _eth0_ interface isn't neccessarily going to be available. But there is a solution.
+Because our Raspberry Pi 3's Ethernet is configured automatically by _mdev_, we are faced with some unique challenges for network services. Namely, we can't just add lines to _/etc/init.d/rcS_ to start things, because as we saw with _ifup_, the _eth0_ interface isn't neccessarily going to be available. But there is a solution.
 
 We can handle this in two parts:
 1. Configure [_inetd_](https://en.wikipedia.org/wiki/Inetd) to start _dropbear_ for incoming ssh connections.
