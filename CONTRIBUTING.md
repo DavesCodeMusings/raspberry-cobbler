@@ -3,4 +3,4 @@ I have no plans to expand the scope of this project beyond building a very minim
 
 If you find something that's wrong or unclear, please open a [GitLab issue](https://github.com/DavesCodeMusings/raspberry-cobbler/issues). Be prepared to answer questions about your issue if clarification is needed.
 
-If you've build something using this guide as a base, post a bit about it under the Discussions [Show & Tell](https://github.com/DavesCodeMusings/raspberry-cobbler/discussions/categories/show-and-tell) topic.
+If you've built something using this guide as a base, post a bit about it under the Discussions [Show & Tell](https://github.com/DavesCodeMusings/raspberry-cobbler/discussions/categories/show-and-tell) topic.
