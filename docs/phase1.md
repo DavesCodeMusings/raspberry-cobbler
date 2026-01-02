@@ -211,13 +211,6 @@ Read File: fixup.dat, 7367 (bytes)
 
 Notice the green LED on the Pi is not lit.
 
-References:
-* https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence
-* https://www.raspberrypi.com/documentation/computers/config_txt.html
-* https://nayab.xyz/rpi3b-elinux/embedded-linux-rpi3-030-boot-process.html
-* https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
-* https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
-
 # Phase 1 review
 Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did get a fair bit accomplished. Let's look at what we learned.
 
@@ -231,3 +224,13 @@ Now that we can boot, we'll concentrate on getting a root file system for the ke
 To misquote Nancy Sinatra...
 
 _These boots are made for walkin'. And that's just what they'll do. One of these days these boots are gonna walk into [phase 2](phase2.md)_
+
+___
+
+References:
+* https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence
+* https://www.raspberrypi.com/documentation/computers/config_txt.html
+* https://nayab.xyz/rpi3b-elinux/embedded-linux-rpi3-030-boot-process.html
+* https://www.raspberrypi.com/documentation/computers/linux_kernel.html
+* https://www.rickcarlino.com/2021/build-a-raspbery-pi-linux-system-the-hard-way.html
+* https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart
