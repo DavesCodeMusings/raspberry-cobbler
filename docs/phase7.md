@@ -13,7 +13,7 @@ In the previous phase, we created a minimalist _/etc/passwd_ and _/etc/group_ to
 
 We'll wipe out the old information and create new, empty files. Using tools like _adduser_ and _passwd_ will take care of adding the account information in the right places. But, we will need to set the permissions on _/etc/shadow_ so only _root_ can read it.
 
-The following commands create the files.
+The following commands recreate the files and add shadow password storage.
 
 ```
 ~ # > /etc/passwd
