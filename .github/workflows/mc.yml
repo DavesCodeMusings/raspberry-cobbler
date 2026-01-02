@@ -24,7 +24,7 @@ jobs:
         run: |
           cd ~/mc
           ./autogen.sh
-          ./configure --with-glib-static LDFLAGS=-static
+          ./configure LDFLAGS=-static
       - name: Compiling...
         run: |
           cd ~/mc
