@@ -129,11 +129,21 @@ For consistency, it's good practice to also add localhost. A more complete examp
 
 You can add more entries for other hosts on your network, but keep in mind this is a static mapping, so DHCP assigned addresses will not be a good fit for _/etc/hosts_.
 
+## Identifying other known gaps
+There are more things that need attention. Some are listed below.
+
+* No terminfo data for terminal capabilities
+* No locale data for multiple language support
+* DNS names don't resolve to IP addresses
+* No clock for offline time keeping
+
+Most of these are addressed in "side quest" documents. The system will still function without these things being solved. But, it can always be improved.
+
 ## Review
 This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot. It can be accessed by multiple different user accounts and uses a number of security best practices, like shadow passwords and strong encryption.
 
 ## Next Steps
-I've put together some "side quest" documents that you can work through if you're interested. Otherwise, I'd love to read about your own project you've built with the minimalist Raspberry Pi as a starting point. Use the [Discussions](https://github.com/DavesCodeMusings/raspberry-cobbler/discussions) topic for _Show & Tell_ to give us the details.
+I'd love to read about your own project you've built with the minimalist Raspberry Pi as a starting point. Use the [Discussions](https://github.com/DavesCodeMusings/raspberry-cobbler/discussions) topic for _Show & Tell_ to give us the details.
 
 ___
 
