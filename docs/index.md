@@ -11,6 +11,7 @@ If you're new to all this, go through the project phases in order. They're struc
 * [Phase 6: Adding network services](phase6.md)
 * [Phase 7: Configuring multi-user access](phase7.md)
 * [Phase 8: Setting up system Logging](phase8.md)
+* [Phase 9: Filling in the gaps](phase9.md)
 
 # Side Quests
 
