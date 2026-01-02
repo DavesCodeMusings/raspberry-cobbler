@@ -28,7 +28,7 @@ jobs:
       - name: Compiling...
         run: |
           cd ~/mc
-          make
+          make LDFLAGS=-static
       - name: Installing...
         run: |
           cd ~/mc
