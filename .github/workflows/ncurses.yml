@@ -19,7 +19,8 @@ jobs:
       - name: Configuring...
         run: |
           cd ~/${PKG_NAME}
-          ./configure --prefix=/usr --with-shared --with-termlib
+          # --disable-widec gets us libraries like libtinfo.so.6 instead of libtinfow.so.6
+          ./configure --disable-widec --prefix=/usr --with-shared --with-termlib
       - name: Compiling...
         run: |
           cd ~/${PKG_NAME}
