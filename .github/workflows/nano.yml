@@ -39,7 +39,7 @@ jobs:
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/nano
-          sudo cp ~/nano/doc/COPYING $DEST_DIR/usr/share/doc/nano
+          sudo cp ~/nano/COPYING $DEST_DIR/usr/share/doc/nano
       - name: Packaging...
         run: |
           cd $DEST_DIR
