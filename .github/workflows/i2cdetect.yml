@@ -2,8 +2,8 @@ name: i2cdetect arm64 build
 on:
   workflow_dispatch:
 env:
-  DEST_DIR: /tmp/i2c-tools  # Location to install compiled binaries for packaging.
-  PKG_NAME: i2cdetect.arm64.tar.gz
+  PKG_NAME: i2cdetect
+  DEST_DIR: /tmp/i2c-tools
 permissions:
   contents: write
 jobs:
@@ -31,7 +31,7 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
       - name: Uploading artifact...
         uses: actions/upload-artifact@v4
         with:
