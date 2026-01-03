@@ -2,8 +2,8 @@ name: nano arm64 build
 on:
   workflow_dispatch:
 env:
-  DEST_DIR: /tmp/nano  # Location to install compiled binaries for packaging.
-  PKG_NAME: nano.arm64.tar.gz
+  PKG_NAME: nano
+  DEST_DIR: /tmp/${PKG_NAME}
 permissions:
   contents: write
 jobs:
@@ -18,37 +18,37 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone --depth=1 https://git.savannah.gnu.org/git/nano.git
+          git clone --depth=1 https://git.savannah.gnu.org/git/${PKG_NAME}.git
       - name: Configuring...
         # Configure for static linking.
         run: |
-          cd ~/nano
+          cd ~/${PKG_NAME}
           sed -i 's/--depth=[0-9]*/--depth=1/' autogen.sh
           ./autogen.sh
-          ./configure LDFLAGS=-static
+          ./configure
       - name: Compiling...
         run: |
-          cd ~/nano
+          cd ~/${PKG_NAME}
           make
       - name: Installing...
         run: |
-          cd ~/nano
+          cd ~/${PKG_NAME}
           strip ./src/nano
           sudo mkdir -p $DEST_DIR/usr/bin
           sudo cp ./src/nano $DEST_DIR/usr/bin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/nano
-          sudo cp ~/nano/COPYING $DEST_DIR/usr/share/doc/nano
+          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/nano
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+          tar -zcvf $GITHUB_WORKSPACE/${PKG_NAME}.arm64.tar.gz .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME
+          git add ${PKG_NAME}.arm64.tar.gz
           git commit -am "Triggered binary build"
           git push
