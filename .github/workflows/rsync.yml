@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rsync
-          path: $PKG_NAME
+          path: $GITHUB_WORKSPACE/$PKG_NAME
