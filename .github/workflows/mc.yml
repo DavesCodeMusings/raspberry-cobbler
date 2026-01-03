@@ -1,54 +1,56 @@
-name: mc (midnight commander) arm64 build
-on:
-  workflow_dispatch:
-env:
-  DEST_DIR: /tmp/mc  # Location to install compiled binaries for packaging.
-  PKG_NAME: mc.arm64.tar.gz
-permissions:
-  contents: write
-jobs:
-  report:
-    runs-on: ubuntu-24.04-arm
-    steps:
-      - uses: actions/checkout@v4
-      - name: Installing dependencies...
-        run: |
-          sudo apt-get update
-          sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev libssh2-1-dev libtool make
-      - name: Cloning source...
-        run: |
-          cd ~
-          git clone --depth=1 https://github.com/MidnightCommander/mc.git
-      - name: Configuring...
-        # Configure for static linking.
-        run: |
-          cd ~/mc
-          ./autogen.sh
-          ./configure LDFLAGS=-static
-      - name: Compiling...
-        run: |
-          cd ~/mc
-          make LDFLAGS=-static
-      - name: Installing...
-        run: |
-          cd ~/mc
-          ls -l src
-          strip ./src/mc
-          sudo mkdir -p $DEST_DIR/usr/bin
-          sudo cp ./src/mc $DEST_DIR/usr/bin
-      - name: Adding license...
-        run: |
-          sudo mkdir -p $DEST_DIR/usr/share/doc/mc
-          sudo cp ~/mc/doc/COPYING $DEST_DIR/usr/share/doc/mc
-      - name: Packaging...
-        run: |
-          cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
-      - name: Uploading...
-        run: |
-          cd $GITHUB_WORKSPACE
-          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
-          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME
-          git commit -am "Triggered binary build"
-          git push
+# Does not build a static binary
+
+# name: mc (midnight commander) arm64 build
+# on:
+#   workflow_dispatch:
+# env:
+#   DEST_DIR: /tmp/mc  # Location to install compiled binaries for packaging.
+#   PKG_NAME: mc.arm64.tar.gz
+# permissions:
+#   contents: write
+# jobs:
+#   report:
+#     runs-on: ubuntu-24.04-arm
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Installing dependencies...
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev libssh2-1-dev libtool make
+#       - name: Cloning source...
+#         run: |
+#           cd ~
+#           git clone --depth=1 https://github.com/MidnightCommander/mc.git
+#       - name: Configuring...
+#         # Configure for static linking.
+#         run: |
+#           cd ~/mc
+#           ./autogen.sh
+#           ./configure LDFLAGS=-static
+#       - name: Compiling...
+#         run: |
+#           cd ~/mc
+#           make LDFLAGS=-static
+#       - name: Installing...
+#         run: |
+#           cd ~/mc
+#           ls -l src
+#           strip ./src/mc
+#           sudo mkdir -p $DEST_DIR/usr/bin
+#           sudo cp ./src/mc $DEST_DIR/usr/bin
+#       - name: Adding license...
+#         run: |
+#           sudo mkdir -p $DEST_DIR/usr/share/doc/mc
+#           sudo cp ~/mc/doc/COPYING $DEST_DIR/usr/share/doc/mc
+#       - name: Packaging...
+#         run: |
+#           cd $DEST_DIR
+#           tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+#       - name: Uploading...
+#         run: |
+#           cd $GITHUB_WORKSPACE
+#           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+#           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+#           git add $PKG_NAME
+#           git commit -am "Triggered binary build"
+#           git push
