@@ -33,8 +33,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/build
-          make DESTDIR=$DEST_DIR
-          sudo mkdir -p $DEST_DIR/usr/bin install-strip
+          make DESTDIR=$DEST_DIR install-strip
       - name: Packaging...
         run: |
           cd $DEST_DIR
