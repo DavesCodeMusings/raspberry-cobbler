@@ -34,9 +34,7 @@ jobs:
         run: |
           cd ~/build
           make DESTDIR=$DEST_DIR install
-          strip $DEST_DIR/bin/*
-          strip $DEST_DIR/sbin/*
-          strip --strip-debug $DEST_DIR/lib64/*
+#          strip --strip-debug $DEST_DIR/lib64/*
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/glibc
