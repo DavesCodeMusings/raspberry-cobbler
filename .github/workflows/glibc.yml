@@ -25,7 +25,7 @@ jobs:
           cd ~
           mkdir build
           cd build
-          ../glibc-2.42/configure
+          ../glibc-2.42/configure --prefix=/usr --exec-prefix=/
       - name: Compiling...
         run: |
           cd ~/build
