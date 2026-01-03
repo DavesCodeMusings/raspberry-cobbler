@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rsync
-          path: "$GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz"
+          path: "${{ env.GITHUB_WORKSPACE }}/${{ env.PKG_NAME }}.arm64.tar.gz"
