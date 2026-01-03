@@ -52,7 +52,8 @@ jobs:
           git push
       - name: List...
         run: |
-          ls -l $GITHUB_WORKSPACE
+          echo "$GITHUB_WORKSPACE/$PKG_NAME"
+          ls -l $GITHUB_WORKSPACE/$PKG_NAME
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
         with:
