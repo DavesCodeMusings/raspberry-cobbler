@@ -36,8 +36,8 @@ jobs:
           make DESTDIR=$DEST_DIR install
           # strip $DEST_DIR/bin/*
           # strip $DEST_DIR/usr/bin/*
-          strip --strip-debug $DEST_DIR/lib/*
-          strip --strip-debug $DEST_DIR/usr/lib/*
+          # strip --strip-debug $DEST_DIR/lib/*
+          # strip --strip-debug $DEST_DIR/usr/lib/*
       - name: Packaging...
         run: |
           cd $DEST_DIR
