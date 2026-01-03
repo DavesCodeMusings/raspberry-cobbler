@@ -18,7 +18,7 @@ jobs:
       - name: Downloading source...
         run: |
           cd ~
-          wget https://ftp.gnu.org/gnu/glibc/glibc-2.42.tar.gz
+          wget --no-verbose https://ftp.gnu.org/gnu/glibc/glibc-2.42.tar.gz
           tar -zxf glibc-2.42.tar.gz
       - name: Configuring...
         run: |
@@ -33,7 +33,11 @@ jobs:
       - name: Installing...
         run: |
           cd ~/build
-          make DESTDIR=$DEST_DIR install-strip
+          make DESTDIR=$DEST_DIR install
+          # strip $DEST_DIR/bin/*
+          # strip $DEST_DIR/usr/bin/*
+          strip --strip-debug $DEST_DIR/lib/*
+          strip --strip-debug $DEST_DIR/usr/lib/*
       - name: Packaging...
         run: |
           cd $DEST_DIR
