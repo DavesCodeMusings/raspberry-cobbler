@@ -31,8 +31,9 @@ jobs:
           make
       - name: Installing...
         run: |
+          mkdir -p $DEST_DIR
           cd ~/${PKG_NAME}
-          make DESTDIR=$DEST_DIR install-strip
+          make DESTDIR=$DEST_DIR install
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/nano
