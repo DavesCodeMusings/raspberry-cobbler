@@ -2,8 +2,8 @@ name: glibc arm64 build
 on:
   workflow_dispatch:
 env:
-  DEST_DIR: /tmp/glibc  # Location to install compiled binaries for packaging.
-  PKG_NAME: glibc-2.42.arm64.tar.gz
+  PKG_NAME: glibc-2.42
+  DEST_DIR: /tmp/${PKG_NAME}
 permissions:
   contents: write
 jobs:
@@ -18,14 +18,14 @@ jobs:
       - name: Downloading source...
         run: |
           cd ~
-          wget --no-verbose https://ftp.gnu.org/gnu/glibc/glibc-2.42.tar.gz
-          tar -zxf glibc-2.42.tar.gz
+          wget --no-verbose https://ftp.gnu.org/gnu/glibc/${PKG_NAME}.tar.gz
+          tar -zxf ${PKG_NAME}.tar.gz
       - name: Configuring...
         run: |
           cd ~
           mkdir build
           cd build
-          ../glibc-2.42/configure --prefix=/usr --exec-prefix=/
+          ../${PKG_NAME}/configure --prefix=/usr --exec-prefix=/
       - name: Compiling...
         run: |
           cd ~/build
@@ -34,20 +34,19 @@ jobs:
         run: |
           cd ~/build
           make DESTDIR=$DEST_DIR install
-#          strip --strip-debug $DEST_DIR/lib64/*
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/glibc
-          sudo cp ~/glibc-2.42/COPYING* $DEST_DIR/usr/share/doc/glibc
+          sudo cp ~/${PKG_NAME}/COPYING* $DEST_DIR/usr/share/doc/glibc
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME
+          git add $PKG_NAME.arm64.tar.gz
           git commit -am "Triggered binary build"
           git push
