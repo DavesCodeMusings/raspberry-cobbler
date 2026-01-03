@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   PKG_NAME: ncurses-6.6
-  DEST_DIR: /tmp/${PKG_NAME}
+  DEST_DIR: /tmp/ncurses
 permissions:
   contents: write
 jobs:
