@@ -50,3 +50,8 @@ jobs:
           git add $PKG_NAME
           git commit -am "Triggered binary build"
           git push
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rsync
+          path: $PKG_NAME
