@@ -1,0 +1,45 @@
+name: ncurses arm64 build
+on:
+  workflow_dispatch:
+env:
+  PKG_NAME: bash
+  DEST_DIR: /tmp/${PKG_NAME}
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Downloading source...
+        run: |
+          cd ~
+          git clone --depth=1 https://git.savannah.gnu.org/git/bash.git
+      - name: Configuring...
+        run: |
+          cd ~/${PKG_NAME}
+          ./configure --prefix=/usr --with-curses
+      - name: Compiling...
+        run: |
+          cd ~/${PKG_NAME}
+          make
+      - name: Installing...
+        run: |
+          cd ~/${PKG_NAME}
+          make DESTDIR=$DEST_DIR install-strip
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/bash
+          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/bash
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
+      - name: Uploading...
+        run: |
+          cd $GITHUB_WORKSPACE
+          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
+          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
+          git add $PKG_NAME.arm64.tar.gz
+          git commit -am "Triggered binary build"
+          git push
