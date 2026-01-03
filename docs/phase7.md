@@ -1,4 +1,4 @@
-# Configuring multi-user access
+# Configuring Multi-User Access
 So far, the system boots to a shell prompt with root user privileges. It's a serial based console, so as long as you can maintain physical security, it's not a major concern. But now that we've added access over the network with SSH, it's time to re-examine our approach.
 
 Taking a cue from mainstream Linux distributions like Raspberry Pi OS, we see that at least one non-root user is required when the system is set up. This is the account used for logging into the system. Any administrative tasks are done using _sudo_.
