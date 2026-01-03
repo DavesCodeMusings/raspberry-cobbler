@@ -1,4 +1,4 @@
-name: glibc arm64 build
+name: ncurses arm64 build
 on:
   workflow_dispatch:
 env:
@@ -31,7 +31,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/ncurses-6.6
-          make DESTDIR=$DEST_DIR install-strip
+          make DESTDIR=$DEST_DIR install
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/ncurses
