@@ -2,8 +2,8 @@ name: hostapd arm64 build
 on:
   workflow_dispatch:
 env:
-  DEST_DIR: /tmp/hostapd  # Location to install compiled binaries for packaging.
   PKG_NAME: hostapd
+  DEST_DIR: /tmp/hostapd
 permissions:
   contents: write
 jobs:
@@ -33,14 +33,14 @@ jobs:
           make LDFLAGS=-static
       - name: Installing...
         run: |
-          cd ~/${PKG_NAME}/hostapd
+          cd ~/hostap/hostapd
           strip hostapd
           sudo mkdir -p $DEST_DIR/usr/sbin
           sudo cp hostapd $DEST_DIR/usr/sbin
       - name: Adding license...
         run: |
-          sudo mkdir -p $DEST_DIR/usr/share/doc/${PKG_NAME}
-          sudo cp ~/hostap/COPYING $DEST_DIR/usr/share/doc/${PKG_NAME}
+          sudo mkdir -p $DEST_DIR/usr/share/doc/hostap
+          sudo cp ~/hostap/COPYING $DEST_DIR/usr/share/doc/hostap
       - name: Packaging...
         run: |
           cd $DEST_DIR
