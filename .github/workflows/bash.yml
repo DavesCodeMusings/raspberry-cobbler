@@ -1,4 +1,4 @@
-name: ncurses arm64 build
+name: bash arm64 build
 on:
   workflow_dispatch:
 env:
