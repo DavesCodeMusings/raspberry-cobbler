@@ -14,7 +14,7 @@ jobs:
       - name: Installing dependencies...
         run: |
           sudo apt-get update
-          sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev libssh2-1-dev
+          sudo apt-get install autoconf autopoint gettext libglib2.0-dev libslang2-dev libssh2-1-dev libtool
       - name: Cloning source...
         run: |
           cd ~
