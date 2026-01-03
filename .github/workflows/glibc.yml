@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   PKG_NAME: glibc-2.42
-  DEST_DIR: /tmp/${PKG_NAME}
+  DEST_DIR: /tmp/glibc
 permissions:
   contents: write
 jobs:
