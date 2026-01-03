@@ -2,8 +2,8 @@ name: ncurses arm64 build
 on:
   workflow_dispatch:
 env:
-  DEST_DIR: /tmp/ncurses  # Location to install compiled binaries for packaging.
-  PKG_NAME: ncurses-6.6.arm64.tar.gz
+  PKG_NAME: ncurses-6.6
+  DEST_DIR: /tmp/${PKG_NAME}
 permissions:
   contents: write
 jobs:
@@ -11,40 +11,36 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
-      - name: Installing dependencies...
-        run: |
-          # sudo apt-get update
-          # sudo apt-get install bison make texinfo
       - name: Downloading source...
         run: |
           cd ~
-          wget --no-verbose https://ftp.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz
-          tar -zxf ncurses-6.6.tar.gz
+          wget --no-verbose https://ftp.gnu.org/gnu/ncurses/${PKG_NAME}.tar.gz
+          tar -zxf ${PKG_NAME}.tar.gz
       - name: Configuring...
         run: |
-          cd ~/ncurses-6.6
+          cd ~/${PKG_NAME}
           ./configure --prefix=/usr --with-shared --with-termlib
       - name: Compiling...
         run: |
-          cd ~/ncurses-6.6
+          cd ~/${PKG_NAME}
           make
       - name: Installing...
         run: |
-          cd ~/ncurses-6.6
+          cd ~/${PKG_NAME}
           make DESTDIR=$DEST_DIR install
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/ncurses
-          sudo cp ~/ncurses-6.6/COPYING* $DEST_DIR/usr/share/doc/ncurses
+          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/ncurses
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME .
+          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME
+          git add $PKG_NAME.arm64.tar.gz
           git commit -am "Triggered binary build"
           git push
