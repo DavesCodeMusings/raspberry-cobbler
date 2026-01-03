@@ -20,12 +20,11 @@ jobs:
           cd ~
           git clone --depth=1 https://git.savannah.gnu.org/git/${PKG_NAME}.git
       - name: Configuring...
-        # Configure for static linking.
         run: |
           cd ~/${PKG_NAME}
           sed -i 's/--depth=[0-9]*/--depth=1/' autogen.sh
           ./autogen.sh
-          ./configure
+          ./configure --prefix=/usr
       - name: Compiling...
         run: |
           cd ~/${PKG_NAME}
@@ -33,9 +32,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/${PKG_NAME}
-          strip ./src/nano
-          sudo mkdir -p $DEST_DIR/usr/bin
-          sudo cp ./src/nano $DEST_DIR/usr/bin
+          make DESTDIR=$DEST_DIR install-strip
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/nano
