@@ -10,7 +10,6 @@ jobs:
   report:
     runs-on: ubuntu-24.04-arm
     steps:
-      - uses: actions/checkout@v4
       - name: Installing dependencies...
         run: |
           sudo apt-get update
@@ -42,11 +41,8 @@ jobs:
         run: |
           cd $DEST_DIR
           tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
-      - name: Uploading...
-        run: |
-          cd $GITHUB_WORKSPACE
-          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
-          git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME.arm64.tar.gz
-          git commit -am "Triggered binary build"
-          git push
+      - name: Uploading artifact...
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.PKG_NAME }}"
+          path: "${{ env.PKG_NAME }}.arm64.tar.gz"
