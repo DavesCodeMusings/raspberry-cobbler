@@ -23,7 +23,6 @@ jobs:
         # Configure for static linking.
         run: |
           cd ~/nano
-          sed -i 's/--depth=[0-9]*/--depth=1/' autogen.sh
           ./autogen.sh
           ./configure LDFLAGS=-static
       - name: Compiling...
