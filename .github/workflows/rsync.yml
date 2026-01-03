@@ -50,6 +50,9 @@ jobs:
           git add $PKG_NAME
           git commit -am "Triggered binary build"
           git push
+      - name: List...
+        run: |
+          ls -l $GITHUB_WORKSPACE
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
         with:
