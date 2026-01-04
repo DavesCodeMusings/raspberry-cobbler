@@ -78,7 +78,7 @@ All this can be done with the following commands:
 ```
 
 ## Testing SSH connections
-> Spoiler: this is going to fail. Multiple times. It's structured to be a step-by-step learning experience. But for the impatient, we're missing the _/etc/passwd_ file and _devpts_ mounted on the _/dev/pts_directory. You'll need both those for SSH to work.
+> Spoiler: This is going to fail. Multiple times. It's structured to be a step-by-step learning experience. But for the impatient, we're missing the _/etc/passwd_ file and _devpts_ mounted on the _/dev/pts_directory. You'll need both those for SSH to work.
 
 Try an SSH connection from the development host connected to the same network as the Pi. (Substitue an IP address appropriate for your network and ping first to check connectivity.)
 
@@ -134,8 +134,8 @@ The PTY allocation that failed in the connection test is because the device node
 It only takes two commands.
 
 ```
-/bin/mkdir /dev/pts
-/bin/mount -t devpts devpts /dev/pts
+~ # /bin/mkdir /dev/pts
+~ # /bin/mount -t devpts devpts /dev/pts
 ```
 
 Add these commands to _/etc/init.d/rcS_, right after the lines that mount _/proc_ and _/sys_, and we'll never have to think about it again.
