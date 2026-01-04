@@ -20,3 +20,10 @@ cobbler:~# cat /etc/ld.so.conf
 
 cobbler:/# ldconfig
 ```
+
+## Test the new shell
+
+```
+cobbler:~# bash
+cobbler:~#
+```
