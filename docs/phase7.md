@@ -89,8 +89,8 @@ The reason for creating another user was to have something besides _root_ for SS
 > Spoiler: This will fail. We need to configure _/etc/mdev/conf_ to fix permissions on the _/dev/ptmx_ device node. Until then, only root can log in via SSH.
  
 ```
-PS> ssh 192.168.2.100
-admin@192.168.2.100's password:
+PS> ssh 192.168.1.100
+admin@192.168.1.100's password:
 ~ $ su -
 Password:
 PTY allocation request failed on channel 0
