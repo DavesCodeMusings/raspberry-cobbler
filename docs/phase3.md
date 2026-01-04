@@ -21,7 +21,7 @@ cd ~
 git clone https://git.BusyBox.net/BusyBox/ --depth=1
 ```
 
-## Configure BusyBox
+## Configure BusyBox features
 In this step we'll configure BusyBox for the Raspberry Pi's CPU architecture and also disable one of the utilities that causes compiler errors with newer versions of the Linux kernel.
 
 ```
@@ -32,11 +32,11 @@ sudo make menuconfig
 Using default settings is mostly fine, but be sure to configure for static linking and cross-compiling as shown below.
 
 From the _Settings_ submenu selection, scroll down to the _--- Build Options_ heading, and configure the following options as shown:
-* [*] Build static binary (no shared libs)
-* (aarch64-linux-gnu-) Cross compiler prefix
+* _[*] Build static binary (no shared libs)_
+* _(aarch64-linux-gnu-) Cross compiler prefix_
 
 Still in the _Settings_ submenu, scroll further to find the _--- Installation Options_ heading and configure the _Destination path_
-* (/mnt) Destination path for 'make install'
+* _(/mnt) Destination path for 'make install'_
 
 Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the _Networking Utilities_ submenu. From there, find and disable _tc_ as a bug workaround.
 * _[ ] tc (8.3 kb)_
@@ -95,13 +95,13 @@ Add the line: `echo "Hello World!"` to _rcS_ then save.
 ## Edit cmdline.txt on the boot partition to add the root file system
 The _cmdline.txt_ file we created earlier informed the kernal about the serial console. Now we need to tell the kernel about the root file system we want to use.
 
-1. Mount the boot filesystem with the command `sudo mount /dev/sdb1 /mnt/boot`
-2. Edit _cmdline.txt_ with `sudo vi /mnt/boot/cmdline.txt`
+1. Mount the boot filesystem on _/mnt/boot_
+2. Edit _cmdline.txt_
 3. After _console=serial0,115200_, add a space and append `root=/dev/mmcblk0p2 rootfstype=ext4 rootwait`
 
-The file contents should now look like this:
-
 ```
+you@Ubuntu:~$ sudo mount /dev/sdb1 /mnt/boot
+you@Ubuntu:~$ sudo vi /mnt/boot/cmdline.txt
 console=serial0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
 ```
 
@@ -109,7 +109,7 @@ console=serial0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
 Review the process for detaching the microSD from the Ubuntu virtual machine and the host operating system to ensure there is no risk of data corruption.
 
 1. Unmount any microSD file systems on the Ubuntu virtual machine (/mnt/boot and /mnt).
-2. Ensure the microSD has been properly disconnected and ejected (_Devices > USB_).
+2. Ensure the microSD has been properly disconnected from the VM (_Devices > USB_) and ejected from the development host.
 2. Transfer the microSD to the Raspberry Pi.
 3. Start up PuTTY and connect to the USB-serial adapter COM port.
 4. Apply power to the Pi.
