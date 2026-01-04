@@ -1,0 +1,43 @@
+name: ncurses arm64 build
+on:
+  workflow_dispatch:
+env:
+  PKG_NAME: ncurses-6.6
+  DEST_DIR: /tmp/ncurses
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Downloading source...
+        run: |
+          cd ~
+          wget --no-verbose https://ftp.gnu.org/gnu/ncurses/${PKG_NAME}.tar.gz
+          tar -zxf ${PKG_NAME}.tar.gz
+      - name: Configuring...
+        run: |
+          cd ~/${PKG_NAME}
+          # --disable-widec gets us libraries like libtinfo.so.6 instead of libtinfow.so.6
+          ./configure --prefix=/usr --enable-symlinks --with-fallbacks=vt100 --with-shared --with-termlib --with-versioned-syms --without-debug 
+      - name: Compiling...
+        run: |
+          cd ~/${PKG_NAME}
+          make
+      - name: Installing...
+        run: |
+          cd ~/${PKG_NAME}
+          make DESTDIR=$DEST_DIR install
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/ncurses
+          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/ncurses
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -zcvf $GITHUB_WORKSPACE/${PKG_NAME}w.arm64.tar.gz .
+      - name: Uploading artifact...
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.PKG_NAME }}w"
+          path: "${{ env.PKG_NAME }}w.arm64.tar.gz"
