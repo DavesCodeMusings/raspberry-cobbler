@@ -176,7 +176,7 @@ Try SSH once more from the devlopment host and this time, you should see a shell
 PS> ssh root@192.168.1.100
 root@192.168.2.100's password:
 Failed chdir '/root': No such file or directory
-~ #
+/ #
 ```
 
 We got a warning about the missing _/root_ home directory, but at least we're in.
@@ -201,9 +201,17 @@ Here's an example of setting up _inetd_ to launch a web server on the unencrypte
 80      stream  tcp     nowait  root    /usr/sbin/httpd         httpd -i -h /srv/www
 ```
 
+We'll need to add a temporary test file.
+
 ```
-mkdir -p /srv/files
-echo "Testing 1 2 3" > /srv/www/test.txt
+~ # mkdir -p /srv/www
+~ # echo "Testing 1 2 3" > /srv/www/index.html
+```
+
+We also need to tell _inetd_ to re-read its configuration.
+
+```
+~ # killall -HUP inetd
 ```
 
 Now, point a web browser to the Pi (or use wget) at http://192.168.1.100/test.txt
