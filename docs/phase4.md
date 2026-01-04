@@ -139,7 +139,7 @@ If the manual checking and mounting was successful, add the commands to rcS to e
 /bin/mount -t vfat /dev/mmcblk0p1 /boot
 ```
 
-> Note: we're using the full path to the _fsck_ and _mount_ commands. This is a good practice for startup scripts.
+> Note: We're using the full path to the _fsck_ and _mount_ commands. This is a good practice for startup scripts.
 
 ### Rebooting as a final test
 The reboot command and resulting output is shown below.
