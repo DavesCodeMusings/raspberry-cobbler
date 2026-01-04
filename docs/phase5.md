@@ -173,6 +173,8 @@ iface eth0 inet static
     gateway 192.168.1.1
 ```
 
+> Spoiler: This is not the final version of _/etc/network/interfaces_. The line _auto eth0_ will need fixing.
+
 Next, bring up the interface and check its status. This is similar to the way we brought up the loopback previously.
 
 ```
