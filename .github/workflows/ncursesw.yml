@@ -19,7 +19,7 @@ jobs:
         run: |
           cd ~/${PKG_NAME}
           # --disable-widec gets us libraries like libtinfo.so.6 instead of libtinfow.so.6
-          ./configure --prefix=/usr --enable-symlinks --with-fallbacks=vt100 --with-shared --with-termlib --with-versioned-syms --without-debug 
+          ./configure --prefix=/usr --enable-symlinks --enable-widec --with-fallbacks=vt100 --with-shared --with-termlib --with-versioned-syms --without-debug 
       - name: Compiling...
         run: |
           cd ~/${PKG_NAME}
@@ -35,9 +35,10 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/${PKG_NAME}w.arm64.tar.gz .
+          # The "w" is to differentiate this "wide" character set package from the non-wide package.
+          tar -cvf $GITHUB_WORKSPACE/${PKG_NAME}w.arm64.tar .
       - name: Uploading artifact...
         uses: actions/upload-artifact@v4
         with:
           name: "${{ env.PKG_NAME }}w"
-          path: "${{ env.PKG_NAME }}w.arm64.tar.gz"
+          path: "${{ env.PKG_NAME }}w.arm64.tar"
