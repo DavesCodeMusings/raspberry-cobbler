@@ -132,6 +132,39 @@ For consistency, it's good practice to also add localhost. A more complete examp
 
 You can add more entries for other hosts on your network, but keep in mind this is a static mapping, so DHCP assigned addresses will not be a good fit for _/etc/hosts_.
 
+## Adding kernel modules for future hardware needs
+This part is optional, but there are a few side quests that need kernel modules to support their hardware. Doing this now makes configuring WiFi or adding a real-time clock module a little faster.
+
+### Check the kernel version and shutting down the Pi
+We could use SFTP to copy the modules, but there are quite a few. Powering down and moving the microSD to the Ubuntu development VM is worth the effort in this case.
+
+Be sure to note which version of the kernel is running on the Pi before shutting down. This can be done with _uname_.
+
+```
+~ # uname -r
+6.12.62-v8+
+~ # poweroff
+```
+
+### Move the microSD to the development VM and temporarily mount its file systems.
+Follow the same procedure as before to make the microSD available to the development VM, then mount the file systems in the correct order.
+
+```
+you@Ubuntu:~$ sudo mount /dev/sdb2 /mnt
+you@Ubuntu:~$ sudo mount /dev/sdb1 /mnt/boot
+```
+
+### Copy kernel modules
+Using the kernel version number given by the previous `uname -r`, we can limit our copying to just the modules applicable to our particular Raspberry Pi.
+
+```
+you@Ubuntu:~$ sudo mkdir -p /mnt/lib/modules
+you@Ubuntu:~$ sudo cp -R ~/firmware/modules/6.12.62-v8+ /mnt/lib/modules
+```
+
+### Unmount and boot the Pi
+Use the same procedure as in previous phases to move the microSD card back to the Pi and start it up.
+
 ## Identifying other known gaps
 There are more things that need attention. Some are listed below.
 
