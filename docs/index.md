@@ -13,13 +13,13 @@ If you're new to all this, go through the project phases in order. They're struc
 * [Phase 8: Setting up system Logging](phase8.md)
 * [Phase 9: Filling in the gaps](phase9.md)
 
-# Side Quests
-
-* [tmux terminal multiplexer](tmux-side-quest.md)
-* [USB-attached mass storage](usb-storage-side-quest.md)
-* [iotop storage monitoring](iotop-side-quest.md)
-* [WiFi networking](wifi-side-quest.md)
-
 # Just the Essentials
 
 * [TL;DR](tl-dr.md)
+
+# Side Quests
+
+* [tmux terminal multiplexer](side-quests/tmux.md)
+* [USB-attached mass storage](side-quests/usb-storage.md)
+* [iotop storage monitoring](side-quests/iotop.md)
+* [WiFi networking](side-quests/wifi.md)
