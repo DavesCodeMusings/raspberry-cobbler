@@ -210,7 +210,7 @@ Read File: fixup.dat, 7367 (bytes)
 Notice the green LED on the Pi is not lit.
 
 ## Phase 1 review
-Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did get a fair bit accomplished. Let's look at what we learned.
+Though the result of _Unable to mount root fs_ is somewhat anticlimactic, we did get a fair bit accomplished. Let's look at what we learned:
 
 * How to create partitions and file systems for the Raspberry Pi microSD card.
 * Which files are required for the boot loader and kernel when booting the Raspberry Pi.
