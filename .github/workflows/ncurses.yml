@@ -19,7 +19,7 @@ jobs:
         run: |
           cd ~/${PKG_NAME}
           # --disable-widec gets us libraries like libtinfo.so.6 instead of libtinfow.so.6
-          ./configure --disable-widec --prefix=/usr --with-shared --with-termlib
+          ./configure --prefix=/usr --disable-widec --enable-symlinks --with-fallbacks=vt100 --with-shared --with-termlib --with-versioned-syms --without-debug 
       - name: Compiling...
         run: |
           cd ~/${PKG_NAME}
