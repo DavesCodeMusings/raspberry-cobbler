@@ -114,10 +114,10 @@ To make the ping work, we need to have a way to resolve the name to an IP. The e
 
 ```
 ~ # cat /etc/hosts
-192.168.3.100   cobbler.home    cobbler
+192.168.1.100   cobbler.home    cobbler
 ~ # ping cobbler.home
-PING cobbler.home (192.168.3.100): 56 data bytes
-64 bytes from 192.168.3.100: seq=0 ttl=64 time=0.202 ms
+PING cobbler.home (192.168.1.100): 56 data bytes
+64 bytes from 192.168.1.100: seq=0 ttl=64 time=0.202 ms
 ^C
 ```
 
