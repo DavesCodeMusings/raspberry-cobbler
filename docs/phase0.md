@@ -60,7 +60,7 @@ Here's how to do it in VirtualBox:
 You can verify success by logging into the Ubuntu virtual machine and running `sudo dmesg`. Look at the last few lines to find the device name for the microSD card. It will most likely be _sdb_ (SCSI Disk B).
 
 ## Phase 0 review
-We haven't started building the Pi operating system yet, but we've created an important tool with the development VM.
+We haven't started building the Pi operating system yet, but we've created an important tool with the development VM. We also learned how to make the microSD card available to the VM. This will be used often in the upcoming phases for copying files.
 
 ## Next steps
 With the Ubuntu development VM ready, we can get to building the Pi OS.
