@@ -152,13 +152,13 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
      6  /bin/mkdir /dev/pts
      7  /bin/mount -t devpts devpts /dev/pts
      8
-     9  # Mount temporary filesystems
-    10  /bin/mount -t tmpfs run /run
-    11  /bin/mount -t tmpfs tmp /tmp
+     9  # Start device manager
+    10  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    11  /sbin/mdev -s
     12
-    13  # Start device manager
-    14  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    15  /sbin/mdev -s
+    13  # Mount temporary filesystems
+    14  /bin/mount -t tmpfs run /run
+    15  /bin/mount -t tmpfs tmp /tmp
     16
     17  # Check and mount root and boot
     18  /sbin/fsck.ext4 -p /dev/mmcblk0p2
