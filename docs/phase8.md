@@ -73,24 +73,24 @@ You can start them manually now, or just add them to _rcS_ and restart the syste
      6  /bin/mkdir /dev/pts
      7  /bin/mount -t devpts devpts /dev/pts
      8
-     9  # Mount temporary filesystems
-    10  /bin/mount -t tmpfs run /run
-    11  /bin/mount -t tmpfs tmp /tmp
-    12  /bin/mount -t tmpfs log /var/log
-    13
-    14  # Start logging
-    15  /sbin/start-stop-daemon -S -x /sbin/syslogd
-    16  /sbin/start-stop-daemon -S -x /sbin/klogd
+     9  # Start device manager
+    10  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    11  /sbin/mdev -s
+    12
+    13  # Mount temporary filesystems
+    14  /bin/mount -t tmpfs run /run
+    15  /bin/mount -t tmpfs tmp /tmp
+    16  /bin/mount -t tmpfs log /var/log
     17
-    18  # Check and mount root and boot
-    19  /sbin/fsck.ext4 -p /dev/mmcblk0p2
-    20  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
-    21  /sbin/fsck.fat -a /dev/mmcblk0p1
-    22  /bin/mount -t vfat /dev/mmcblk0p1 /boot
-    23
-    24  # Start device manager
-    25  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    26  mdev -s
+    18  # Start logging
+    19  /sbin/start-stop-daemon -S -x /sbin/syslogd
+    20  /sbin/start-stop-daemon -S -x /sbin/klogd
+    21
+    22  # Check and mount root and boot
+    23  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    24  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    25  /sbin/fsck.fat -a /dev/mmcblk0p1
+    26  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     27
     28  # Bring up loopback interface
     29  /sbin/ifup lo
