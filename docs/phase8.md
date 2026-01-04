@@ -119,6 +119,30 @@ Do that right after boot, and you'll see messages from the kernel along with an 
 
 Remember /var/log is RAM-based, so everything gets wiped out with a reboot of the system.
 
+## Quieting the console
+We can calm the number of messages sent to the console by using the file _/proc/sys/kernel/printk_
+
+Reading from the file will tell us the current configuration.
+
+```
+~ # cat /proc/sys/kernel/printk
+7       4       1       7
+```
+
+The first number is the current level. 7 is debug, which means a lot of messages will flood the console.
+
+Writing to the file will set the desired log level.
+
+```
+~ # echo 3 > /proc/sys/kernel/printk
+~ # cat /proc/sys/kernel/printk
+3       4       1       7
+```
+
+The effect is immediate.
+
+We can use this in _rcS_, right after _klogd_ is started, to send most messages to _/var/log/messsages_ rather than to the console.
+
 ## Phase 8 review
 Nearly everything we did in this phase parallels something we've done before: mounting a tmpfs file system, starting system services, and using _rcS_ to handle things at start-up. A few short commands and now we can get log information from _/var/log/messages_.
 
