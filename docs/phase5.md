@@ -191,7 +191,7 @@ Next, bring up the interface and check its status. This is similar to the way we
 > The _Link is Down_ and _NO-CARRIER_ messages are because I've unplugged the network cable.
 
 ### Dealing with USB attached Ethernet
-At this point, you may be tempted to rely on the `ifup -a` in _rcS_ and call it done. But this won't work. You'll see an error in the boot messages, like the one shown below.
+At this point, you may be tempted to rely on the `ifup -a` in _rcS_ to configure _eth0_ and call it done. But this won't work. You'll see an error in the boot messages, like the one shown below.
 
 ```
 ip: can't find device 'eth0'
@@ -199,11 +199,11 @@ ip: SIOCGIFFLAGS: No such device
 ip: can't find device 'eth0'
 ```
 
-This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the device hasn't been detected and configured by the time we're trying to configure it. We have to wait until _eth0_ is available. But how?
+This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the hardware hasn't been detected by the time we're trying to configure it. We have to wait until _eth0_ is available. But how?
 
 A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an _mdev_ action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
 
-## Configuring eth0 for hotplug
+## Configuring _eth0_ for hotplug
 In _/etc/network/interfaces_, find the line `auto eth0` and replace _auto_ with _hotplug_. It should now look like the line below.
 
 ```
