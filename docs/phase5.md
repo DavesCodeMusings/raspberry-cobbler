@@ -228,7 +228,7 @@ eth[0-9]+       0:0     0       @/sbin/ifup $MDEV
 
 The _eth[0-9]+_ is a regular expression that will match any device like _eth0_, _eth1_, etc. This match is what triggers the rule. The _0:0_ is the user ID and group ID, and the next _0_ is the permissions (in octal.) Neither of these things matter, because _eth0_ is not a device node under /dev. What does matter is the _@/sbin/ifup $MDEV_ action.
 
-mdev's actions are what let up run the _ifup_ command when the Ethernet interface is detected by the kernel. The _$MDEV_ used at the end is just the device name that caused the rule to match. In this case, _$MDEV = "eth0"_, so our action command becomes: _/sbin/ifup eth0_, just what we need to configure and bring up the interface.
+mdev's actions are what let us run the _ifup_ command when the Ethernet interface is detected by the kernel. The _$MDEV_ used at the end is just the device name that caused the rule to match. In this case, _$MDEV = "eth0"_, so our action command becomes: _/sbin/ifup eth0_, just what we need to configure and bring up the interface.
 
 > Using the regular expression _eth[0-9]+_ for the rule ensures any hotplugged Ethernet adapters can be configured and brought up. So adding a USB to Ethernet dongle later won't result in extra time spent troubleshooting.
 
