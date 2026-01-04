@@ -82,3 +82,6 @@ It will need to go after the _/sys_ file system is mounted, because we need to w
 
 ## Testing with a reboot
 I was expecting to need a `hwclock -s` somewhere in _rcS_, but interestingly the time remains correct without it.
+
+## Next steps
+It would be nice to use the RTC module as a poor man's network time server, but unfortunately I'm not able to get the BusyBox ntpd to start listening (at least it's not showing up in `netstat -tln` output. I think this is due to it not being able to sync to an upstream peer, because the Pi is not internet connected.
