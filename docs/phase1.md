@@ -108,7 +108,7 @@ uart_2ndstage=1
 init_uart_baud=115200
 ```
 
-If you're using a newer model Pi, adjust the device_tree entry to match your system.
+> If you're using a newer model Pi, adjust the device_tree entry to match your system.
 
 ## Copying the device tree file for your Pi to the microSD card
 The example above references the device_tree file _bcm2710-rpi-3-b.dtb_ for Raspberry Pi 3B. If you're using a newer model Pi, you'll need to copy the file you specified in _config.txt_ 
@@ -177,15 +177,11 @@ console=serial0,115200
 ## Moving the microSD to the Raspberry Pi
 Disconnect the microSD card from the development VM and eject from the development host before removing it.
 
-1. Unmount the microSD boot partition.
+1. Unmount the microSD boot partition with `sudo umount /mnt`
 2. Disconnect the microSD from the Ubuntu virtual machine (_Devices > USB_ if using VirtualBox.)
 3. Eject the microSD card from the development host operating system.
 4. Ensure the Raspberry Pi is disconnected from power.
 5. Insert the microSD card into the Pi.
-
-```
-sudo umount /mnt
-```
 
 ## Booting the Raspberry Pi
 Now comes the moment of truth. Will it boot?
