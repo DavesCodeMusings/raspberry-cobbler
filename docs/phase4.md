@@ -4,8 +4,8 @@ If you're comfortable using _vi_ as an editor, you can remount the root file sys
 Add the file system mounts to _/etc/init.d/rcS_
 
 ```
-mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
-vi /etc/init.d/rcS
+~ # mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+~ # vi /etc/init.d/rcS
 ```
 
 Remove the `echo "Hello World!" line and make the file contents match what's shown below.
@@ -18,7 +18,7 @@ mount -t sysfs sysfs /sys
 Reboot the Raspberry Pi to test. The command is shown below.
 
 ```
-reboot
+~ # reboot
 ```
 
 When the Pi comes back up, take a moment to repeat the _mount_ command to verify it works and shows what file systems are currently available on the Pi. Notice root is read-only again.
