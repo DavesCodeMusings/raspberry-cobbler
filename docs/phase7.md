@@ -102,7 +102,7 @@ We're back to our old _PTY allocation request failed_ error. Didn't we fix this 
 Yes, but mdev broke it.
 
 ### What's wrong with mdev?
-When we added the line `/sbin/mdev -s` to _rcS_, we handed over management of _/dev_ to _mdev_. This includes the permissions on the contents of /dev. The problem we're encountering is our non-root user account does not have permission to _/dev/ptmx_, but it should. _mdev_ has set the permissions to a default state.
+When we added the line `/sbin/mdev -s` to _rcS_, we handed over management of _/dev_ permissions to _mdev_. This includes the permissions on  _/dev/ptmx_. Our admin account doesn't have access, but it should. _mdev_ has set the permissions to a default state.
 
 When root was the only user on the system, the problem never surfaced, because root has access to everything.
 
