@@ -65,3 +65,8 @@ With the Ubuntu development VM ready, we can get to building the Pi OS.
 To quote Dave Grohl of the Foo Fighters on the song All My Life...
 
 _Done! Done! And I'm on to [the next one!](phase1.md)_
+
+___
+
+References:
+* https://www.virtualbox.org/manual/
