@@ -1,7 +1,10 @@
 # Adding Network Services
 When you run Raspberry Pi OS, you can configure it to allow remote logins with Secure Shell. We can do that with this project, too. We'll take a cue from other minimalist Linux distributions and use [dropbear](https://en.wikipedia.org/wiki/Dropbear_(software)) as our SSH server.
 
-## Dealing with hotplug
+## Build and install Dropbear
+TODO
+
+## Dealing with hotplug (again!)
 Because our Raspberry Pi 3's Ethernet is configured automatically by _mdev_, we are faced with some unique challenges for network services. Namely, we can't just add lines to _/etc/init.d/rcS_ to start things, because as we saw with _ifup_, the _eth0_ interface isn't neccessarily going to be available. But there is a solution.
 
 We can handle this in two parts:
@@ -67,11 +70,11 @@ Before dropbear is ready to accept SSH connections, it needs to be configured wi
 All this can be done with the following commands:
 
 ```
-mkdir /etc/dropbear
-cd /etc/dropbear
-dropbearkey -t rsa -f dropbear_rsa_host_key
-dropbearkey -t ecdsa -f dropbear_ecdsa_host_key
-dropbearkey -t ed25519 -f dropbear_ed25519_host_key
+~ # mkdir /etc/dropbear
+~ # cd /etc/dropbear
+~ # dropbearkey -t rsa -f dropbear_rsa_host_key
+~ # dropbearkey -t ecdsa -f dropbear_ecdsa_host_key
+~ # dropbearkey -t ed25519 -f dropbear_ed25519_host_key
 ```
 
 ## Testing SSH connections
