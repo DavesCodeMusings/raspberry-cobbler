@@ -12,14 +12,14 @@ One way around this is to use the RAM-based _tmpfs_ file system like we used for
 The traditional place for Linux systems to store logs is _/var/log/messages_. We'll create the log directory with a _tmpfs_ mount.
 
 ```
-mkdir /var/log
-/bin/mount -t tmpfs log /var/log
+~ # mkdir /var/log
+~ # /bin/mount -t tmpfs log /var/log
 ```
 
 Check that everything looks good using the `mount` command with no parameters. Anong the other file systems, you should see /var/log.
 
 ```
-~ # mount
+~ # mount | grep log
 log on /var/log type tmpfs (rw,relatime)
 ```
 
@@ -40,15 +40,15 @@ To make sure this happens every time the system starts, add the lines to _/etc/i
     11  /bin/mount -t tmpfs tmp /tmp
     12  /bin/mount -t tmpfs log /var/log
     13
-    14  # Check and mount root and boot
-    15  /sbin/fsck.ext4 -p /dev/mmcblk0p2
-    16  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
-    17  /sbin/fsck.fat -a /dev/mmcblk0p1
-    18  /bin/mount -t vfat /dev/mmcblk0p1 /boot
-    19
-    20  # Start device manager
-    21  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    22  mdev -s
+    14  # Start device manager
+    15  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    16  /sbin/mdev -s
+    17
+    18  # Check and mount root and boot
+    19  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    20  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    21  /sbin/fsck.fat -a /dev/mmcblk0p1
+    22  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     23
     24  # Bring up loopback interface
     25  /sbin/ifup lo
