@@ -64,7 +64,7 @@ The commands below will copy the files down and show what's available for bootin
 
 ```
 cd ~
-git clone https://github.com/raspberrypi/firmware.git --depth=1
+git clone --depth=1 https://github.com/raspberrypi/firmware.git
 cd ~/firmware/boot
 ls
 ```
