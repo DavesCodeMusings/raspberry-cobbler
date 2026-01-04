@@ -273,7 +273,9 @@ if [ "$IFACE" != "lo" ]; then
 fi
 ```
 
-Adding this will cause _ntpd_ to start (at the same time _inetd_ starts) when the _eth0_ interface comes up. This means the Pi will have an accurate time as soon as the network connection is available.
+> Be sure to use `chmod +x /etc/network/if-up.d/ntpd.sh` or you will be sad when it doesn't run.
+
+Adding this script will cause _ntpd_ to start (at the same time _inetd_ starts) when the _eth0_ interface comes up. This means the Pi will have an accurate time as soon as the network connection is available.
 
 > _start-stop-daemon_ is used again, just like we did when starting _inetd_. But this time, there is a `-l` parameter passed to the process being started (_ntpd_). We need to add `--` before any parameters for _ntpd_ so _start-stop-daemon_ will pass them on instead of trying to interpret them. This would be equivalent to typing `ntpd -l` at the command prompt.
 
