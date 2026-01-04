@@ -1,7 +1,7 @@
 # I2C Real-Time Clock Side Quest
 If your Pi is not attached to the internet for NTP time syncing, you might get tired of constantly seeing Jan 1, 1970. Fortunately, this can be remedied with an inexpensive real-time clock module.
 
-The instructions here assume a DS3231, attached to the I2C bus on GPIO2 (header pin 3) for data and GPIO3 (header pin 5) for clock. The module I purchased has a 5-pin socket that fits over GPIO pins 1, 3, 5, 7, and 9 for 3.3V, SDA, SCL, (unused), and GND.
+The instructions here assume a DS3231 (DS1307 compatible) clock module, attached to the I2C bus on GPIO2 (header pin 3) for data and GPIO3 (header pin 5) for clock. The module I purchased has a 5-pin socket that fits over GPIO pins 1, 3, 5, 7, and 9 for 3.3V, SDA, SCL, (unused), and GND.
 
 There are many different device configurations out there, so be sure to check the wiring twice.
 
