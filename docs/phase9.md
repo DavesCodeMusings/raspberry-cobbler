@@ -39,6 +39,7 @@ There's also _askfirst_ and `/bin/sh`. This line is the reason we see _Please pr
 We can create our own _/etc/inittab_ using the example shown below.
 
 ```
+~ # cat /etc/inittab
 ::sysinit:/etc/init.d/rcS
 ::respawn:/sbin/getty -L ttyAMA0 115200 vt100
 ::shutdown:/bin/umount -a -r
