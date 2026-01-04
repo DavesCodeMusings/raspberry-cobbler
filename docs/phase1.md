@@ -8,7 +8,7 @@ All the microSD card preparation is performed on the Ubuntu development VM.
 > Warning: Following these steps will destroy all data on the microSD card. For best results use a new, name-brand microSD.
 
 ## Connecting the microSD to the virtual machine
-Review the instructions in the previous section for attaching the microSD to the virtual machine and verifying it's avaialble for use by Ubuntu.
+Review the instructions in the previous phase for attaching the microSD to the virtual machine and verifying it's avaialble for use by Ubuntu.
 
 Further verification can be done with the command `sudo fdisk -l`. Look for output similar to what's shown below.
 
@@ -22,13 +22,13 @@ Disklabel type: dos
 Disk identifier: 0x59c31a57
 
 Device     Boot Start      End  Sectors  Size Id Type
-/dev/sdb1        2048 62332927 62330880 29.7G  c W95 FAT32 (LBA)
+/dev/sdb1        8192 62333951 62325760 29.7G  c W95 FAT32 (LBA)
 ```
 
 The fdisk output above confirms /dev/sdb contains a single FAT32 formatted partition slightly smaller than the advertised capacity of 32G.
 
 ## Preparing the microSD boot media
-Before transferring the files to the Pi's microSD card, we'll want to partition the storage space between the boot files and the system (root) files to be installed later.
+Before transferring files to the Pi's microSD card, we'll want to partition the storage space between the boot files and the system (root) files to be installed later.
 
 ### First, partition the microSD card
 
@@ -40,6 +40,8 @@ Before transferring the files to the Pi's microSD card, we'll want to partition 
 6. Choose a _primary_ partition.
 7. Select _Write_ and type "yes" to confirm.
 8. Quit cfdisk.
+
+> You may see some additional _Free space_ at the beginning of the microSD. This is used to align partitions and can be ignored. The free space we're interested in is the larger 29G atthe end.
 
 ### Then, write filesystems on the new partitions
 The first small partition (512M) will be FAT32. This will hold the boot files. The second, larger partition will be formatted as ext4 to use later as the root file system.
@@ -228,6 +230,7 @@ _These boots are made for walkin'. And that's just what they'll do. One of these
 ___
 
 References:
+* https://forums.raspberrypi.com/viewtopic.php?t=11258
 * https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence
 * https://www.raspberrypi.com/documentation/computers/config_txt.html
 * https://nayab.xyz/rpi3b-elinux/embedded-linux-rpi3-030-boot-process.html
