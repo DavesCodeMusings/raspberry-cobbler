@@ -156,15 +156,15 @@ Here's _rcS_ with the new commands on lines 6 and 7. [_Yeah, 6-7_](https://en.wi
     10  /bin/mount -t tmpfs run /run
     11  /bin/mount -t tmpfs tmp /tmp
     12
-    13  # Check and mount root and boot
-    14  /sbin/fsck.ext4 -p /dev/mmcblk0p2
-    15  /bin/mount -t ext4 -o remount,rw,noatime /dev/mmcblk0p2 /
-    16  /sbin/fsck.fat -a /dev/mmcblk0p1
-    17  /bin/mount -t vfat -o noatime /dev/mmcblk0p1 /boot
-    18
-    19  # Start device manager
-    20  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    21  mdev -s
+    13  # Start device manager
+    14  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    15  /sbin/mdev -s
+    16
+    17  # Check and mount root and boot
+    18  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    19  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    20  /sbin/fsck.fat -a /dev/mmcblk0p1
+    21  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     22
     23  # Bring up loopback interface
     24  /sbin/ifup lo
