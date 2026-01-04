@@ -223,7 +223,7 @@ mdev's actions are what let up run the _ifup_ command when the Ethernet interfac
 > Using the regular expression _eth[0-9]+_ for the rule ensures any hotplugged Ethernet adapters can be configured and brought up. So adding a USB to Ethernet dongle later won't result in extra time spent troubleshooting.
 
 ### Running mdev hotplug at boot
-To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin/mdev" > /proc/sys/kernel/hotplug_) to our _rcS_ file. We'll slip it in just before the loopback interface is configured (lines 11 through 13.)
+To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin/mdev" > /proc/sys/kernel/hotplug_) to our _rcS_ file. We'll slip it in just before the loopback interface is configured (lines 7 through 9.)
 
 ```
 ~ # cat -n /etc/init.d/rcS
