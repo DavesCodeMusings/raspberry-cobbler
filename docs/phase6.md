@@ -214,7 +214,7 @@ We also need to tell _inetd_ to re-read its configuration.
 ~ # killall -HUP inetd
 ```
 
-Now, point a web browser to the Pi (or use wget) at http://192.168.1.100/test.txt
+Now, point a web browser to the Pi (or use wget) at http://192.168.1.100/
 
 You should see the message: _Testing 1 2 3_
 
