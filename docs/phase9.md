@@ -50,8 +50,8 @@ This is slightly different in that the _askfirst_ has been replaced with _respaw
 Try it out, and you should see something like what's shown below.
 
 > Before restarting, check the following to avoid getting locked out:
-> * Check that _/dev/ttyAMA0_ exists. If it does not, _getty_ will fail.
-> * Ensure you can log in via SSH and elevate to root with `su -`
+> * Ensure _/dev/ttyAMA0_ exists. If it does not, _getty_ will fail.
+> * Verify logging in via SSH and elevating to root with `su -`
 
 ```
 (none) login: root
