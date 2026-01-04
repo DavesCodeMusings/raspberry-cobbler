@@ -68,8 +68,8 @@ rcS should look like this now (with lines 13 & 14 added):
     10  /sbin/fsck.fat -a /dev/mmcblk0p1
     11  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     12
-    13  # Bring up loopback interface
-    14  /sbin/ifup lo
+    13  # Bring up network interfaces
+    14  /sbin/ifup -a
 ```
 
 A restart the Pi will ensure everything is working as expected.
@@ -130,8 +130,8 @@ Let's take a look at _/etc/init.d/rcS_ with the new mount (on line 8):
     13  /sbin/fsck.fat -a /dev/mmcblk0p1
     14  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     15
-    16  # Bring up loopback interface
-    17  /sbin/ifup lo
+    16  # Bring up network interfaces
+    17  /sbin/ifup -a
 ```
 
 Don't forget to clean up the stale data in _/run_ before restarting.
@@ -202,13 +202,22 @@ This happens because the Pi 3 Ethernet adapter is connected via the USB bus and 
 
 A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an _mdev_ action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
 
+## Configuring eth0 for hotplug
+In _/etc/network/interfaces_, find the line `auto eth0` and replace _auto_ with _hotplug_. It should now look like the line below.
+
+```
+allow-hotplug eth0
+```
+
+What this does is to tell _ifup_ to skip the interface when `ifup -a` is run, because hotplug will take care of it. This will make more sense as we move on.
+
 ## Using mdev as a hotplug device manager
 BusyBox includes the _mdev_ utility for handling hotplug devices. And there's a really good [article over at codelucky.com](https://codelucky.com/mdev-command-linux/) that details how to configure it.
 
 In brief, we'll be creating a configuration file that instructs _mdev_ to bring up our Ethernet interface when it's detected, and telling the kernel to use _mdev_ as it's hotplug device manager.
 
-### Configuring eth0 for hotplug
-Here it is:
+### Configuring mdev for hotplug _eth0_
+It's one line (minus the comments.) Here it is:
 
 ```
 ~ # cat /etc/mdev.conf
@@ -247,11 +256,11 @@ To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin
     18  /sbin/fsck.fat -a /dev/mmcblk0p1
     19  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     20
-    21  # Bring up loopback interface
-    22  /sbin/ifup lo
+    21  # Bring up network interfaces
+    22  /sbin/ifup -a
 ```
 
-> We want to configure hotplug early on in the boot process so as not to risk missing any hardware change events. File system checks can take a bit of time, so definitely before any _fsck_ commands.
+> We want to configure hotplug early on in the boot process, so as not to risk missing any hardware change events. File system checks can take a bit of time, so definitely before any _fsck_ commands. But we're writing to a file under _/proc_, so after that pseudo file system's mounted.
 
 ### Restarting to test
 Reboot the Pi one more time just to make sure everything comes up as expected.
@@ -285,5 +294,6 @@ ___
 
 References:
 * https://manpages.ubuntu.com/manpages/noble/man5/interfaces.5.html
+* https://unix.stackexchange.com/questions/641228/etc-network-interfaces-difference-between-auto-and-allow-hotplug
 * https://manpages.ubuntu.com/manpages/noble/man5/ifstate.5.html
 * https://codelucky.com/mdev-command-linux/
