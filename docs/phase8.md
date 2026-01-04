@@ -35,14 +35,14 @@ To make sure this happens every time the system starts, add the lines to _/etc/i
      6  /bin/mkdir /dev/pts
      7  /bin/mount -t devpts devpts /dev/pts
      8
-     9  # Mount temporary filesystems
-    10  /bin/mount -t tmpfs run /run
-    11  /bin/mount -t tmpfs tmp /tmp
-    12  /bin/mount -t tmpfs log /var/log
-    13
-    14  # Start device manager
-    15  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    16  /sbin/mdev -s
+     9  # Start device manager
+    10  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    11  /sbin/mdev -s
+    12
+    13  # Mount temporary filesystems
+    14  /bin/mount -t tmpfs run /run
+    15  /bin/mount -t tmpfs tmp /tmp
+    16  /bin/mount -t tmpfs log /var/log
     17
     18  # Check and mount root and boot
     19  /sbin/fsck.ext4 -p /dev/mmcblk0p2
@@ -54,7 +54,7 @@ To make sure this happens every time the system starts, add the lines to _/etc/i
     25  /sbin/ifup lo
 ```
 
-Line 12 shows mounting a RAM-based file system on /var/log.
+Line 16 shows mounting a RAM-based file system on /var/log.
 
 > If you decide permanent log storage is more important than microSD lifespan, simply skip the step for mounting a tmpfs filesystem on /var/log.
 
@@ -96,7 +96,7 @@ You can start them manually now, or just add them to _rcS_ and restart the syste
     29  /sbin/ifup lo
 ```
 
-Lines 15 and 16 show syslogd and klogd being started.
+Lines 19 and 20 show syslogd and klogd being started.
 
 ## Verifying setup
 Whether you started the services manually or if you rebooted, the effect should be the same. /var/log should be mounted, _syslogd_ and _klogd_ should be running, and there should be a _/var/log/messages_ file.
