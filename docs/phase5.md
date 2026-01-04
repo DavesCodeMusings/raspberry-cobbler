@@ -6,8 +6,8 @@ We can start by skimming the [manual page for the configuration file /etc/networ
 Next, we'll want to create the _interfaces_ file.
 
 ```
-mkdir /etc/network
-touch /etc/network/interfaces
+~ # mkdir /etc/network
+~ # touch /etc/network/interfaces
 ```
 
 ## Configuring loopback
@@ -41,18 +41,18 @@ Notice there were some errors reported by the command, but the loopback is confi
 We can fix the previous errors by creating additional directories used by _ifup_ and _ifdown_
 
 ```
-mkdir /etc/network/if-pre-up.d
-mkdir /etc/network/if-up.d
-mkdir /etc/network/if-post-up.d
-mkdir /etc/network/if-pre-down.d
-mkdir /etc/network/if-down.d
-mkdir /etc/network/if-post-down.d
+~ # mkdir /etc/network/if-pre-up.d
+~ # mkdir /etc/network/if-up.d
+~ # mkdir /etc/network/if-post-up.d
+~ # mkdir /etc/network/if-pre-down.d
+~ # mkdir /etc/network/if-down.d
+~ # mkdir /etc/network/if-post-down.d
 ```
 
 ## Bringing loopback up at system start
-Finally, we can edit /etc/init.d/rcS to bring the loopback interface up when the system boots.
+Finally, we can edit _/etc/init.d/rcS_ to bring the loopback interface up when the system boots.
 
-rcS should look like this now:
+rcS should look like this now (with lines 13 & 14 added):
 
 ```
 ~ # cat -n /etc/init.d/rcS
@@ -74,7 +74,7 @@ rcS should look like this now:
 
 A restart the Pi will ensure everything is working as expected.
 
-> Spoiler: this isn't going to work as expected.
+> Spoiler: This isn't going to work as expected.
 
 ## Dealing with stale state data
 When the system comes back, checking the loopback interface shows it's not configured.
@@ -97,21 +97,21 @@ ifup: interface lo already configured
 
 It's not configured, but it thinks it's configured.
 
-The culprit is _/run/ifstate_, a file that holds the state of the network interfaces. Run `cat /run/ifstate` and you'll see it shows the _lo_ interface is configured. That's because it has stale information from before the last reboot.
+The culprit is the file _/run/ifstate_ that holds the state of the network interfaces. Run `cat /run/ifstate` and you'll see it shows the _lo_ interface is configured. That's because it has stale information from before the last reboot.
 
-We can fix this by cleaning up /run after the system starts, but before the interface is brought up.
+We can fix this by cleaning up _/run_ after the system starts, but before the interface is brought up.
 
-Or, better yet, we can make /run clean itself up. And this can be done by mounting a temporary file system for /run. It's similar to the way we mounted /proc and /sys earlier.
+Or, better yet, we can make _/run_ clean itself up. And this can be done by mounting a temporary file system for _/run_. It's similar to the way we mounted _/proc_ and _/sys_ earlier.
 
-But to complicate things, there are files already in /run (ifstate and utmp).
+But to complicate things, there are files already in _/run_ (ifstate and utmp).
 
 We can use the following steps to take care of things:
 
-1. Configure rcS to mount a tmpfs file system on /run.
-2. Clean out the existing /run.
+1. Configure _rcS_ to mount a tmpfs file system on _/run_.
+2. Clean out the existing _/run_.
 3. Restart the Pi.
 
-Let's take a look at /etc/init.d/rcS with the new mount (on line 8):
+Let's take a look at _/etc/init.d/rcS_ with the new mount (on line 8):
 
 ```
 ~ # cat -n /etc/init.d/rcS
