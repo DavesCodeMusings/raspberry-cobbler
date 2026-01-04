@@ -233,13 +233,13 @@ To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin
      4  /bin/mount -t proc proc /proc
      5  /bin/mount -t sysfs sysfs /sys
      6
-     7  # Mount temporary filesystems
-     8  /bin/mount -t tmpfs run /run
-     9  /bin/mount -t tmpfs tmp /tmp
+     7  # Start device manager
+     8  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+     9  /sbin/mdev -s
     10
-    11  # Start device manager
-    12  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    13  /sbin/mdev -s
+    11  # Mount temporary filesystems
+    12  /bin/mount -t tmpfs run /run
+    13  /bin/mount -t tmpfs tmp /tmp
     14
     15  # Check and mount root and boot
     16  /sbin/fsck.ext4 -p /dev/mmcblk0p2
