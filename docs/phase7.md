@@ -170,7 +170,7 @@ adduser: number 65534 is not in 0..60000 range
 ```
 ~ # echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
 ~ # echo "nogroup:x:65534:" >> /etc/group
-~ # echo "nobody:*:1:0:99999:7:::" >> /etc/shadow
+~ # echo "nobody:!:1:0:99999:7:::" >> /etc/shadow
 ```
 
 The nobody account is an exception. Other service accounts can be created with _adduser_ almost like any other account. We'll just need to supply command-line options to override the default home directory and login shell.
