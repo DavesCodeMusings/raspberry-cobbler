@@ -134,6 +134,13 @@ Let's take a look at _/etc/init.d/rcS_ with the new mount (on line 8):
     17  /sbin/ifup lo
 ```
 
+Don't forget to clean up the stale data in _/run_ before restarting.
+
+```
+~ # rm /run/*
+~ # reboot
+```
+
 ## Verifying loopback configuration after restart
 When the system's back up, we can check for success by examining the file system and interface status after the restart.
 
@@ -153,7 +160,7 @@ Now that the loopback is all set up, Ethernet is next. Loopback was easy. Ethern
 
 For now, we'll configure an Ethernet adapter that can be brought up manually.
 
-First, edit _/etc/network/interfaces_ and add a static IP address configuration for eth0. What's shown below is an example of a typical home network configuration. You'll want to adjust the address, netmask, and gateway parameter values for your setup. (Or don't plug the Pi's RJ45 jack into your network switch yet and it won't matter.)
+First, edit _/etc/network/interfaces_ and add a static IP address configuration for _eth0_. What's shown below is an example of a typical home network configuration. You'll want to adjust the address, netmask, and gateway parameter values for your setup. (Or don't plug the Pi's RJ45 jack into your network switch yet and it won't matter.)
 
 ```
 auto lo
@@ -191,12 +198,12 @@ ip: SIOCGIFFLAGS: No such device
 ip: can't find device 'eth0'
 ```
 
-This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the device hasn't been detected and configured by the time we're trying to configure it. We have to wait until eth0 is available. But how?
+This happens because the Pi 3 Ethernet adapter is connected via the USB bus and the device hasn't been detected and configured by the time we're trying to configure it. We have to wait until _eth0_ is available. But how?
 
-A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an mdev action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
+A _sleep 1 (or 2 or 3)_ might work, but it's clumsy. Another method is to use an _mdev_ action to call _ifup_ when the interface is detected. This can be done by configuring the Pi to respond to hotplug events.
 
 ## Using mdev as a hotplug device manager
-BusyBox includes the _mdev_ utility for handling hotplug devices. And there's a really good article over at codelucky.com that details how to configure it.
+BusyBox includes the _mdev_ utility for handling hotplug devices. And there's a really good [article over at codelucky.com](https://codelucky.com/mdev-command-linux/) that details how to configure it.
 
 In brief, we'll be creating a configuration file that instructs _mdev_ to bring up our Ethernet interface when it's detected, and telling the kernel to use _mdev_ as it's hotplug device manager.
 
@@ -209,14 +216,14 @@ Here it is:
 eth[0-9]+       0:0     0       @/sbin/ifup $MDEV
 ```
 
-The _eth[0-9]+_ is a regular expression that will match any device like _eth0_, _eth1_, etc. This match is what triggers the rule. The _0:0_ is the user id and group id, and the next _0_ is the permissions (in octal.) Neither of these things matter, because _eth0_ is not a device node under /dev. What does matter is the _@/sbin/ifup $MDEV_ action.
+The _eth[0-9]+_ is a regular expression that will match any device like _eth0_, _eth1_, etc. This match is what triggers the rule. The _0:0_ is the user ID and group ID, and the next _0_ is the permissions (in octal.) Neither of these things matter, because _eth0_ is not a device node under /dev. What does matter is the _@/sbin/ifup $MDEV_ action.
 
 mdev's actions are what let up run the _ifup_ command when the Ethernet interface is detected by the kernel. The _$MDEV_ used at the end is just the device name that caused the rule to match. In this case, _$MDEV = "eth0"_, so our action command becomes: _/sbin/ifup eth0_, just what we need to configure and bring up the interface.
 
 > Using the regular expression _eth[0-9]+_ for the rule ensures any hotplugged Ethernet adapters can be configured and brought up. So adding a USB to Ethernet dongle later won't result in extra time spent troubleshooting.
 
 ### Running mdev hotplug at boot
-To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin/mdev" > /proc/sys/kernel/hotplug_) to our _rcS_ file. We'll slip it in just before the loopback interface is configured (lines 17 through 19.)
+To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin/mdev" > /proc/sys/kernel/hotplug_) to our _rcS_ file. We'll slip it in just before the loopback interface is configured (lines 11 through 13.)
 
 ```
 ~ # cat -n /etc/init.d/rcS
@@ -230,19 +237,21 @@ To ensure things happen every time the Pi starts, we'll add a line (_echo "/sbin
      8  /bin/mount -t tmpfs run /run
      9  /bin/mount -t tmpfs tmp /tmp
     10
-    11  # Check and mount root and boot
-    12  /sbin/fsck.ext4 -p /dev/mmcblk0p2
-    13  /bin/mount -t ext4 -o remount,rw,noatime /dev/mmcblk0p2 /
-    14  /sbin/fsck.fat -a /dev/mmcblk0p1
-    15  /bin/mount -t vfat -o noatime /dev/mmcblk0p1 /boot
-    16
-    17  # Start device manager
-    18  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
-    19  mdev -s
+    11  # Start device manager
+    12  echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+    13  /sbin/mdev -s
+    14
+    15  # Check and mount root and boot
+    16  /sbin/fsck.ext4 -p /dev/mmcblk0p2
+    17  /bin/mount -t ext4 -o remount,rw /dev/mmcblk0p2 /
+    18  /sbin/fsck.fat -a /dev/mmcblk0p1
+    19  /bin/mount -t vfat /dev/mmcblk0p1 /boot
     20
     21  # Bring up loopback interface
     22  /sbin/ifup lo
 ```
+
+> We want to configure hotplug early on in the boot process so as not to risk missing any hardware change events. File system checks can take a bit of time, so definitely before any _fsck_ commands.
 
 ### Restarting to test
 Reboot the Pi one more time just to make sure everything comes up as expected.
