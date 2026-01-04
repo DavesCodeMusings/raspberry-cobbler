@@ -6,24 +6,24 @@ _BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ an
 3. Update the linker cache.
 
 ```
-cobbler:~# cd /tmp
-cobbler:~# unzip *.zip
-cobbler:~# cd /
-cobbler:/# tar -xf /tmp/bash.arm64.tar
-cobbler:/# tar -xf /tmp/glibc-2.42.arm64.tar
-cobbler:/# tar -xf /tmp/ncurses-6.6.arm64.tar
+~ # cd /tmp
+~ # unzip *.zip
+~ # cd /
+~ # tar -xf /tmp/bash.arm64.tar
+~ # tar -xf /tmp/glibc-2.42.arm64.tar
+~ # tar -xf /tmp/ncurses-6.6.arm64.tar
 
-cobbler:~# cat /etc/ld.so.conf
+~ # cat /etc/ld.so.conf
 /lib
 /lib64
 /usr/lib
 
-cobbler:/# ldconfig
+~ # ldconfig
 ```
 
 ## Test the new shell
 
 ```
-cobbler:~# bash
-cobbler:~#
+~ # bash
+bash-5.3#
 ```
