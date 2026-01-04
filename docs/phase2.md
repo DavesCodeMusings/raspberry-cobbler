@@ -42,8 +42,6 @@ you@Ubuntu:~$ ./helloworld-aarch64
 -bash: ./helloworld-aarch64: cannot execute binary file: Exec format error
 ```
 
-Reference: https://jensd.be/1126/linux/cross-compiling-for-arm-or-aarch64-on-debian-or-ubuntu
-
 # Phase 2 review
 At this point, our Ubuntu development machine should be able to compile binaries for both its native CPU architecture and for the Raspberry Pi 3's 64-bit arm. We were able to test this by examining the two files and trying to run them.
 
@@ -53,3 +51,8 @@ Seeing _Hello World!_ displayed is not very exciting, but it does prove that we 
 Now that we have the foundation laid, with the boot loader, the kernel, and the Ubuntu VM set up to compile arm64 binaries, we can get on to the root file system. And this, my friends, is where the magic happens.
 
 Because if De La Soul and Schoolhouse Rock taught us anything, it's that [phase 3 is a magic number](phase3.md)
+
+___
+
+References:
+* https://jensd.be/1126/linux/cross-compiling-for-arm-or-aarch64-on-debian-or-ubuntu
