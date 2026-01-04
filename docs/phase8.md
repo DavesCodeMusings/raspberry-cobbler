@@ -115,9 +115,9 @@ log on /var/log type tmpfs (rw,relatime)
 ## Reading logs
 We can `cat` or `tail` /var/log/messages to see what the system wants to tell us.
 
-Do that right after boot, and you'll see messages from the kernel along with an entry about starting /bin/sh on the console (tty).
+Do that right after boot, and you'll see messages from the kernel along with an entry about root login on 'ttyAMA0'.
 
-Remember /var/log is RAM-based, so everything gets wiped out with a reboot of the system.
+Remember /var/log is RAM-based to save wear on the microSD, so everything gets wiped out with a reboot of the system.
 
 ## Quieting the console
 We can calm the number of messages sent to the console by using the file _/proc/sys/kernel/printk_
@@ -131,7 +131,7 @@ Reading from the file will tell us the current configuration.
 
 The first number is the current level. 7 is debug, which means a lot of messages will flood the console.
 
-Writing to the file will set the desired log level.
+Writing to the file will set the desired log level. Higher is more verbose. 3 will send only error (and more severe) messages to the console.
 
 ```
 ~ # echo 3 > /proc/sys/kernel/printk
@@ -141,10 +141,15 @@ Writing to the file will set the desired log level.
 
 The effect is immediate.
 
-We can use this in _rcS_, right after _klogd_ is started, to send most messages to _/var/log/messsages_ rather than to the console.
+We can use this _echo_ statement in _rcS_, right after _klogd_ is started, to send most messages to _/var/log/messsages_ rather than to the console.
 
 ## Phase 8 review
 Nearly everything we did in this phase parallels something we've done before: mounting a tmpfs file system, starting system services, and using _rcS_ to handle things at start-up. A few short commands and now we can get log information from _/var/log/messages_.
 
 ## Next Steps
 As we moved through the phases of the project, the focus has been on trying things and fixing what doesn't work. Because of this approach, we've got some gaps in the system. This is what we'll look at in the [next and final phase](phase9.md).
+
+___
+
+References:
+* https://www.kernel.org/doc/html/latest/core-api/printk-basics.html
