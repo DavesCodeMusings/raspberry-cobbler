@@ -26,7 +26,7 @@ The following commands recreate the files and add shadow password storage.
 We also need a place for users to store their files. Most Linux distros use /home for this. We'll use it too.
 
 ```
-mkdir /home
+~ # mkdir /home
 ```
 
 ## Setting up the root user
@@ -66,11 +66,14 @@ passwd: password for admin changed by root
 This part is purely educational and you won't need to do it every time you set up a new account. 
 
 ```
-~ # grep admin /etc/passwd
+~ # cat /etc/passwd
+root:x:0:0:SuperUser:/root:/bin/sh
 admin:x:1000:1000:Administrator:/home/admin:/bin/sh
-~ # grep admin /etc/group
+~ # cat /etc/group
+root:x:0:
 admin:x:1000:
-~ # grep admin /etc/shadow
+~ # cat /etc/shadow
+root:$6$****$********:1:0:99999:7:::
 admin:$6$****$********:1:0:99999:7:::
 ~ # ls -ld /home/admin
 drwxr-sr-x    2 admin    admin         4096 Jan  1 11:31 /home/admin
