@@ -5,7 +5,7 @@ In this phase, we'll get a Raspberry Pi boot loader and Linux kernel installed o
 
 All the microSD card preparation is performed on the Ubuntu development VM.
 
-> Warning: This will destroy all data on the microSD card. For best results use a new, name-brand microSD.
+> Warning: Following these steps will destroy all data on the microSD card. For best results use a new, name-brand microSD.
 
 ## Connecting the microSD to the virtual machine
 Review the instructions in the previous section for attaching the microSD to the virtual machine and verifying it's avaialble for use by Ubuntu.
