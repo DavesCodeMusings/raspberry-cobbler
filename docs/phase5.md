@@ -212,12 +212,12 @@ allow-hotplug eth0
 
 What this does is to tell _ifup_ to skip the interface when `ifup -a` is run, because hotplug will take care of it. This will make more sense as we move on.
 
-## Using mdev as a hotplug device manager
+## Using _mdev_ as a hotplug device manager
 BusyBox includes the _mdev_ utility for handling hotplug devices. And there's a really good [article over at codelucky.com](https://codelucky.com/mdev-command-linux/) that details how to configure it.
 
 In brief, we'll be creating a configuration file that instructs _mdev_ to bring up our Ethernet interface when it's detected, and telling the kernel to use _mdev_ as it's hotplug device manager.
 
-### Configuring mdev for hotplug _eth0_
+### Configuring mdev to bring up _eth0_
 It's one line (minus the comments.) Here it is:
 
 ```
