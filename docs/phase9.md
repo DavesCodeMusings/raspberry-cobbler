@@ -135,7 +135,7 @@ You can add more entries for other hosts on your network, but keep in mind this 
 ## Adding kernel modules for future hardware needs
 This part is optional, but there are a few side quests that need kernel modules to support their hardware. Doing this now makes configuring WiFi or adding a real-time clock module a little faster.
 
-### Check the kernel version and shutting down the Pi
+### Check the kernel version and shut down the Pi
 We could use SFTP to copy the modules, but there are quite a few. Powering down and moving the microSD to the Ubuntu development VM is worth the effort in this case.
 
 Be sure to note which version of the kernel is running on the Pi before shutting down. This can be done with _uname_.
