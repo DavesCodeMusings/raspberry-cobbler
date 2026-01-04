@@ -110,16 +110,19 @@ init_uart_baud=115200
 
 > If you're using a newer model Pi, adjust the device_tree entry to match your system.
 
-## Copying the device tree file for your Pi to the microSD card
+## Copying the device tree files for your Pi to the microSD card
 The example above references the device_tree file _bcm2710-rpi-3-b.dtb_ for Raspberry Pi 3B. If you're using a newer model Pi, you'll need to copy the file you specified in _config.txt_ 
 
 1. In the Raspberry Pi repository's _firmware/boot_ folder, find the file that matches the name specified by the _device_tree_ parameter in config.txt
 2. Copy the file to the microSD card.
+3. We'll also need the _disable-bt.dtbo_ file referenced in the _dtoverlay=disable-bt_ line. This is in the overlays directory.
 
 For example, with the Raspberry Pi 3B:
 
 ```
 sudo cp ~/firmware/boot/bcm2710-rpi-3-b.dtb /mnt
+sudo mkdir /mnt/overlays
+sudo cp overlays/disable-bt.dtbo /mnt/overlays
 ```
 
 ## Creating cmdline.txt
@@ -156,6 +159,7 @@ COPYING.linux
 fixup.dat
 kernel8.img
 LICENCE.broadcom
+overlays
 start.elf
 ```
 
