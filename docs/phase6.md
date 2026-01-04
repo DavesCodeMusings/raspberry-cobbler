@@ -2,7 +2,23 @@
 When you run Raspberry Pi OS, you can configure it to allow remote logins with Secure Shell. We can do that with this project, too. We'll take a cue from other minimalist Linux distributions and use [dropbear](https://en.wikipedia.org/wiki/Dropbear_(software)) as our SSH server.
 
 ## Build and install Dropbear
-TODO
+Building Dropbear from source is no more complex than building BusyBox was. But, there is a bre-built binary package in this repository that will save you time.
+
+Just extract the .tar.gz archive onto the microSD root file system. Assuming it's mounted on the Ubunto VM's _/mnt_ directory, the commands are like this:
+
+```
+you@Ubuntu:~$ cd ~
+you@Ubuntu:~$ git clone --depth=1 https://github.com/DavesCodeMusings/raspberry-cobbler.git
+you@Ubuntu:~$ sudo mount /dev/sdb2 /mnt
+you@Ubuntu:~$ cd /mnt
+you@Ubuntu:/mnt$ sudo tar -zxvf ~/raspberry-cobbler/dropbear.arm64.tar.gz
+you@Ubuntu:/mnt$ cd ~
+you@Ubuntu:~$ umount /mnt
+```
+
+Be sure to eject the microSD before transferring it back to the Pi.
+
+And, if you still want to build from source, have a look at the [GitHub Action that builds Dropbear](https://github.com/DavesCodeMusings/raspberry-cobbler/blob/main/.github/workflows/dropbear.yml) for hints on how to configure and install.
 
 ## Dealing with hotplug (again!)
 Because our Raspberry Pi 3's Ethernet is configured automatically by _mdev_, we are faced with some unique challenges for network services. Namely, we can't just add lines to _/etc/init.d/rcS_ to start things, because as we saw with _ifup_, the _eth0_ interface isn't neccessarily going to be available. But there is a solution.
