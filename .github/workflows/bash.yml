@@ -16,15 +16,15 @@ jobs:
           git clone --depth=1 https://git.savannah.gnu.org/git/bash.git
       - name: Configuring...
         run: |
-          cd ~/${PKG_NAME}
+          cd ~/bash
           ./configure --prefix=/usr --with-curses
       - name: Compiling...
         run: |
-          cd ~/${PKG_NAME}
+          cd ~/bash
           make
       - name: Installing...
         run: |
-          cd ~/${PKG_NAME}
+          cd ~/bash
           make DESTDIR=$DEST_DIR install-strip
       - name: Adding license...
         run: |
@@ -33,9 +33,9 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
+          tar -cvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar .
       - name: Uploading artifact...
         uses: actions/upload-artifact@v4
         with:
           name: "${{ env.PKG_NAME }}"
-          path: "${{ env.PKG_NAME }}.arm64.tar.gz"
+          path: "${{ env.PKG_NAME }}.arm64.tar"
