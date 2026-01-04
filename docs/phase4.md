@@ -23,6 +23,11 @@ Reboot the Raspberry Pi to test. The command is shown below.
 
 When the Pi comes back up, take a moment to repeat the _mount_ command to verify it works and shows what file systems are currently available on the Pi. Notice root is read-only again.
 
+```
+~ # mount
+/dev/root on / type ext4 (ro,relatime)
+```
+
 ## Running file system checks
 It might be tempting to remount the root file system as read-write as part of the start-up script. But, that's not advisable until we have a way to check the file systems for potential problems first.
 
@@ -31,7 +36,7 @@ For this, we need `fsck.ext4` for the checking the root filesystem and `fsck.fat
 First, shutdown the Pi to get the microSD transferred back to the Ubuntu VM.
 
 ```
-poweroff
+~ # poweroff
 ```
 
 ### Building fsck.ext4
@@ -40,17 +45,17 @@ The process is very similar to the way Busybox was built: clone the source code,
 Here are the commands:
 
 ```
-cd ~
-git clone https://github.com/tytso/e2fsprogs.git --depth=1
-cd ~/e2fsprogs
-./configure LDFLAGS=-static --host=aarch64-linux-gnu
-make
+you@Ubuntu:~$ cd ~
+you@Ubuntu:~$ git clone https://github.com/tytso/e2fsprogs.git --depth=1
+you@Ubuntu:~$ cd ~/e2fsprogs
+you@Ubuntu:~$ ./configure LDFLAGS=-static --host=aarch64-linux-gnu
+you@Ubuntu:~$ make
 ```
 
 One thing to notice is the files we built all have debugging info in them. This takes extra space and is not needed for our purposes. Debugging parts can be removed with the _strip_ command (or in our case, _aarch64-linux-gnu-strip_ for arm64).
 
 ```
-$ file e2fsck/e2fsck
+you@Ubuntu:~$ file e2fsck/e2fsck
 e2fsck/e2fsck: ELF 64-bit LSB executable, ARM aarch64, version 1 (GNU/Linux), statically linked, BuildID[sha1]=273a3ca94a58baabec50a44087982ce4fff37e0c, for GNU/Linux 3.7.0, with debug_info, not stripped
 ```
 
@@ -60,9 +65,9 @@ Even though the binary is called e2fsck, it can check ext2, ext3, and ext4 file 
 Assuming the microSD is mounted on the development VM, these are the commands to strip the binary, and copy it over.
 
 ```
-aarch64-linux-gnu-strip ~/e2fsprogs/e2fsck/e2fsck
-sudo cp ~/e2fsprogs/e2fsck/e2fsck /mnt/sbin
-sudo ln -s e2fsck /mnt/sbin/fsck.ext4
+you@Ubuntu:~$ aarch64-linux-gnu-strip ~/e2fsprogs/e2fsck/e2fsck
+you@Ubuntu:~$ sudo cp ~/e2fsprogs/e2fsck/e2fsck /mnt/sbin
+you@Ubuntu:~$ sudo ln -s e2fsck /mnt/sbin/fsck.ext4
 ```
 
 ### Building fsck.fat
@@ -73,15 +78,15 @@ The build process is nearly identical to building fsck.ext4, but there is one ad
 Here are the commands:
 
 ```
-sudo apt-get install autoconf
-cd ~
-git clone https://github.com/dosfstools/dosfstools.git --depth=1
-cd dosfstools
-./autogen.sh
-./configure LDFLAGS=-static --host=aarch64-linux-gnu
-make
-aarch64-linux-gnu-strip ~/dosfstools/src/fsck.fat
-sudo cp ~/dosfstools/src/fsck.fat /mnt/sbin
+you@Ubuntu:~$ sudo apt-get install autoconf
+you@Ubuntu:~$ cd ~
+you@Ubuntu:~$ git clone https://github.com/dosfstools/dosfstools.git --depth=1
+you@Ubuntu:~$ cd dosfstools
+you@Ubuntu:~$ ./autogen.sh
+you@Ubuntu:~$ ./configure LDFLAGS=-static --host=aarch64-linux-gnu
+you@Ubuntu:~$ make
+you@Ubuntu:~$ aarch64-linux-gnu-strip ~/dosfstools/src/fsck.fat
+you@Ubuntu:~$ sudo cp ~/dosfstools/src/fsck.fat /mnt/sbin
 ```
 
 ### Manual testing
@@ -149,9 +154,9 @@ The system is going down NOW!
 >  Notice how the root file system was remounted read-only for us. This is a default setting of BusyBox when no _/etc/inittab_ file is found. It's fine for now, but should not be relied upon.
 
 ## Phase 4 review
-The system is in pretty good form now. It's minimalist, it's isolated, but it's working. We can even run automatic checks and repairs for our boot and root file systems whenever the pi boots.
+The system is in pretty good form now. It's minimalist, it's isolated from the network, but it's working. We can even run automatic checks and repairs for our boot and root file systems whenever the pi boots.
 
-If you wanted to build a project that only requires enough Linux to get the Pi to boot, this woul make a good foundation. But, we can do more.
+If you wanted to build a project that only requires enough Linux to get the Pi to boot, this would make a good foundation. But, we can do more.
 
 ## Next steps
 Even though the system is usable, adding network connectivity would greatly expand the posibilities. That's what we'll be working on in the [next phase](phase5.md).
