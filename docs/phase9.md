@@ -207,6 +207,8 @@ There are more things that need attention. Some are listed below. Most of these 
 ## Review
 This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot. It can be accessed by multiple different user accounts and uses a number of security best practices, like shadow passwords and strong encryption.
 
+You've also been exposed to a number of ways to install software built from source code. Using either the development VM or a GitHub Action workflow, you should be able to add any new programs and features you want.
+
 ## Next Steps
 I'd love to read about your own project you've built with the minimalist Raspberry Pi as a starting point. Use the [Discussions](https://github.com/DavesCodeMusings/raspberry-cobbler/discussions) topic for _Show & Tell_ to give us the details.
 
