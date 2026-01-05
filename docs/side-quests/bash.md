@@ -17,6 +17,7 @@ _BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ an
 /lib
 /lib64
 /usr/lib
+/usr/lib64
 
 ~ # ldconfig
 ```
