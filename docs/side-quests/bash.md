@@ -1,5 +1,7 @@
 # Installing BASH shell
-_BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ and _ncurses_ to function. This requires a few things.
+_BASH_ is available as a pre-compiled arm64 binary, but it's not statically-linked. It depends on _glibc_ and _ncurses_ to function. This requires additional overhead, but it sets us up for installing other applications that have the same shared libraries dependencies.
+
+Here are the high-level steps:
 
 1. Install bash, glibc, and ncurses packages.
 2. Create a linker configuration file.
