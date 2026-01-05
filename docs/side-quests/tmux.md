@@ -31,15 +31,12 @@ On the Ubuntu development VM, locale data is in a convenient, single-file archiv
 
 Upload this file to the Pi and place it in the same directory as Ubuntu uses.
 
+> TODO: Build your own locale archive with: `mkdir /usr/lib/locale && localedef -f UTF-8 -i en_US en_US.UTF-8`
+> 
 ## Installing terminfo data
 tmux also needs information about various terminal types stored in the terminfo database. Otherwise, it will fail with the message: _can't find terminfo database_
 
-```
-you@Ubuntu:~$ sudo mkdir -p /mnt/usr/share
-you@Ubuntu:~$ sudo cp -R /usr/share/terminfo /mnt/usr/share
-```
-
-> TODO: Build your own locale archive with: `mkdir /usr/lib/locale && localedef -f UTF-8 -i en_US en_US.UTF-8`
+You can get the terminfo data as part of the ncurses package. Download it as a workflow artifact and install it using the same procedure as installing _tmux_/
 
 ## Fixing issues with Windows Terminal over SSH
 If you happen to be using Windows 11 Terminal and you see strange characters when you start _tmux_, adding a longer tmux escape time may help:
