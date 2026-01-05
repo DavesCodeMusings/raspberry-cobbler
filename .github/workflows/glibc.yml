@@ -1,4 +1,4 @@
-# glibc for arm64, packaged as tar.zip, uploaded as an artifact
+# glibc built for arm64, packaged as tar.zip, uploaded as an artifact
 
 name: glibc arm64 build
 on:
