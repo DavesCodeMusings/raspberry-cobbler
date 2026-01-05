@@ -1,4 +1,4 @@
-# Phase 9: Filling in the Gaps
+# Phase 9: Filling in the gaps
 
 **_This phase may change as more gaps are identified_**
 
