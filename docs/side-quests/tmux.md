@@ -39,7 +39,7 @@ you@Ubuntu:~$ sudo mkdir -p /mnt/usr/share
 you@Ubuntu:~$ sudo cp -R /usr/share/terminfo /mnt/usr/share
 ```
 
-> TODO: Build your own locale archive with: `mkdir /usr/lib/locale && localedef`
+> TODO: Build your own locale archive with: `mkdir /usr/lib/locale && localedef -f UTF-8 -i en_US en_US.UTF-8`
 
 ## Fixing issues with Windows Terminal over SSH
 If you happen to be using Windows 11 Terminal and you see strange characters when you start _tmux_, adding a longer tmux escape time may help:
