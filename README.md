@@ -1,5 +1,5 @@
 # Raspberry Cobbler
-_A Raspberry Pi DIY OS Guide_
+_Experimental and possibly unstable, but it boots in 10 seconds!_
 
 If you've ever wanted to build a Raspberry Pi project that doesn't start with the words, "Install the latest Raspberry Pi OS image to an SD card," this is the guide for you. This is not about installing alternative distros on your Pi. This is about building your own distro from the ground up.
 
