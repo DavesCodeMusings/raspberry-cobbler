@@ -1,4 +1,4 @@
-# Phase 8: Setting Up System Logging
+# Phase 8: Setting up system logging
 The utilities we need for logging (_/syslogd_ and _klogd_) were already installed as part of the BusyBox package. What we'll concentrate on here is how to enable logging while minimizing wear on the microSD card.
 
 ## Understanding the challenges of SD cards as storage
