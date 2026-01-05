@@ -1,3 +1,5 @@
+# i2cdetect built for arm64, packaged as tar.zip, uploaded as an artifact
+
 name: i2cdetect arm64 build
 on:
   workflow_dispatch:
