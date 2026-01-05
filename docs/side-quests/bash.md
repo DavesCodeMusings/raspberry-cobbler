@@ -29,8 +29,8 @@ _BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ an
 bash-5.3#
 ```
 
-## Create /bin/bash symlink
-BASH is installed as /usr/bin/bash. Many shell scripts will reference /bin/bash. To account for this, a symbolic link is set up in /bin.
+## Create _/bin/bash_ symlink
+BASH is installed as _/usr/bin/bash_. Many shell scripts will reference _/bin/bash_. To account for this, a symbolic link is set up in _/bin_.
 
 ```
 ln -s /usr/bin/bash /bin/bash
