@@ -200,6 +200,8 @@ There are more things that need attention. Some are listed below. Most of these 
 * No terminfo data for terminal capabilities (see bash side quest)
 * No locale data for multiple language support (see tmux side quest)
 * No clock for offline time keeping (see i2c-rtc side quest)
+* Storage is limited by the small capacity microSD (see usb storage side quest)
+* There's only wired Ethernet (see wifi sidequest)
 * DNS names don't resolve to IP addresses
 
 ## Review
