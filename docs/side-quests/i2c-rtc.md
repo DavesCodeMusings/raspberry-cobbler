@@ -111,4 +111,5 @@ root@cobbler:~# rdate -p 192.168.1.100
 Sun Jan  4 22:31:00 2026
 ```
 
-> _time_ uses a 32-bit number to communicate date and time. Around the year 2036, it will roll over and this _rdate_ method may not work anymore. If your Raspberry Pi 3 lasts another 10 years, we'll need to revisit and come up with an alternative.
+> _time_ uses a 32-bit number to communicate date and time. Around the year 2036, it will roll over and this _rdate_ method may not work anymore. If your Raspberry Pi 3 lasts another 10 years, we'll need to revisit and come up with an alternative. Maybe the even more ancient _daytime_ protocol that replies with a string instead of a number.
+
