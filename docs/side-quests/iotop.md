@@ -15,12 +15,14 @@ Personally, I'm partial to SFTP the archive to _/tmp_ on the Pi, then log in and
 ```
 PS> sftp admin@192.168.1.100
 cd /tmp
-put iotop.tar.gz
+put iotop.zip
 ```
 
 ```
+~ # cd /tmp
+~ # unzip iotop.zip
 ~ # cd /
-~ # tar -zxf /tmp/iotop.tzr.gz
+~ # tar -xf /tmp/iotop.arm64.tar
 ```
 
 ## Running itop
