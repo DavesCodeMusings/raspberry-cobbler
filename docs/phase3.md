@@ -18,7 +18,7 @@ The BusyBox project page has the source code we need. We'll clone their reposito
 
 ```
 cd ~
-git clone https://git.BusyBox.net/BusyBox/ --depth=1
+git clone --depth=1 https://git.busybox.net/busybox
 ```
 
 ## Configure BusyBox features
