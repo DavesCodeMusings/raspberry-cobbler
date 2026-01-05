@@ -27,3 +27,6 @@ _BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ an
 ~ # bash
 bash-5.3#
 ```
+
+## Next steps
+_glibc_ and _ncurses_ are common requirements for a number of other side quests.
