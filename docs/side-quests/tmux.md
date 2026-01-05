@@ -55,7 +55,7 @@ set-option -s escape-time 50
 > This solution is from [Terminal's GitHub Issue #16384](https://github.com/microsoft/terminal/issues/16384) (which is a very solid power of 2 number, so you know it's good.)
 
 ## Fixing issues with PuTTY serial terminal
-Using _tmux_ over a serial connection in PuTTY can result in the tmux status bar being rendered in the wrong place and then jumping to a new location. The sollution seems to be setting the terminal dimensions to 80 columns by 24 rows in PuTTY's window settings.
+Using _tmux_ over a serial connection in PuTTY can result in the tmux status bar being rendered in the wrong place and then jumping to a new location at the bottom of the screen. The sollution seems to be setting the terminal dimensions to exactly 80 columns by 24 rows in PuTTY's window settings.
 
 ___
 _God save us, everyone, as we burn inside the fires of the tmux sun &mdash; Linkin Park (sort of)_
