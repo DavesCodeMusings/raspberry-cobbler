@@ -35,13 +35,16 @@ From the _Settings_ submenu selection, scroll down to the _--- Build Options_ he
 * _[*] Build static binary (no shared libs)_
 * _(aarch64-linux-gnu-) Cross compiler prefix_
 
-Still in the _Settings_ submenu, scroll further to find the _--- Installation Options_ heading and configure the _Destination path_
+Still in the _Settings_ submenu, scroll further to find the _--- Installation Options_ heading and configure the _Destination path_.
 * _(/mnt) Destination path for 'make install'_
 
-Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the _Networking Utilities_ submenu. From there, find and disable _tc_ as a bug workaround.
+Exit the _Settings_ submenu and under the _Applets_ heading, find and enter the _Login/Password Management Utilities_ submenu. Find _(des) Default encryption method_ and change _des_ to _sha512_.
+* _(sha512) Default encryption method_
+
+Still in the Applets section, find and enter the _Networking Utilities_ submenu. From there, find and disable _tc_ as a bug workaround.
 * _[ ] tc (8.3 kb)_
   
-> Note: You can customize aditional applets if you like, but with the exception of the _tc_ bug, the defaults should be fine.
+> Note: You can customize aditional applets if you like, but the _tc_ bug will cause a build failure and _tc_ must be disabled for BusyBox to build.
 
 ## Building BusyBox
 Run the _make_ command to compile. We'll prefix with sudo to avoid errors that occur when attempting to set permissions on files as a regular user.
