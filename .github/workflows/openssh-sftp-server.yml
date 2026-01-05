@@ -1,3 +1,5 @@
+# openssh (sftp only) built for arm64, packaged as tar.gz, uploaded to repository
+
 name: openssh-sftp-server arm64 build
 on:
   workflow_dispatch:
