@@ -21,5 +21,6 @@ If you're new to all this, go through the project phases in order. They're struc
 
 * [tmux terminal multiplexer](side-quests/tmux.md)
 * [USB-attached mass storage](side-quests/usb-storage.md)
+* [I2C real time clock module](side-quests/i2c-rtc.md)
 * [iotop storage monitoring](side-quests/iotop.md)
 * [WiFi networking](side-quests/wifi.md)
