@@ -224,11 +224,6 @@ ssh     stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
 http    stream  tcp     nowait  root    /usr/sbin/httpd         httpd -i -h /srv/www
 ```
 
-~ # cat /etc/inetd.conf
-ssh     stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
-http    stream  tcp     nowait  root    /usr/sbin/httpd         httpd -i -h /srv/www
-```
-
 We'll need to add a temporary test file.
 
 ```
