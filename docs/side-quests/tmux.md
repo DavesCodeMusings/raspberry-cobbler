@@ -27,14 +27,16 @@ You can verify by looking for _tmux_ in the _/usr/bin_ directory or use `which t
 ## Building locale data
 tmux supports multiple languages, so we'll need the locale archive available on the microSD. Otherwise, tmux will fail with a message of: _tmux: need UTF-8 locale (LC_CTYPE) but have ANSI_X3.4-1968_
 
-We need to build a locale archive. This can be done with two commands, but it requires the _glibc_ package to be installed.
+We need to build a locale archive. This can be done with two commands, but it requires the _glibc_ package to be installed first. The [bash side quest](bash.md) has details on how to do that.
+
+After _glibc_ is installed, run:
 
 ```
 ~ # mkdir /usr/lib/locale
 ~ # localedef -f UTF-8 -i en_US en_US.UTF-8
 ```
 
-If you don't want to install _glibc_, just copy _/usr/lib/locale/locale-archive_ from the Ubuntu development VM.
+> If you don't want to install _glibc_, just copy _/usr/lib/locale/locale-archive_ from the Ubuntu development VM. Locale data is architecture independent.
 
 ## Installing terminfo data
 tmux also needs information about various terminal types stored in the terminfo database. Otherwise, it will fail with the message: _can't find terminfo database_
