@@ -58,4 +58,4 @@ set-option -s escape-time 50
 Using _tmux_ over a serial connection in PuTTY can result in the tmux status bar being rendered in the wrong place and then jumping to a new location at the bottom of the screen. The sollution seems to be setting the terminal dimensions to exactly 80 columns by 24 rows in PuTTY's window settings.
 
 ___
-_God save us, everyone, as we burn inside the fires of the tmux sun &mdash; Linkin Park (sort of)_
+_God save us, everyone, as we burn inside the fires of the_ tmux _sun &mdash; Linkin Park (sort of)_
