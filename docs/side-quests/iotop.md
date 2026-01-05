@@ -1,7 +1,7 @@
 # iotop Side Quest
-Why is my Pi's activity light (the green LED) always pulsing?
+Why is my Pi's activity light (the green LED) always pulsing? What's writing to my microSD?
 
-That's the question that started me on this side quest. I wanted to know what was accessing my microSD on a consistent basis. After all, I put _/tmp_ and _/var/log_ on RAM-based _tmpfs_. What was writing to persistent storage?
+Those are the questions that started me on this side quest. I wanted to know what was accessing my microSD on a consistent basis. After all, I put _/tmp_ and _/var/log_ on RAM-based _tmpfs_. What was writing to persistent storage?
 
 To find out, I'm using _iotop_.
 
