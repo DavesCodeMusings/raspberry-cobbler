@@ -29,6 +29,13 @@ _BASH_ is available as a pre-compiled arm64 binary, but it depends on _glibc_ an
 bash-5.3#
 ```
 
+## Create /bin/bash symlink
+BASH is installed as /usr/bin/bash. Many shell scripts will reference /bin/bash. To account for this, a symbolic link is set up in /bin.
+
+```
+ln -s /usr/bin/bash /bin/bash
+```
+
 ## Clean up package files
 Since _/tmp_ is a RAM-based file system, any files sitting there are taking up system memory. Deleting them will free up space.
 
