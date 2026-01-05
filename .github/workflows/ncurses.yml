@@ -1,3 +1,5 @@
+# ncurses (library) built for arm64, packaged as tar.zip, uploaded as an artifact
+
 name: ncurses arm64 build
 on:
   workflow_dispatch:
