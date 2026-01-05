@@ -1,3 +1,5 @@
+# ncurses (library, wide char support) built for arm64, packaged as tar.zip, uploaded as an artifact
+
 name: ncursesw arm64 build
 on:
   workflow_dispatch:
