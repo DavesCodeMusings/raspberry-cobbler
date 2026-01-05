@@ -165,6 +165,13 @@ you@Ubuntu:~$ sudo cp -R ~/firmware/modules/6.12.62-v8+ /mnt/lib/modules
 ### Unmount and boot the Pi
 Use the same procedure as in previous phases to move the microSD card back to the Pi and start it up.
 
+### Update module dependency info
+This only needs to be done once when new modules are installed.
+
+```
+~ # depmod -a
+```
+
 ## Beautifying the login process and shell prompt
 We can give a nice look to the system by adding _/etc/issue_, to display a pre-login message, and _/etc/motd_, to display a post login message. We can also set a _PS1_ variable in _/etc/profile_ to have a nice looking shell prompt.
 
