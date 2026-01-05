@@ -28,11 +28,14 @@ We can handle this in two parts:
 2. Configure _ifup_ to start _inetd_ when _eth0_ (or any interface other than loopback) comes up.
 
 ### Configuring _inetd_ to start _dropbear_ for SSH
-BusyBox includes _inetd_ as part of the installation. All we have to do is configure it. This is done using _/etc/inetd.conf_ The example below will tell _inetd_ to listen on port 22 and automatically start _sshd_ when a connection is made.
+BusyBox includes _inetd_ as part of the installation. All we have to do is configure it. This is done using a combination of _/etc/services_ and _/etc/inetd.conf_ The example below will tell _inetd_ to listen on port 22 and automatically start _sshd_ when a connection is made.
 
 ```
+~ # cat /etc/services
+ssh             22/tcp
+
 ~ # cat /etc/inetd.conf
-22      stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
+ssh     stream  tcp     nowait  root    /usr/sbin/dropbear      dropbear -i
 ```
 
 ### Configuring _ifup_ to start _inetd_
@@ -306,6 +309,7 @@ ___
 References:
 * https://codelucky.com/mdev-command-linux/
 * https://github.com/mkj/dropbear
+* https://manpages.ubuntu.com/manpages/noble/en/man5/services.5.html
 * https://unix.stackexchange.com/questions/769340/why-dont-devtmpfs-populate-dev-pts
 * https://www.openssh.org/portable.html
 * https://www.ntppool.org/en/use.html
