@@ -1,3 +1,5 @@
+# rsync built for arm64, packaged as tar.zip, uploaded as an artifact
+
 name: rsync arm64 build
 on:
   workflow_dispatch:
@@ -40,9 +42,9 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -zcvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar.gz .
+          tar -cvf $GITHUB_WORKSPACE/$PKG_NAME.arm64.tar .
       - name: Uploading artifact...
         uses: actions/upload-artifact@v4
         with:
           name: "${{ env.PKG_NAME }}"
-          path: "${{ env.PKG_NAME }}.arm64.tar.gz"
+          path: "${{ env.PKG_NAME }}.arm64.tar"
