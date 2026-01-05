@@ -1,5 +1,5 @@
 # TL;DR Raspberry Pi DIY OS Essentials
-This very high level document assumes you know a lot of things and does not go into detail. If you need more step-by-step instructions, start with [here](index.md).
+This very high level document assumes you know a lot of things and does not go into detail. If you need more step-by-step instructions, start with phase 0 [here](index.md).
 
 ## Boot partition
 You can get a pre-built boot loader and kernel by cloning the Raspberry Pi firmware git repo:
