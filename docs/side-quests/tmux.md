@@ -24,15 +24,18 @@ GitHub artifacts are in ZIP format, so it will need to be unzipped and untarred 
 
 You can verify by looking for _tmux_ in the _/usr/bin_ directory or use `which tmux`
 
-## Installing locale data
+## Building locale data
 tmux supports multiple languages, so we'll need the locale archive available on the microSD. Otherwise, tmux will fail with a message of: _tmux: need UTF-8 locale (LC_CTYPE) but have ANSI_X3.4-1968_
 
-On the Ubuntu development VM, locale data is in a convenient, single-file archive at _/usr/lib/locale/locale-archive_
+We need to build a locale archive. This can be done with two commands, but it requires the _glibc_ package to be installed.
 
-Upload this file to the Pi and place it in the same directory as Ubuntu uses.
+```
+~ # mkdir /usr/lib/locale
+~ # localedef -f UTF-8 -i en_US en_US.UTF-8
+```
 
-> TODO: Build your own locale archive with: `mkdir /usr/lib/locale && localedef -f UTF-8 -i en_US en_US.UTF-8`
-> 
+If you don't want to install _glibc_, just copy _/usr/lib/locale/locale-archive_ from the Ubuntu development VM.
+
 ## Installing terminfo data
 tmux also needs information about various terminal types stored in the terminfo database. Otherwise, it will fail with the message: _can't find terminfo database_
 
