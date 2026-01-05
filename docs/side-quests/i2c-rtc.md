@@ -83,5 +83,32 @@ It will need to go after the _/sys_ file system is mounted, because we need to w
 ## Testing with a reboot
 I was expecting to need a `hwclock -s` somewhere in _rcS_, but interestingly the time remains correct without it.
 
-## Next steps
-It would be nice to use the RTC module as a poor man's network time server. But unfortunately, I'm not able to get the BusyBox ntpd to start listening (at least it's not showing up in `netstat -tln` output. I think this is due to ntpd not being able to sync to an upstream peer, because the Pi is not internet connected. My guess is it needs to sync itself before it offers time services to others.
+## Sharing the time
+One might think the _ntpd_ service included with BusyBox could be configured to share the system time with other systems. This will not work. NTP will only share time it's synced from a higher stratum server (e.g. one of the servers in _/etc/ntp.conf_) and nothing as inaccurate as an RTC module. But, as usual, there's more than one way to do things.
+
+There is an older _time_ protocol that runs on TCP port 37. It's built into BusyBox's _inetd_. Modifying a couple files will get it running.
+
+```
+root@cobbler:~# grep time /etc/services
+time            37/tcp
+time            37/udp
+root@cobbler:~# grep time /etc/inetd.conf
+time    stream  tcp     nowait  root    internal
+time    dgram   udp     nowait  root    internal
+```
+
+Once _inetd_ has been restarted, the service is available on port 37.
+
+```
+root@cobbler:~# netstat -ln | grep 37
+tcp        0      0 0.0.0.0:37              0.0.0.0:*               LISTEN
+```
+
+System time can be fetched from a remote host using the _rdate_ command.
+
+```
+root@cobbler:~# rdate -p 192.168.1.100
+Sun Jan  4 22:31:00 2026
+```
+
+> _time_ uses a 32-bit number to communicate date and time. Around the year 2036, it will roll over and this _rdate_ method may not work anymore. If your Raspberry Pi 3 lasts another 10 years, we'll need to revisit and come up with an alternative.
