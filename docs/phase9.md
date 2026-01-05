@@ -166,7 +166,7 @@ you@Ubuntu:~$ sudo cp -R ~/firmware/modules/6.12.62-v8+ /mnt/lib/modules
 Use the same procedure as in previous phases to move the microSD card back to the Pi and start it up.
 
 ### Update module dependency info
-This only needs to be done once when new modules are installed.
+This only needs to be done once when new modules are installed. Running it again won't hurt anything, but it does take a while to complete, so don't do something rash like adding it to _rcS_.
 
 ```
 ~ # depmod -a
