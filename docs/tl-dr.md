@@ -1,4 +1,4 @@
-# Raspberry Pi DIY OS Essentials
+# TL;DR Raspberry Pi DIY OS Essentials
 This very high level document assumes you know a lot of things and does not go into detail. If you need more step-by-step instructions, start with [here](index.md).
 
 ## Boot partition
