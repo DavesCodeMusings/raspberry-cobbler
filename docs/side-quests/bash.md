@@ -30,7 +30,7 @@ bash-5.3#
 ```
 
 ## Clean up package files
-Since /tmp is a RAM-based file system, any files sitting there are taking up system memory. Deleting them will free up space.
+Since _/tmp_ is a RAM-based file system, any files sitting there are taking up system memory. Deleting them will free up space.
 
 ## Next steps
 _glibc_ and _ncurses_ are common requirements for a number of other side quests.
