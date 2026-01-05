@@ -26,7 +26,7 @@ jobs:
           cd ~
           mkdir build
           cd build
-          ../${PKG_NAME}/configure --prefix=/usr --exec-prefix=/
+          ../${PKG_NAME}/configure --prefix=/usr
       - name: Compiling...
         run: |
           cd ~/build
