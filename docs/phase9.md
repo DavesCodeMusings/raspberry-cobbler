@@ -191,7 +191,7 @@ Password:
 
 Experimental and possibly unstable, but it boots in 10 seconds!
 
-admin@cobbler:~$
+admin@cobbler:~$ _
 ```
 
 ## Identifying other known gaps
