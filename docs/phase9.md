@@ -195,14 +195,12 @@ admin@cobbler:~$ _
 ```
 
 ## Identifying other known gaps
-There are more things that need attention. Some are listed below.
+There are more things that need attention. Some are listed below. Most of these are addressed in "side quest" documents.
 
 * No terminfo data for terminal capabilities (see bash side quest)
 * No locale data for multiple language support (see tmux side quest)
 * No clock for offline time keeping (see i2c-rtc side quest)
 * DNS names don't resolve to IP addresses
-
-Most of these are addressed in "side quest" documents. The system will still function without these things being solved. But, it can always be improved.
 
 ## Review
 This phase wraps up the project. We have a minimalist Raspberry Pi based system, that can be accessed over a network, and only takes about 10 seconds to boot. It can be accessed by multiple different user accounts and uses a number of security best practices, like shadow passwords and strong encryption.
