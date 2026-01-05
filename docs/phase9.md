@@ -165,13 +165,42 @@ you@Ubuntu:~$ sudo cp -R ~/firmware/modules/6.12.62-v8+ /mnt/lib/modules
 ### Unmount and boot the Pi
 Use the same procedure as in previous phases to move the microSD card back to the Pi and start it up.
 
+## Beautifying the login process and shell prompt
+We can give a nice look to the system by adding _/etc/issue_, to display a pre-login message, and _/etc/motd_, to display a post login message. We can also set a _PS1_ variable in _/etc/profile_ to have a nice looking shell prompt.
+
+Below are some samples.
+
+```
+~ # cat /etc/issue
+Raspberry Cobbler
+
+~ # cat /etc/motd
+Experimental and possibly unstable, but it boots in 10 seconds!
+
+~ # cat /etc/profile
+export PS1='\u@\h:\w\$ '
+```
+
+With all of that done, our login experience will look like the example below.
+
+```
+Raspberry Cobbler
+
+cobbler.home login: admin
+Password:
+
+Experimental and possibly unstable, but it boots in 10 seconds!
+
+admin@cobbler:~$
+```
+
 ## Identifying other known gaps
 There are more things that need attention. Some are listed below.
 
-* No terminfo data for terminal capabilities
-* No locale data for multiple language support
+* No terminfo data for terminal capabilities (see bash side quest)
+* No locale data for multiple language support (see tmux side quest)
+* No clock for offline time keeping (see i2c-rtc side quest)
 * DNS names don't resolve to IP addresses
-* No clock for offline time keeping
 
 Most of these are addressed in "side quest" documents. The system will still function without these things being solved. But, it can always be improved.
 
