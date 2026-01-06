@@ -314,6 +314,7 @@ References:
 * https://codelucky.com/mdev-command-linux/
 * https://github.com/mkj/dropbear
 * https://manpages.ubuntu.com/manpages/noble/en/man5/services.5.html
+* https://github.com/brgl/busybox/blob/master/examples/inetd.conf
 * https://unix.stackexchange.com/questions/769340/why-dont-devtmpfs-populate-dev-pts
 * https://www.openssh.org/portable.html
 * https://www.ntppool.org/en/use.html
