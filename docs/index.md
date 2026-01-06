@@ -24,4 +24,5 @@ If you're new to all this, go through the project phases in order. They're struc
 * [BASH shell](side-quests/bash.md)
 * [I2C real time clock module](side-quests/i2c-rtc.md)
 * [iotop storage monitoring](side-quests/iotop.md)
+* [iptables firewalling](side-quests/iptables.md)
 * [WiFi networking](side-quests/wifi.md)
