@@ -2,7 +2,7 @@
 Keep nefarious characters from accessing your DIY OS over the network using _iptables_ to manipulate firewall rules.
 
 ## A word of warning
-This entire project is meant as a learning experience, not a way to create a hardened operating system. Do not do anything foolish like attaching your Pi directly to the internet.
+The Raspberry Cobbler project is meant as a learning experience, not a way to create a hardened operating system. Do not do anything foolish like attaching your Pi directly to the internet.
 
 ## Dependencies
 The pre-built _iptables_ package is not statically linked. It requires _glibc_ to be installed. See the [BASH side quest](bash-side-quest.md) for help with that step.
@@ -45,4 +45,13 @@ Use your favorite internet search tool to find a tutorial on _iptables_ and use 
 
 [GeeksForGeeks has one that covers the basics](https://www.geeksforgeeks.org/linux-unix/iptables-command-in-linux-with-examples/). Just remember to log in as root and skip all the _sudo_ nonsense.
 
+## Saving and restoring rules
+Keep in mind _iptables-save_ and _iptables-restore_ will use standard out and standard in by default. You have to use `-f` for file based save and restore.
 
+To keep the same ruleset after reboot, be sure to save to a file after making any rule changes. Then, add _iptables-restore_ to _rcS_ so the rules can be reapplied. This can be done before network interfaces come up, unless you are targeting a specific interface with one of your rules.
+
+___
+
+References:
+* https://www.geeksforgeeks.org/linux-unix/iptables-command-in-linux-with-examples/
+* https://unix.stackexchange.com/questions/134682/iptables-add-rule-for-interface-before-it-comes-up#134685
