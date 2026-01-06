@@ -25,7 +25,7 @@ Probably not. The guide in this repository exists as a journey, not a destinatio
 One of the goals of this project is to be accessible to people getting started with embedded Linux. Cross-compiling for arm CPU architecture can be challenging enough. Adding a different C library on top would only increase the complexity further. Static linking everything with glibc only consumes about 40M of space. Even on an 8G microSD card, this is a trivial amount of storage.
 
 ## What about Samba for DIY Network Attached Storage (NAS)?
-If you can compile statically-linked Samba using an arm64 Ubuntu machine, let me know how you did it. I will create a GitHub action to automate the build.
+If you can compile Samba using an arm64 Ubuntu machine, let me know how you did it. I will create a GitHub action to automate the build.
 
 ## What about wifi networking?
 It's getting there. I have a wpa_supplicant arm64 build available, but I haven't written up instructions for getting the _wlan0_ interface to appear. For now, see https://raspberrypi.stackexchange.com/questions/153914/pi3s-wlan0-not-available-to-configure-in-custom-built-os for some hints.
