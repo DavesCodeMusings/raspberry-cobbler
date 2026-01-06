@@ -41,9 +41,3 @@ jobs:
         with:
           name: "${{ env.PKG_NAME }}"
           path: "${{ env.PKG_NAME }}.arm64.tar"
-      - name: Uploading release...
-        uses: softprops/action-gh-release@v1
-        if: github.ref_type == 'tag'
-        with:
-          files: |
-            "${{ env.PKG_NAME }}.arm64.tar"
