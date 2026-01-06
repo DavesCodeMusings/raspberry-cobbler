@@ -2,7 +2,7 @@
 When you run Raspberry Pi OS, you can configure it to allow remote logins with Secure Shell. We can do that with this project, too. We'll take a cue from other minimalist Linux distributions and use [dropbear](https://en.wikipedia.org/wiki/Dropbear_(software)) as our SSH server.
 
 ## Build and install Dropbear
-Building Dropbear from source is no more complex than building BusyBox was. But, there is a bre-built binary package in this repository that will save you time.
+Building Dropbear from source is no more complex than building BusyBox was. But, there is a pre-built binary package in this repository that will save you time.
 
 Just extract the .tar.gz archive onto the microSD root file system. Assuming it's mounted on the Ubunto VM's _/mnt_ directory, the commands are like this:
 
