@@ -42,7 +42,7 @@ Device firmware is from the Linux kernel git repo: https://git.kernel.org/pub/sc
 
 Helpful wifi packages wpa_supplicant and iw are available as arm64 binaries on this repo.
 
-## Shared librariy dependencies
+## Shared library dependencies
 All of the core binaries are statically-linked. Some of the pre-built add-on packages (available here in the workflow artifacts) will require _glibc_ or _ncurses_ as dependencies. The [bash side quest](side-quests/bash.md) has details on getting those installed.
 
 ## Terminfo and locale data
