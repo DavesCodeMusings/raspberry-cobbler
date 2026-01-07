@@ -44,12 +44,12 @@ jobs:
       - name: Packaging...
         run: |
           cd $DEST_DIR
-          tar -cvf $GITHUB_WORKSPACE/${PKG_NAME}.arm64.tar .
+          tar -zcvf $GITHUB_WORKSPACE/${PKG_NAME}.arm64.tar.gz .
       - name: Uploading...
         run: |
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME
+          git add $PKG_NAME.tar.gz
           git commit -am "Triggered binary build"
           git push
