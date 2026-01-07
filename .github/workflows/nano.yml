@@ -50,6 +50,6 @@ jobs:
           cd $GITHUB_WORKSPACE
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           git config --global user.email "$GITHUB_REPOSITORY_OWNER@users.noreply.github.com"
-          git add $PKG_NAME.tar.gz
+          git add $PKG_NAME.arm64.tar.gz
           git commit -am "Triggered binary build"
           git push
