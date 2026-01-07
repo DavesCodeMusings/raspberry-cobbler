@@ -1,0 +1,48 @@
+# libgpiod built for arm64, packaged as tar.zip, uploaded as an artifact
+
+name: libgpiod arm64 build
+on:
+  workflow_dispatch:
+env:
+  PKG_NAME: libgpiod
+  DEST_DIR: /tmp/libgpiod
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Installing dependencies...
+        run: |
+          sudo apt-get update
+          sudo apt-get install autoconf autoconf-archive
+      - name: Cloning source...
+        run: |
+          cd ~
+          git clone --depth=1 https://github.com/brgl/libgpiod.git
+      - name: Configuring...
+        run: |
+          cd ~/libgpiod
+          ./autogen.sh
+          ./configure --prefix=/usr --enable-tools
+      - name: Compiling...
+        run: |
+          cd ~/libgpiod
+          make
+      - name: Installing...
+        run: |
+          cd ~/libgpiod
+          make DESTDIR=$DEST_DIR install-strip
+      - name: Adding license...
+        run: |
+          sudo mkdir -p $DEST_DIR/usr/share/doc/libgpiod
+          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/libgpiod
+      - name: Packaging...
+        run: |
+          cd $DEST_DIR
+          tar -cvf $GITHUB_WORKSPACE/${PKG_NAME}.arm64.tar .
+      - name: Uploading artifact...
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.PKG_NAME }}"
+          path: "${{ env.PKG_NAME }}.arm64.tar"
