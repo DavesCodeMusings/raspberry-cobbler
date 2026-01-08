@@ -20,16 +20,16 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone --depth=1 https://git.savannah.gnu.org/git/${PKG_NAME}.git
+          git clone --depth=1 https://git.savannah.gnu.org/git/nano.git
       - name: Configuring...
         run: |
-          cd ~/${PKG_NAME}
+          cd ~/nano
           sed -i 's/--depth=[0-9]*/--depth=1/' autogen.sh
           ./autogen.sh
           ./configure --prefix=/usr LDFLAGS=-static
       - name: Compiling...
         run: |
-          cd ~/${PKG_NAME}
+          cd ~/nano
           make
       - name: Installing...
         run: |
@@ -40,7 +40,7 @@ jobs:
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/nano
-          sudo cp ~/${PKG_NAME}/COPYING $DEST_DIR/usr/share/doc/nano
+          sudo cp ~/nano/COPYING $DEST_DIR/usr/share/doc/nano
       - name: Packaging...
         run: |
           cd $DEST_DIR
