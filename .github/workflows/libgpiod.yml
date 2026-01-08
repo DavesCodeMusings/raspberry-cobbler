@@ -19,7 +19,7 @@ jobs:
       - name: Cloning source...
         run: |
           cd ~
-          git clone --depth=1 https://github.com/brgl/libgpiod.git
+          git clone --depth=1 git://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git
       - name: Configuring...
         run: |
           cd ~/libgpiod
