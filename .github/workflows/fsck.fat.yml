@@ -36,6 +36,7 @@ jobs:
           strip ./src/fsck.fat
           sudo mkdir -p $DEST_DIR/sbin
           sudo cp ./src/fsck.fat $DEST_DIR/sbin
+          sudo ln -s fsck.fat $DEST_DIR/sbin/fsck.vfat
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/dosfstools
