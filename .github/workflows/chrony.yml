@@ -31,7 +31,7 @@ jobs:
       - name: Installing...
         run: |
           cd ~/chrony
-          make $DESTDIR=$DEST_DIR install
+          make DESTDIR=$DEST_DIR install
           strip $DEST_DIR/usr/bin/*
           strip $DEST_DIR/usr/sbin/*
       - name: Adding license...
