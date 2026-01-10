@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 env:
   DEST_DIR: /tmp/gpsd
-  PKG_NAME: gpsd.arm64
+  PKG_NAME: gpsd
 permissions:
   contents: write
 jobs:
