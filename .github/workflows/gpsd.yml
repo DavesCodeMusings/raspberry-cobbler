@@ -33,7 +33,7 @@ jobs:
           sudo cp ./gpsd/gpsd $DEST_DIR/usr/sbin
           strip ./clients/cgps
           sudo mkdir -p $DEST_DIR/usr/bin
-          sudo cp ./gpsd/gpsd $DEST_DIR/usr/bin
+          sudo cp ./clients/cgps $DEST_DIR/usr/bin
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/gpsd
