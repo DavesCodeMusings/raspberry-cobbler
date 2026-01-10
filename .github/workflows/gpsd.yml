@@ -1,5 +1,11 @@
 # gpsd built for arm64, packaged as tar.gz, uploaded as an artifact.
-# Has a runtime dependency on glibc and ncurses.
+#
+# Start gpsd (the server) with an mdev rule after the serial port comes up.
+# ttyACM0         0:0     644     @/usr/sbin/gpsd -n /dev/ttyACM0
+#
+# cgps (the client) has a runtime dependency on glibc and ncurses packages.
+# PuTTY configuration Window > Translation > Enable VT100 line drawing...
+# Will make it look nice over the serial terminal.
 
 name: gpsd arm64 build
 on:
