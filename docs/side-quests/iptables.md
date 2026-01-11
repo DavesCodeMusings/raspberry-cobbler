@@ -5,10 +5,10 @@ Keep nefarious characters from accessing your DIY OS over the network using _ipt
 The Raspberry Cobbler project is meant as a learning experience, not a way to create a hardened operating system. Do not do anything foolish like attaching your Pi directly to the internet.
 
 ## Dependencies
-The pre-built _iptables_ package is not statically linked. It requires _glibc_ to be installed. See the [BASH side quest](bash-side-quest.md) for help with that step.
+The pre-built _iptables_ package is not statically linked. It requires _glibc_ to be installed. See the [BASH side quest](side-quests/bash.md) for help with that step.
 
 ## Installing
-The pre-built arm64 package is available as a GitHub workflow artifact. See the [tmux side quest](tmux-side-quest.md) for detailed instructions on fetching biaries built as workflow artifacts.
+The pre-built arm64 package is available as a GitHub workflow artifact. See the [tmux side quest](side-quests/tmux.md) for detailed instructions on fetching biaries built as workflow artifacts.
 
 After you have the binary, install it like this:
 
