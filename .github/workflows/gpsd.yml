@@ -38,9 +38,10 @@ jobs:
           sudo mkdir -p $DEST_DIR/usr/sbin
           sudo cp ./gpsd/gpsd $DEST_DIR/usr/sbin
           sudo mkdir -p $DEST_DIR/usr/bin
+          cd ~/gpsd/gpsd-*/clients
           for PROG in "cgps gpsdctl gpspipe ntpshmmon ppscheck"; do
-              strip ./clients/$PROG
-              sudo cp ./clients/$PROG $DEST_DIR/usr/bin
+              strip $PROG
+              sudo cp $PROG $DEST_DIR/usr/bin
           done
       - name: Adding license...
         run: |
