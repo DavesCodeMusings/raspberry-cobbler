@@ -93,7 +93,7 @@ The flow goes like this:
 ~ # cgps
 ```
 
-If all goes well, the result will be a list of the satellites the GPS device can see as well as how many it's using to maintain a position fix.
+If all goes well, the result will be a list of which satellites are in view, as well as how many the GPS device is using to maintain a position fix.
 
 ## Installing chronny
 Assuming the package has been downloaded to /tmp.
