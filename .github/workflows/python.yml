@@ -32,7 +32,7 @@ jobs:
       - name: Adding license...
         run: |
           sudo mkdir -p $DEST_DIR/usr/share/doc/python
-          sudo cp ~/${PKG_NAME}/LICENSE $DEST_DIR/usr/share/doc/python
+          sudo cp ~/cpython/LICENSE $DEST_DIR/usr/share/doc/python
       - name: Packaging...
         run: |
           cd $DEST_DIR
