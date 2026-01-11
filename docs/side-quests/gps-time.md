@@ -155,7 +155,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 #- RTC1                          8   4    77    10   +755ms[ +755ms] +/-  230us
 ```
 
-## What's not working
+## What doesn't work...and how to deal with it
 Try the familiar `hwclock` command to check the real-time clock and you may be in for a surprise.
 
 ```
