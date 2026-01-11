@@ -6,7 +6,7 @@ If your Pi is isolated from the internet, syncing time with Network Time Protoco
 
 Adding a GPS clock is more involved than using an RTC module, but it's more accurate and not prone to drift over time. The added complexity comes from needing a utility to communicate with the GPS module and coordinating that information with the utility that provides time. In this side-quest, we'll use _gpsd_ and _chrony_, both of which are built as arm64 packages by GitHub workflows.
 
-Adding to the compexity are runtime dependencies on _glibc_ and _ncurses_. See the [tmux side-quest](side-quests/tmux.md) and the [bash side-quest](side-quests/bash.md) for help with this.
+Adding to the compexity are runtime dependencies on _glibc_ for both _gpsd_ and _chronyd_, and _ncurses_ for the _cgps_ client program. See the [tmux side-quest](side-quests/tmux.md) and the [bash side-quest](side-quests/bash.md) for help with getting these additional libraries installed.
 
 ## Attaching a GPS device
 The GPS device in this example is a ublox 7 device plugged into USB. It needs a kernel module to work. The module needs to be insalled when the device is plugged in. For this hotplugging task, we turn to _mdev_
