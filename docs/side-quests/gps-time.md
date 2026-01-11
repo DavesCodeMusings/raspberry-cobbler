@@ -163,6 +163,6 @@ Try the familiar `hwclock` command to check the real-time clock and you may be i
 hwclock: can't open '/dev/rtc0': Device or resource busy
 ```
 
-It doesn't work. That's because _chrony_ has exclusive access to _/dev/rtc0_. Killing the _chronyd_ process will relinquish control, but then of course, he RTC is no longer getting updates from the GPS device.
+It doesn't work. That's because _chrony_ has exclusive access to _/dev/rtc0_. Killing the _chronyd_ process will relinquish control, but then of course, this means the RTC is no longer getting updates from the GPS device.
 
 The solution is to use _chronyc_ to make updates to the RTC. One such method is `chronyc makestep`. Using the _help_ command at the _chronyc_ prompt will explain what it does.
